@@ -1,0 +1,12 @@
+.nuxt
+.output
+node_modules
+.git
+tests
+test
+*.spec.ts
+*.test.ts
+playwright.config.ts
+vitest.config.ts
+README.md
+renovate.json

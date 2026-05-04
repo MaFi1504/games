@@ -1,0 +1,75 @@
+{
+  "app": {
+    "title": "Game Sheets",
+    "subtitle": "Select a game to open your personal score sheet."
+  },
+  "nav": {
+    "back": "Back"
+  },
+  "games": {
+    "phase10": {
+      "name": "Phase 10",
+      "description": "Complete all 10 phases before your opponents. Track your phases and score each round.",
+      "tags": ["Card Game", "2–6 Players", "Phase Tracking", "Score Tracking"]
+    }
+  },
+  "phase10": {
+    "title": "Phase 10",
+    "winTitle": "All phases completed!",
+    "winDescription": "Your total score is {score} points.",
+    "totalScore": "Total Score",
+    "phasesCompleted": "Phases Completed",
+    "pointsThisRound": "Points this round",
+    "add": "Add",
+    "roundHistory": "Round history",
+    "round": "Round {n}",
+    "pts": "{n} pts",
+    "removeRound": "Remove round",
+    "phases": "Phases",
+    "currentPhaseLabel": "Current: Phase {n}",
+    "current": "Current",
+    "done": "Done",
+    "phaseN": "Phase {n}",
+    "phaseCompleted": "Phase {n} completed",
+    "cardValues": "Card Values",
+    "cardValuesRows": [
+      { "label": "Cards 1–9", "value": "1–9 pts" },
+      { "label": "Cards 10–12", "value": "10–12 pts" },
+      { "label": "Skip cards", "value": "20 pts" },
+      { "label": "Wild cards", "value": "20 pts" }
+    ],
+    "resetTitle": "Reset game?",
+    "resetBody": "This will clear all completed phases and your score history. This cannot be undone.",
+    "cancel": "Cancel",
+    "reset": "Reset",
+    "resetGame": "Reset game",
+    "selectPhaseSet": "Choose Phase Set",
+    "selectPhaseSetSubtitle": "Select which phases you want to play this game.",
+    "phaseSetClassicName": "Classic",
+    "phaseSetAltName": "Variant",
+    "phaseList": [
+      { "description": "2 sets of 3" },
+      { "description": "1 set of 3 + 1 run of 4" },
+      { "description": "1 set of 4 + 1 run of 4" },
+      { "description": "1 run of 7" },
+      { "description": "1 run of 8" },
+      { "description": "1 run of 9" },
+      { "description": "2 sets of 4" },
+      { "description": "7 cards of one color" },
+      { "description": "1 set of 5 + 1 set of 2" },
+      { "description": "1 set of 5 + 1 set of 3" }
+    ],
+    "phaseListAlt": [
+      { "description": "5 pairs" },
+      { "description": "1 set of 4 + 1 run of 4" },
+      { "description": "1 set of 4 + 1 run of 4 of one color" },
+      { "description": "1 run of 9" },
+      { "description": "1 run of 10" },
+      { "description": "2 sets of 4" },
+      { "description": "Run of 5 of one color" },
+      { "description": "3 sets of 3" },
+      { "description": "1 set of 5 + 1 set of 3" },
+      { "description": "1 set of 5 + 1 run of 3 of one color" }
+    ]
+  }
+}

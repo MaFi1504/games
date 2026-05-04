@@ -1,0 +1,75 @@
+{
+  "app": {
+    "title": "Spielbögen",
+    "subtitle": "Wähle ein Spiel, um deinen persönlichen Spielbogen zu öffnen."
+  },
+  "nav": {
+    "back": "Zurück"
+  },
+  "games": {
+    "phase10": {
+      "name": "Phase 10",
+      "description": "Schließe alle 10 Phasen ab, bevor es deine Mitspieler tun. Verfolge deine Phasen und Punkte jede Runde.",
+      "tags": ["Kartenspiel", "2–6 Spieler", "Phasen-Tracking", "Punkte-Tracking"]
+    }
+  },
+  "phase10": {
+    "title": "Phase 10",
+    "winTitle": "Alle Phasen abgeschlossen!",
+    "winDescription": "Deine Gesamtpunktzahl beträgt {score} Punkte.",
+    "totalScore": "Gesamtpunktzahl",
+    "phasesCompleted": "Abgeschlossene Phasen",
+    "pointsThisRound": "Punkte diese Runde",
+    "add": "Hinzufügen",
+    "roundHistory": "Rundenhistorie",
+    "round": "Runde {n}",
+    "pts": "{n} Pkt.",
+    "removeRound": "Runde entfernen",
+    "phases": "Phasen",
+    "currentPhaseLabel": "Aktuell: Phase {n}",
+    "current": "Aktuell",
+    "done": "Fertig",
+    "phaseN": "Phase {n}",
+    "phaseCompleted": "Phase {n} abgeschlossen",
+    "cardValues": "Kartenwerte",
+    "cardValuesRows": [
+      { "label": "Karten 1–9", "value": "1–9 Pkt." },
+      { "label": "Karten 10–12", "value": "10–12 Pkt." },
+      { "label": "Aussetzkarten", "value": "20 Pkt." },
+      { "label": "Wildcards", "value": "20 Pkt." }
+    ],
+    "resetTitle": "Spiel zurücksetzen?",
+    "resetBody": "Dadurch werden alle abgeschlossenen Phasen und die Punktehistorie gelöscht. Dies kann nicht rückgängig gemacht werden.",
+    "cancel": "Abbrechen",
+    "reset": "Zurücksetzen",
+    "resetGame": "Spiel zurücksetzen",
+    "selectPhaseSet": "Phasen wählen",
+    "selectPhaseSetSubtitle": "Wähle, welche Phasen du in dieser Runde spielen möchtest.",
+    "phaseSetClassicName": "Klassisch",
+    "phaseSetAltName": "Variante",
+    "phaseList": [
+      { "description": "2 Drillinge" },
+      { "description": "1 Drilling + 1 Viererfolge" },
+      { "description": "1 Vierling + 1 Viererfolge" },
+      { "description": "1 Siebenerfolge" },
+      { "description": "1 Achterfolge" },
+      { "description": "1 Neunerfolge" },
+      { "description": "2 Vierlinge" },
+      { "description": "7 Karten einer Farbe" },
+      { "description": "1 Fünfling + 1 Paar" },
+      { "description": "1 Fünfling + 1 Drilling" }
+    ],
+    "phaseListAlt": [
+      { "description": "5 Zwillinge" },
+      { "description": "1 Vierling + 1 Viererfolge" },
+      { "description": "1 Vierling + 1 Viererfolge einer Farbe" },
+      { "description": "1 Neunerfolge" },
+      { "description": "1 Zehnerfolge" },
+      { "description": "2 Vierlinge" },
+      { "description": "Fünferfolge einer Farbe" },
+      { "description": "3 Drillinge" },
+      { "description": "Fünfling + Drilling" },
+      { "description": "Fünfling + Dreierfolge einer Farbe" }
+    ]
+  }
+}
