@@ -323,7 +323,7 @@ const activeSetName = computed(() =>
 )
 
 const cardValueRows = computed(() => {
-  const raw = tm('phase10.cardValuesRows')
+  const raw = (tm('phase10.cardValuesRows') as any[])
   if (!Array.isArray(raw)) return []
   return (raw as any[]).map(r => ({
     label: typeof r === 'object' && r.label ? rt(r.label) : '',
