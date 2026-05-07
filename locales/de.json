@@ -1,7 +1,14 @@
 {
   "app": {
     "title": "Spielbögen",
-    "subtitle": "Wähle ein Spiel, um deinen persönlichen Spielbogen zu öffnen."
+    "subtitle": "Wähle ein Spiel, um deinen persönlichen Spielbogen zu öffnen.",
+    "credits": "Danksagungen"
+  },
+  "pwa": {
+    "updateAvailable": "Neue Version verfügbar!",
+    "updateDescription": "Eine neue Version der App ist bereit. Klicke auf Aktualisieren, um die neuesten Funktionen zu erhalten.",
+    "later": "Später",
+    "updateNow": "Jetzt aktualisieren"
   },
   "nav": {
     "back": "Zurück"
@@ -11,6 +18,11 @@
       "name": "Phase 10",
       "description": "Schließe alle 10 Phasen ab, bevor es deine Mitspieler tun. Verfolge deine Phasen und Punkte jede Runde.",
       "tags": ["Kartenspiel", "2–6 Spieler", "Phasen-Tracking", "Punkte-Tracking"]
+    },
+    "kniffel": {
+      "name": "Kniffel",
+      "description": "Würfle und trage Punkte in 13 Kategorien ein. Spiele klassisch mit 5 Würfeln oder Extrem mit 6 Würfeln.",
+      "tags": ["Würfelspiel", "1+ Spieler", "Strategie", "Punkte-Tracking"]
     }
   },
   "phase10": {
@@ -71,5 +83,68 @@
       { "description": "Fünfling + Drilling" },
       { "description": "Fünfling + Dreierfolge einer Farbe" }
     ]
+  },
+  "kniffel": {
+    "title": "Kniffel",
+    "winTitle": "Spiel abgeschlossen!",
+    "winDescription": "Deine Gesamtpunktzahl beträgt {score} Punkte.",
+    "totalScore": "Gesamtpunktzahl",
+    "categoriesScored": "Kategorien",
+    "selectVariantSubtitle": "Wähle die Variante, die du spielen möchtest.",
+    "variantStandard": "Standard Kniffel",
+    "variantStandardDescription": "Klassisches Spiel mit 5 Würfeln und 13 Kategorien.",
+    "variantExtrem": "Kniffel Extrem",
+    "variantExtremDescription": "Erweiterte Version mit 6 Würfeln und mehr Punktemöglichkeiten.",
+    "upperSection": "Oberer Bereich",
+    "lowerSection": "Unterer Bereich",
+    "bonus": "Bonus",
+    "upperTotal": "Summe oben",
+    "lowerTotal": "Summe unten",
+    "removeScore": "Punkte löschen",
+    "cancel": "Abbrechen",
+    "resetTitle": "Spiel zurücksetzen?",
+    "resetBody": "Dadurch werden alle Punkte gelöscht. Dies kann nicht rückgängig gemacht werden.",
+    "reset": "Zurücksetzen",
+    "resetGame": "Spiel zurücksetzen",
+    "categories": {
+      "ones": "Einser",
+      "twos": "Zweier",
+      "threes": "Dreier",
+      "fours": "Vierer",
+      "fives": "Fünfer",
+      "sixes": "Sechser",
+      "threeOfAKind": "Dreierpasch",
+      "fourOfAKind": "Viererpasch",
+      "fiveOfAKind": "Fünferpasch",
+      "fullHouse": "Full House",
+      "smallStraight": "Kleine Straße",
+      "largeStraight": "Große Straße",
+      "kniffel": "Kniffel",
+      "chance": "Chance",
+      "twoPairs": "Zwei Paare",
+      "threePairs": "Drei Paare",
+      "twoThreeOfAKind": "Zwei Dreier",
+      "largeFullHouse": "Großes Full House",
+      "highway": "Highway",
+      "kniffelExtrem": "Kniffel Extrem",
+      "tenOrLess": "10 oder weniger",
+      "thirtyThreeOrMore": "33 oder mehr",
+      "superChance": "Superchance (×2)"
+    }
+  },
+  "credits": {
+    "title": "Danksagungen & Lizenzen",
+    "appIcon": "App-Symbol",
+    "author": "Autor",
+    "source": "Quelle",
+    "license": "Lizenz",
+    "changes": "Änderungen",
+    "changesDescription": "Größenangepasst und für Web-App-Icons optimiert",
+    "licenseTitle": "Lizenzanforderungen",
+    "licenseDescription": "Dieses Symbol ist unter CC BY-SA 3.0 lizenziert. Es erfordert die Nennung des ursprünglichen Autors, einen Link zur Lizenz und die Angabe vorgenommener Änderungen.",
+    "aboutApp": "Über diese App",
+    "appDescription": "Spielbögen ist eine Progressive Web App zur Punkteverfolgung bei Brett- und Kartenspielen. Alle Spieldaten werden lokal in Ihrem Browser gespeichert.",
+    "technologies": "Entwickelt mit",
+    "copyright": "© {year} Spielbögen. Alle anderen Code- und Grafikelemente wurden von Projektmitwirkenden erstellt."
   }
 }

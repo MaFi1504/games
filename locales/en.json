@@ -1,7 +1,14 @@
 {
   "app": {
     "title": "Game Sheets",
-    "subtitle": "Select a game to open your personal score sheet."
+    "subtitle": "Select a game to open your personal score sheet.",
+    "credits": "Credits"
+  },
+  "pwa": {
+    "updateAvailable": "New version available!",
+    "updateDescription": "A new version of the app is ready. Click update to get the latest features.",
+    "later": "Later",
+    "updateNow": "Update Now"
   },
   "nav": {
     "back": "Back"
@@ -11,6 +18,11 @@
       "name": "Phase 10",
       "description": "Complete all 10 phases before your opponents. Track your phases and score each round.",
       "tags": ["Card Game", "2–6 Players", "Phase Tracking", "Score Tracking"]
+    },
+    "kniffel": {
+      "name": "Kniffel",
+      "description": "Roll the dice and score in 13 categories. Play classic 5-dice or Extrem 6-dice variant.",
+      "tags": ["Dice Game", "1+ Players", "Strategy", "Score Tracking"]
     }
   },
   "phase10": {
@@ -71,5 +83,68 @@
       { "description": "1 set of 5 + 1 set of 3" },
       { "description": "1 set of 5 + 1 run of 3 of one color" }
     ]
+  },
+  "kniffel": {
+    "title": "Kniffel",
+    "winTitle": "Game complete!",
+    "winDescription": "Your final score is {score} points.",
+    "totalScore": "Total Score",
+    "categoriesScored": "Categories",
+    "selectVariantSubtitle": "Choose which variant you want to play.",
+    "variantStandard": "Standard Kniffel",
+    "variantStandardDescription": "Classic game with 5 dice and 13 categories.",
+    "variantExtrem": "Kniffel Extrem",
+    "variantExtremDescription": "Extended version with 6 dice and more scoring options.",
+    "upperSection": "Upper Section",
+    "lowerSection": "Lower Section",
+    "bonus": "Bonus",
+    "upperTotal": "Upper Total",
+    "lowerTotal": "Lower Total",
+    "removeScore": "Remove score",
+    "cancel": "Cancel",
+    "resetTitle": "Reset game?",
+    "resetBody": "This will clear all scores. This cannot be undone.",
+    "reset": "Reset",
+    "resetGame": "Reset game",
+    "categories": {
+      "ones": "Ones",
+      "twos": "Twos",
+      "threes": "Threes",
+      "fours": "Fours",
+      "fives": "Fives",
+      "sixes": "Sixes",
+      "threeOfAKind": "Three of a Kind",
+      "fourOfAKind": "Four of a Kind",
+      "fiveOfAKind": "Five of a Kind",
+      "fullHouse": "Full House",
+      "smallStraight": "Small Straight",
+      "largeStraight": "Large Straight",
+      "kniffel": "Kniffel",
+      "chance": "Chance",
+      "twoPairs": "Two Pairs",
+      "threePairs": "Three Pairs",
+      "twoThreeOfAKind": "Two Three of a Kind",
+      "largeFullHouse": "Large Full House",
+      "highway": "Highway",
+      "kniffelExtrem": "Kniffel Extrem",
+      "tenOrLess": "10 or Less",
+      "thirtyThreeOrMore": "33 or More",
+      "superChance": "Super Chance (×2)"
+    }
+  },
+  "credits": {
+    "title": "Credits & Attribution",
+    "appIcon": "App Icon",
+    "author": "Author",
+    "source": "Source",
+    "license": "License",
+    "changes": "Changes",
+    "changesDescription": "Resized and optimized for web app icons",
+    "licenseTitle": "License Requirements",
+    "licenseDescription": "This icon is licensed under CC BY-SA 3.0. It requires attribution to the original author, a link to the license, and indication of any changes made.",
+    "aboutApp": "About This App",
+    "appDescription": "Game Sheets is a Progressive Web App for tracking scores in board and card games. All game data is stored locally in your browser.",
+    "technologies": "Built With",
+    "copyright": "© {year} Game Sheets. All other code and assets created by project contributors."
   }
 }

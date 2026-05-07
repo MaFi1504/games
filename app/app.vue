@@ -3,10 +3,14 @@ const { locale, locales, setLocale, t } = useI18n()
 
 useHead({
   meta: [
-    { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+    { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    { name: 'theme-color', content: '#4f46e5' }
   ],
   link: [
-    { rel: 'icon', href: '/favicon.ico' }
+    { rel: 'icon', type: 'image/svg+xml', href: '/icon.svg' },
+    { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+    { rel: 'manifest', href: '/manifest.webmanifest' },
+    { rel: 'apple-touch-icon', href: '/icon-192.png' }
   ],
   htmlAttrs: {
     lang: locale
@@ -59,6 +63,18 @@ async function switchLocale(code: 'en' | 'de') {
           {{ $t('app.title') }} • {{ new Date().getFullYear() }}
         </p>
       </template>
+      <template #right>
+        <NuxtLink 
+          to="/credits"
+          class="text-sm text-muted hover:text-default transition-colors"
+        >
+          {{ $t('app.credits') }}
+        </NuxtLink>
+      </template>
     </UFooter>
+
+    <ClientOnly>
+      <PwaUpdatePrompt />
+    </ClientOnly>
   </UApp>
 </template>

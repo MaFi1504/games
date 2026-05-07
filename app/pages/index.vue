@@ -62,6 +62,16 @@ const games = computed(() => [
     tags: Array.isArray(tm('games.phase10.tags'))
       ? (tm('games.phase10.tags') as any[]).map(tag => rt(tag))
       : []
+  },
+  {
+    id: 'kniffel',
+    name: t('games.kniffel.name'),
+    emoji: '🎲',
+    route: '/kniffel',
+    description: t('games.kniffel.description'),
+    tags: Array.isArray(tm('games.kniffel.tags'))
+      ? (tm('games.kniffel.tags') as any[]).map(tag => rt(tag))
+      : []
   }
 ])
 </script>

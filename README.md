@@ -1,21 +1,49 @@
-# Nuxt Starter Template
+# Game Sheets
 
-[![Nuxt UI](https://img.shields.io/badge/Made%20with-Nuxt%20UI-00DC82?logo=nuxt&labelColor=020420)](https://ui.nuxt.com)
+A Progressive Web App for tracking scores in board and card games.
 
-Use this template to get started with [Nuxt UI](https://ui.nuxt.com) quickly.
+## Features
 
-- [Live demo](https://starter-template.nuxt.dev/)
-- [Documentation](https://ui.nuxt.com/docs/getting-started/installation/nuxt)
+- 🎮 **Multiple Games**: Phase 10, Kniffel (Standard & Extrem)
+- 📱 **PWA Support**: Install as standalone app, works offline
+- 🌍 **Multilingual**: English and German support
+- 💾 **Local Storage**: All game data saved in browser
+- 🔄 **Auto Updates**: Notifies when new version is available
+- 🎨 **Modern UI**: Built with Nuxt UI and Tailwind CSS
 
-<a href="https://starter-template.nuxt.dev/" target="_blank">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png">
-    <img alt="Nuxt Starter Template" src="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png" width="830" height="466">
-  </picture>
-</a>
+## PWA Features
 
-> The starter template for Vue is on https://github.com/nuxt-ui-templates/starter-vue.
+This app is a full Progressive Web App (PWA) with:
+
+- ✅ **Offline Support** - Works without internet connection
+- ✅ **Installable** - Add to home screen on mobile/desktop
+- ✅ **Auto Updates** - Checks for updates every hour
+- ✅ **Update Notifications** - Users are notified when new version is available
+- ✅ **Asset Caching** - All resources cached for fast loading
+
+### Installing on Your Device
+
+#### Mobile (iOS/Android)
+1. Open the app in your browser (Safari/Chrome)
+2. Tap the share button / menu (⋮)
+3. Select "Add to Home Screen"
+4. The app will appear as a standalone app icon
+
+#### Desktop (Chrome/Edge)
+1. Open the app in your browser
+2. Look for the install icon in the address bar
+3. Click "Install" to add to your applications
+
+### How Updates Work
+
+The app automatically checks for updates every hour when online. When a new version is available:
+
+1. A notification appears at the bottom of the screen
+2. Click "Update Now" to install the new version
+3. The page refreshes with the latest features
+4. Or click "Later" to update next time
+
+All your game data is preserved during updates!
 
 ## Quick Start
 
