@@ -23,7 +23,36 @@
       "name": "Kniffel",
       "description": "Roll the dice and score in 13 categories. Play classic 5-dice or Extrem 6-dice variant.",
       "tags": ["Dice Game", "1+ Players", "Strategy", "Score Tracking"]
+    },
+    "notizblock": {
+      "name": "Notepad",
+      "description": "Add players, tap their name to enter points, and tap the total to review and edit every entry later.",
+      "tags": ["Universal", "2+ Players", "Editable History", "Quick Scoring"]
     }
+  },
+  "notepad": {
+    "title": "Notepad",
+    "setupTitle": "Players",
+    "setupDescription": "Add all players first, then tap a name to add points during the game.",
+    "playerNamePlaceholder": "Player name",
+    "addPlayer": "Add player",
+    "removePlayer": "Remove player",
+    "emptyState": "No players yet. Add the first player to start tracking scores.",
+    "addPointsHint": "Tap name to add points",
+    "totalScore": "Total",
+    "addPointsTitle": "Add points",
+    "pointsPlaceholder": "Points",
+    "entriesTitle": "Score entries",
+    "noEntries": "No entries yet for this player.",
+    "entryLabel": "Entry {n}",
+    "removeEntry": "Remove entry",
+    "add": "Add",
+    "close": "Close",
+    "cancel": "Cancel",
+    "resetTitle": "Reset notepad?",
+    "resetBody": "This removes all players and every saved score entry. This cannot be undone.",
+    "reset": "Reset",
+    "resetGame": "Reset notepad"
   },
   "phase10": {
     "title": "Phase 10",

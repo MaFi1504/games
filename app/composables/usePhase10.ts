@@ -1,4 +1,5 @@
 import { ref, computed } from 'vue'
+import { loadFromStorage, saveToStorage } from './useGameStorage'
 
 export type PhaseSetKey = 'classic' | 'alt'
 
@@ -29,29 +30,19 @@ export function usePhase10(totalPhases = 10) {
   })
 
   function load() {
-    if (!import.meta.client) return
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY)
-      if (raw) {
-        const data: Phase10State = JSON.parse(raw)
-        completedPhases.value = Array.isArray(data.completedPhases) ? data.completedPhases : []
-        scores.value = Array.isArray(data.scores) ? data.scores : []
-        phaseSetKey.value = data.phaseSetKey ?? null
-      }
-    }
-    catch {
-      // ignore corrupt data
-    }
+    const data = loadFromStorage<Phase10State>(STORAGE_KEY)
+    if (!data) return
+    completedPhases.value = Array.isArray(data.completedPhases) ? data.completedPhases : []
+    scores.value = Array.isArray(data.scores) ? data.scores : []
+    phaseSetKey.value = data.phaseSetKey ?? null
   }
 
   function save() {
-    if (!import.meta.client) return
-    const state: Phase10State = {
+    saveToStorage<Phase10State>(STORAGE_KEY, {
       completedPhases: completedPhases.value,
       scores: scores.value,
       phaseSetKey: phaseSetKey.value
-    }
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
+    })
   }
 
   function selectPhaseSet(key: PhaseSetKey) {

@@ -23,7 +23,36 @@
       "name": "Kniffel",
       "description": "Würfle und trage Punkte in 13 Kategorien ein. Spiele klassisch mit 5 Würfeln oder Extrem mit 6 Würfeln.",
       "tags": ["Würfelspiel", "1+ Spieler", "Strategie", "Punkte-Tracking"]
+    },
+    "notizblock": {
+      "name": "Notizblock",
+      "description": "Füge Spieler hinzu, tippe auf einen Namen zum Punkte eintragen und tippe auf die Summe, um alle Einträge später zu prüfen und zu bearbeiten.",
+      "tags": ["Universell", "2+ Spieler", "Bearbeitbare Historie", "Schnelles Zählen"]
     }
+  },
+  "notepad": {
+    "title": "Notizblock",
+    "setupTitle": "Spieler",
+    "setupDescription": "Füge zuerst alle Spieler hinzu und tippe dann während des Spiels auf einen Namen, um Punkte einzutragen.",
+    "playerNamePlaceholder": "Spielername",
+    "addPlayer": "Spieler hinzufügen",
+    "removePlayer": "Spieler entfernen",
+    "emptyState": "Noch keine Spieler vorhanden. Füge den ersten Spieler hinzu, um Punkte zu erfassen.",
+    "addPointsHint": "Name antippen zum Punkte eintragen",
+    "totalScore": "Summe",
+    "addPointsTitle": "Punkte hinzufügen",
+    "pointsPlaceholder": "Punkte",
+    "entriesTitle": "Punkteeinträge",
+    "noEntries": "Für diesen Spieler gibt es noch keine Einträge.",
+    "entryLabel": "Eintrag {n}",
+    "removeEntry": "Eintrag entfernen",
+    "add": "Hinzufügen",
+    "close": "Schließen",
+    "cancel": "Abbrechen",
+    "resetTitle": "Notizblock zurücksetzen?",
+    "resetBody": "Dadurch werden alle Spieler und sämtliche gespeicherten Punkteeinträge entfernt. Dies kann nicht rückgängig gemacht werden.",
+    "reset": "Zurücksetzen",
+    "resetGame": "Notizblock zurücksetzen"
   },
   "phase10": {
     "title": "Phase 10",

@@ -1,30 +1,11 @@
 <template>
   <div class="min-h-screen pb-32">
     <UContainer class="py-4 px-4 max-w-lg">
-      <!-- Header row -->
-      <div class="flex items-center gap-2 mb-4">
-        <UButton
-          to="/"
-          icon="i-lucide-arrow-left"
-          variant="ghost"
-          color="neutral"
-          size="md"
-          :aria-label="$t('nav.back')"
-          class="shrink-0"
-        />
-        <h1 class="text-xl font-bold flex-1">
-          {{ $t('phase10.title') }}
-        </h1>
-        <UButton
-          icon="i-lucide-rotate-ccw"
-          variant="ghost"
-          color="neutral"
-          size="md"
-          :aria-label="$t('phase10.resetGame')"
-          class="shrink-0"
-          @click="confirmReset = true"
-        />
-      </div>
+      <GamePageHeader
+        :title="$t('phase10.title')"
+        :reset-aria-label="$t('phase10.resetGame')"
+        @reset="confirmReset = true"
+      />
 
       <!-- Phase set selection (shown when no game started yet) -->
       <template v-if="!phaseSetKey">
@@ -236,36 +217,14 @@
       </div>
     </div>
 
-    <!-- Reset confirmation modal -->
-    <UModal v-model:open="confirmReset">
-      <template #content>
-        <UCard>
-          <template #header>
-            <h3 class="font-semibold text-base">
-              {{ $t('phase10.resetTitle') }}
-            </h3>
-          </template>
-          <p class="text-sm text-muted leading-relaxed">
-            {{ $t('phase10.resetBody') }}
-          </p>
-          <template #footer>
-            <div class="flex justify-end gap-2">
-              <UButton
-                variant="ghost"
-                color="neutral"
-                :label="$t('phase10.cancel')"
-                @click="confirmReset = false"
-              />
-              <UButton
-                color="error"
-                :label="$t('phase10.reset')"
-                @click="doReset"
-              />
-            </div>
-          </template>
-        </UCard>
-      </template>
-    </UModal>
+    <ConfirmResetModal
+      v-model:open="confirmReset"
+      :title="$t('phase10.resetTitle')"
+      :body="$t('phase10.resetBody')"
+      :cancel-label="$t('phase10.cancel')"
+      :confirm-label="$t('phase10.reset')"
+      @confirm="doReset"
+    />
   </div>
 </template>
 

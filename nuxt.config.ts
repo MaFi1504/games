@@ -49,12 +49,11 @@ export default defineNuxtConfig({
       ]
     },
     workbox: {
-      navigateFallback: '/',
       cleanupOutdatedCaches: true,
       runtimeCaching: [
         {
           // Cache app routes so manual refresh can still render offline.
-          urlPattern: /\/(?:$|kniffel|phase10|credits)(?:[/?#].*)?$/i,
+          urlPattern: /\/(?:$|kniffel|phase10|notizblock|credits)(?:[/?#].*)?$/i,
           handler: 'NetworkFirst',
           options: {
             cacheName: 'pages-cache',
@@ -130,10 +129,6 @@ export default defineNuxtConfig({
   },
 
   css: ['~/assets/css/main.css'],
-
-  routeRules: {
-    '/': { prerender: true }
-  },
 
   compatibilityDate: '2025-01-15',
 

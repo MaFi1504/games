@@ -1,4 +1,5 @@
 import { ref, computed } from 'vue'
+import { loadFromStorage, saveToStorage } from './useGameStorage'
 
 export type KniffelVariant = 'standard' | 'extrem'
 
@@ -14,6 +15,8 @@ interface KniffelState {
 }
 
 const STORAGE_KEY = 'kniffel-game'
+
+export const UPPER_SECTION_IDS = ['ones', 'twos', 'threes', 'fours', 'fives', 'sixes']
 
 // Standard Kniffel categories (5 dice)
 const STANDARD_CATEGORIES = [
@@ -75,7 +78,7 @@ export function useKniffel() {
     }))
   })
 
-  const upperSectionIds = ['ones', 'twos', 'threes', 'fours', 'fives', 'sixes']
+  const upperSectionIds = UPPER_SECTION_IDS
 
   const upperSectionScore = computed(() => {
     return upperSectionIds.reduce((sum, id) => {
@@ -121,27 +124,17 @@ export function useKniffel() {
   })
 
   function load() {
-    if (!import.meta.client) return
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY)
-      if (raw) {
-        const data: KniffelState = JSON.parse(raw)
-        variant.value = data.variant ?? null
-        categories.value = data.categories ?? {}
-      }
-    }
-    catch {
-      // ignore corrupt data
-    }
+    const data = loadFromStorage<KniffelState>(STORAGE_KEY)
+    if (!data) return
+    variant.value = data.variant ?? null
+    categories.value = data.categories ?? {}
   }
 
   function save() {
-    if (!import.meta.client) return
-    const state: KniffelState = {
+    saveToStorage<KniffelState>(STORAGE_KEY, {
       variant: variant.value,
       categories: categories.value
-    }
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
+    })
   }
 
   function selectVariant(v: KniffelVariant) {

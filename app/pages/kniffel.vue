@@ -1,30 +1,11 @@
 <template>
   <div class="min-h-screen pb-32">
     <UContainer class="py-4 px-4 max-w-lg">
-      <!-- Header row -->
-      <div class="flex items-center gap-2 mb-4">
-        <UButton
-          to="/"
-          icon="i-lucide-arrow-left"
-          variant="ghost"
-          color="neutral"
-          size="md"
-          :aria-label="$t('nav.back')"
-          class="shrink-0"
-        />
-        <h1 class="text-xl font-bold flex-1">
-          {{ $t('kniffel.title') }}
-        </h1>
-        <UButton
-          icon="i-lucide-rotate-ccw"
-          variant="ghost"
-          color="neutral"
-          size="md"
-          :aria-label="$t('kniffel.resetGame')"
-          class="shrink-0"
-          @click="confirmReset = true"
-        />
-      </div>
+      <GamePageHeader
+        :title="$t('kniffel.title')"
+        :reset-aria-label="$t('kniffel.resetGame')"
+        @reset="confirmReset = true"
+      />
 
       <!-- Variant selection (shown when no game started yet) -->
       <template v-if="!variant">
@@ -112,58 +93,16 @@
           </div>
 
           <div class="space-y-1">
-            <div
+            <KniffelCategoryRow
               v-for="cat in upperCategories"
               :key="cat.id"
-              class="flex items-center gap-3 p-2 rounded-lg"
-              :class="cat.scored ? 'bg-success/10' : ''"
-            >
-              <div class="flex-1 min-w-0">
-                <p class="text-sm font-medium">
-                  {{ $t(`kniffel.categories.${cat.id}`) }}
-                </p>
-              </div>
-              <div class="flex items-center gap-2">
-                <template v-if="!cat.scored">
-                  <!-- Checkbox for fixed-value categories -->
-                  <button
-                    v-if="getFixedPoints(cat.id)"
-                    type="button"
-                    class="w-6 h-6 rounded border-2 border-primary hover:bg-primary/10 flex items-center justify-center transition-colors"
-                    @click="scoreFixedCategory(cat.id)"
-                  >
-                    <UIcon name="i-lucide-check" class="w-4 h-4 text-primary opacity-0" />
-                  </button>
-                  <!-- Input field for variable-value categories -->
-                  <UInput
-                    v-else
-                    v-model="categoryInputs[cat.id]"
-                    type="number"
-                    min="0"
-                    inputmode="numeric"
-                    pattern="[0-9]*"
-                    placeholder="0"
-                    class="w-20"
-                    size="sm"
-                    @keydown.enter="() => scoreFromInput(cat.id)"
-                    @blur="() => scoreFromInput(cat.id)"
-                  />
-                </template>
-                <div v-else class="flex items-center gap-2 w-20">
-                  <span class="tabular-nums text-sm font-semibold flex-1 text-right">
-                    {{ cat.value }}
-                  </span>
-                  <UButton
-                    icon="i-lucide-x"
-                    variant="ghost"
-                    color="neutral"
-                    size="xs"
-                    :aria-label="$t('kniffel.removeScore')"
-                    @click="removeScore(cat.id)"
-                  />
-                </div>
-              </div>
-            </div>
+              :cat="cat"
+              :fixed-points="getFixedPoints(cat.id)"
+              v-model:input-value="categoryInputs[cat.id]"
+              @score-fixed="scoreFixedCategory"
+              @score-input="scoreFromInput"
+              @remove="removeScore"
+            />
           </div>
 
           <USeparator class="my-3" />
@@ -191,61 +130,17 @@
           </h2>
 
           <div class="space-y-1">
-            <div
+            <KniffelCategoryRow
               v-for="cat in lowerCategories"
               :key="cat.id"
-              class="flex items-center gap-3 p-2 rounded-lg"
-              :class="cat.scored ? 'bg-success/10' : ''"
-            >
-              <div class="flex-1 min-w-0">
-                <p class="text-sm font-medium">
-                  {{ $t(`kniffel.categories.${cat.id}`) }}
-                  <span v-if="getFixedPoints(cat.id)" class="text-muted">
-                    ({{ getFixedPoints(cat.id) }})
-                  </span>
-                </p>
-              </div>
-              <div class="flex items-center gap-2">
-                <template v-if="!cat.scored">
-                  <!-- Checkbox for fixed-value categories -->
-                  <button
-                    v-if="getFixedPoints(cat.id)"
-                    type="button"
-                    class="w-6 h-6 rounded border-2 border-primary hover:bg-primary/10 flex items-center justify-center transition-colors"
-                    @click="scoreFixedCategory(cat.id)"
-                  >
-                    <UIcon name="i-lucide-check" class="w-4 h-4 text-primary opacity-0" />
-                  </button>
-                  <!-- Input field for variable-value categories -->
-                  <UInput
-                    v-else
-                    v-model="categoryInputs[cat.id]"
-                    type="number"
-                    min="0"
-                    inputmode="numeric"
-                    pattern="[0-9]*"
-                    placeholder="0"
-                    class="w-20"
-                    size="sm"
-                    @keydown.enter="() => scoreFromInput(cat.id)"
-                    @blur="() => scoreFromInput(cat.id)"
-                  />
-                </template>
-                <div v-else class="flex items-center gap-2 w-20">
-                  <span class="tabular-nums text-sm font-semibold flex-1 text-right">
-                    {{ cat.value }}
-                  </span>
-                  <UButton
-                    icon="i-lucide-x"
-                    variant="ghost"
-                    color="neutral"
-                    size="xs"
-                    :aria-label="$t('kniffel.removeScore')"
-                    @click="removeScore(cat.id)"
-                  />
-                </div>
-              </div>
-            </div>
+              :cat="cat"
+              :fixed-points="getFixedPoints(cat.id)"
+              :show-fixed-hint="true"
+              v-model:input-value="categoryInputs[cat.id]"
+              @score-fixed="scoreFixedCategory"
+              @score-input="scoreFromInput"
+              @remove="removeScore"
+            />
           </div>
 
           <USeparator class="my-3" />
@@ -260,45 +155,20 @@
       </template>
     </UContainer>
 
-    <!-- Reset confirmation modal -->
-    <UModal v-model:open="confirmReset">
-      <template #content>
-        <UCard>
-          <template #header>
-            <h3 class="font-semibold">
-              {{ $t('kniffel.resetTitle') }}
-            </h3>
-          </template>
-
-          <p class="text-sm text-muted">
-            {{ $t('kniffel.resetBody') }}
-          </p>
-
-          <template #footer>
-            <div class="flex gap-2 justify-end">
-              <UButton
-                variant="ghost"
-                color="neutral"
-                @click="confirmReset = false"
-              >
-                {{ $t('kniffel.cancel') }}
-              </UButton>
-              <UButton
-                color="error"
-                @click="handleReset"
-              >
-                {{ $t('kniffel.reset') }}
-              </UButton>
-            </div>
-          </template>
-        </UCard>
-      </template>
-    </UModal>
+    <ConfirmResetModal
+      v-model:open="confirmReset"
+      :title="$t('kniffel.resetTitle')"
+      :body="$t('kniffel.resetBody')"
+      :cancel-label="$t('kniffel.cancel')"
+      :confirm-label="$t('kniffel.reset')"
+      @confirm="handleReset"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { reactive } from 'vue'
+import { UPPER_SECTION_IDS } from '~/composables/useKniffel'
 
 const { t } = useI18n()
 
@@ -324,14 +194,12 @@ const {
   getFixedPoints
 } = useKniffel()
 
-const upperSectionIds = ['ones', 'twos', 'threes', 'fours', 'fives', 'sixes']
-
 const upperCategories = computed(() => 
-  categoryList.value.filter(cat => upperSectionIds.includes(cat.id))
+  categoryList.value.filter(cat => UPPER_SECTION_IDS.includes(cat.id))
 )
 
 const lowerCategories = computed(() => 
-  categoryList.value.filter(cat => !upperSectionIds.includes(cat.id))
+  categoryList.value.filter(cat => !UPPER_SECTION_IDS.includes(cat.id))
 )
 
 const confirmReset = ref(false)
