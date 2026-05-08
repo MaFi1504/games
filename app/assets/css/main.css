@@ -17,6 +17,12 @@
   --color-green-950: #052E16;
 }
 
+/* Prevent pull-to-refresh/overscroll navigation from breaking offline usage. */
+html,
+body {
+  overscroll-behavior-y: none;
+}
+
 /* iOS safe area for sticky bottom bar */
 .pb-safe {
   padding-bottom: max(0.75rem, env(safe-area-inset-bottom));

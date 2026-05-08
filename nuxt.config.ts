@@ -53,6 +53,37 @@ export default defineNuxtConfig({
       cleanupOutdatedCaches: true,
       runtimeCaching: [
         {
+          // Cache app routes so manual refresh can still render offline.
+          urlPattern: /\/(?:$|kniffel|phase10|credits)(?:[/?#].*)?$/i,
+          handler: 'NetworkFirst',
+          options: {
+            cacheName: 'pages-cache',
+            networkTimeoutSeconds: 3,
+            expiration: {
+              maxEntries: 20,
+              maxAgeSeconds: 60 * 60 * 24 * 7 // 7 days
+            },
+            cacheableResponse: {
+              statuses: [0, 200]
+            }
+          }
+        },
+        {
+          // Cache Nuxt bundles/chunks so visited routes can rehydrate offline.
+          urlPattern: /\/_nuxt\/.*\.(?:js|mjs|css)$/i,
+          handler: 'StaleWhileRevalidate',
+          options: {
+            cacheName: 'nuxt-assets-cache',
+            expiration: {
+              maxEntries: 100,
+              maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
+            },
+            cacheableResponse: {
+              statuses: [0, 200]
+            }
+          }
+        },
+        {
           urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
           handler: 'CacheFirst',
           options: {
