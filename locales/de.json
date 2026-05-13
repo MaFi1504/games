@@ -13,6 +13,17 @@
   "nav": {
     "back": "Zurück"
   },
+  "history": {
+    "title": "Spielhistorie",
+    "noGames": "Noch keine abgeschlossenen Spiele gespeichert.",
+    "clearHistory": "Historie löschen",
+    "score": "Punkte",
+    "phases": "Phasen",
+    "categories": "Kategorien",
+    "avgScore": "Ø Punkte:",
+    "won": "Gewonnen",
+    "lost": "Verloren"
+  },
   "games": {
     "phase10": {
       "name": "Phase 10",
@@ -76,8 +87,8 @@
     "cardValuesRows": [
       { "label": "Karten 1–9", "value": "1–9 Pkt." },
       { "label": "Karten 10–12", "value": "10–12 Pkt." },
-      { "label": "Aussetzkarten", "value": "20 Pkt." },
-      { "label": "Wildcards", "value": "20 Pkt." }
+      { "label": "Aussetzen", "value": "20 Pkt." },
+      { "label": "Joker", "value": "20 Pkt." }
     ],
     "resetTitle": "Spiel zurücksetzen?",
     "resetBody": "Dadurch werden alle abgeschlossenen Phasen und die Punktehistorie gelöscht. Dies kann nicht rückgängig gemacht werden.",

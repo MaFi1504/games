@@ -230,12 +230,14 @@
 
 <script setup lang="ts">
 import { usePhase10, type PhaseSetKey } from '~/composables/usePhase10'
+import { useGameHistory } from '~/composables/useGameHistory'
 
 const { t, tm, rt } = useI18n()
 
 useSeoMeta({ title: () => `${t('phase10.title')} – ${t('app.title')}` })
 
 const { completedPhases, scores, totalScore, phaseSetKey, load, selectPhaseSet, togglePhase, addScore, removeScore, reset } = usePhase10()
+const { savePhase10Game } = useGameHistory()
 
 function resolvePhaseList(key: 'phase10.phaseList' | 'phase10.phaseListAlt') {
   const raw = tm(key as string)
@@ -309,6 +311,14 @@ function submitScore() {
 }
 
 function doReset() {
+  if (phaseSetKey.value && (completedPhases.value.length > 0 || scores.value.length > 0)) {
+    savePhase10Game({
+      phaseSetKey: phaseSetKey.value,
+      phasesCompleted: completedPhases.value.length,
+      totalPhases: phases.value.length,
+      totalScore: totalScore.value
+    })
+  }
   reset()
   confirmReset.value = false
 }

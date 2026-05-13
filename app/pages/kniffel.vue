@@ -169,6 +169,7 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import { UPPER_SECTION_IDS } from '~/composables/useKniffel'
+import { useGameHistory } from '~/composables/useGameHistory'
 
 const { t } = useI18n()
 
@@ -202,6 +203,8 @@ const lowerCategories = computed(() =>
   categoryList.value.filter(cat => !UPPER_SECTION_IDS.includes(cat.id))
 )
 
+const { saveKniffelGame } = useGameHistory()
+
 const confirmReset = ref(false)
 const categoryInputs = reactive<Record<string, string>>({})
 
@@ -228,6 +231,14 @@ function scoreFixedCategory(categoryId: string) {
 }
 
 function handleReset() {
+  if (variant.value && scoredCount.value > 0) {
+    saveKniffelGame({
+      variant: variant.value,
+      totalScore: totalScore.value,
+      categoriesScored: scoredCount.value,
+      totalCategories: categoryList.value.length
+    })
+  }
   reset()
   Object.keys(categoryInputs).forEach(key => delete categoryInputs[key])
   confirmReset.value = false

@@ -13,6 +13,17 @@
   "nav": {
     "back": "Back"
   },
+  "history": {
+    "title": "Game History",
+    "noGames": "No completed games recorded yet.",
+    "clearHistory": "Clear history",
+    "score": "Score",
+    "phases": "Phases",
+    "categories": "Categories",
+    "avgScore": "Avg. score:",
+    "won": "Won",
+    "lost": "Lost"
+  },
   "games": {
     "phase10": {
       "name": "Phase 10",
