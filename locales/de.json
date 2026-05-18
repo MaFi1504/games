@@ -95,6 +95,25 @@
     "cancel": "Abbrechen",
     "reset": "Zurücksetzen",
     "resetGame": "Spiel zurücksetzen",
+    "mp": {
+      "playWithOthers": "Mit anderen spielen",
+      "namePlaceholder": "Dein Name",
+      "createRoom": "Raum erstellen",
+      "joinRoom": "Raum beitreten",
+      "roomCodePlaceholder": "Raumcode (z.B. ABC123)",
+      "connect": "Verbinden",
+      "connected": "Verbunden",
+      "shareCode": "Teile diesen Code mit den anderen Spielern:",
+      "playingAs": "Du spielst als {name}",
+      "disconnect": "Trennen",
+      "otherPlayers": "Andere Spieler",
+      "waitingForPlayers": "Warte auf andere Spieler…",
+      "error": {
+        "timeout": "Verbindung abgelaufen. Ist der Server erreichbar?",
+        "failed": "Verbindung fehlgeschlagen. Bitte erneut versuchen.",
+        "Room is full": "Dieser Raum ist voll (max. 10 Spieler)."
+      }
+    },
     "selectPhaseSet": "Phasen wählen",
     "selectPhaseSetSubtitle": "Wähle, welche Phasen du in dieser Runde spielen möchtest.",
     "phaseSetClassicName": "Klassisch",

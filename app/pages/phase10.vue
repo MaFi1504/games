@@ -9,6 +9,105 @@
 
       <!-- Phase set selection (shown when no game started yet) -->
       <template v-if="!phaseSetKey">
+        <!-- Multiplayer setup -->
+        <UCard class="mb-4">
+          <button
+            type="button"
+            class="w-full flex items-center justify-between"
+            @click="mpExpanded = !mpExpanded"
+          >
+            <div class="flex items-center gap-2">
+              <UIcon name="i-lucide-users" class="w-4 h-4 text-muted" />
+              <span class="font-medium text-sm">{{ $t('phase10.mp.playWithOthers') }}</span>
+              <UBadge v-if="mpConnected" color="success" variant="subtle" size="xs">
+                {{ $t('phase10.mp.connected') }}
+              </UBadge>
+            </div>
+            <UIcon
+              :name="mpExpanded ? 'i-lucide-chevron-up' : 'i-lucide-chevron-down'"
+              class="w-4 h-4 text-muted"
+            />
+          </button>
+
+          <div v-if="mpExpanded" class="mt-4 space-y-3">
+            <template v-if="!mpConnected">
+              <UInput
+                v-model="mpNameInput"
+                :placeholder="$t('phase10.mp.namePlaceholder')"
+                :disabled="mpConnecting"
+                size="sm"
+              />
+              <div class="flex rounded-lg border border-default overflow-hidden text-sm">
+                <button
+                  type="button"
+                  class="flex-1 py-2 text-center transition-colors"
+                  :class="mpMode === 'create' ? 'bg-primary text-white' : 'hover:bg-muted/40'"
+                  @click="mpMode = 'create'"
+                >
+                  {{ $t('phase10.mp.createRoom') }}
+                </button>
+                <button
+                  type="button"
+                  class="flex-1 py-2 text-center transition-colors"
+                  :class="mpMode === 'join' ? 'bg-primary text-white' : 'hover:bg-muted/40'"
+                  @click="mpMode = 'join'"
+                >
+                  {{ $t('phase10.mp.joinRoom') }}
+                </button>
+              </div>
+              <UInput
+                v-if="mpMode === 'join'"
+                v-model="mpRoomInput"
+                :placeholder="$t('phase10.mp.roomCodePlaceholder')"
+                :disabled="mpConnecting"
+                size="sm"
+                class="uppercase"
+                maxlength="10"
+              />
+              <UAlert
+                v-if="mpError"
+                color="error"
+                variant="subtle"
+                :description="$t(`phase10.mp.error.${mpError}`, {}, { missingWarn: false }) || $t('phase10.mp.error.failed')"
+                icon="i-lucide-triangle-alert"
+              />
+              <UButton
+                block
+                :loading="mpConnecting"
+                :disabled="!mpNameInput.trim() || (mpMode === 'join' && !mpRoomInput.trim())"
+                @click="startMultiplayer"
+              >
+                {{ $t('phase10.mp.connect') }}
+              </UButton>
+            </template>
+
+            <template v-else>
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <p class="text-xs text-muted mb-1">
+                    {{ $t('phase10.mp.shareCode') }}
+                  </p>
+                  <p class="text-3xl font-bold tracking-widest font-mono">
+                    {{ mpRoom }}
+                  </p>
+                  <p class="text-xs text-muted mt-1">
+                    {{ $t('phase10.mp.playingAs', { name: mpPlayerName }) }}
+                  </p>
+                </div>
+                <UButton
+                  variant="ghost"
+                  size="sm"
+                  color="neutral"
+                  icon="i-lucide-log-out"
+                  @click="mpClose"
+                >
+                  {{ $t('phase10.mp.disconnect') }}
+                </UButton>
+              </div>
+            </template>
+          </div>
+        </UCard>
+
         <p class="text-sm text-muted mb-4 text-center">
           {{ $t('phase10.selectPhaseSetSubtitle') }}
         </p>
@@ -41,6 +140,10 @@
         <div class="flex items-center gap-2 mb-4">
           <UBadge color="primary" variant="subtle" size="sm">
             {{ activeSetName }}
+          </UBadge>
+          <UBadge v-if="mpConnected" color="success" variant="subtle" size="sm" class="flex items-center gap-1 font-mono">
+            <UIcon name="i-lucide-users" class="w-3 h-3" />
+            {{ mpRoom }}
           </UBadge>
         </div>
 
@@ -103,6 +206,44 @@
               </div>
             </div>
           </div>
+
+          <!-- Multiplayer: other players' progress -->
+          <template v-if="mpConnected">
+            <USeparator class="mt-4 mb-3" />
+            <p class="text-xs text-muted uppercase tracking-wide mb-2">
+              {{ $t('phase10.mp.otherPlayers') }}
+            </p>
+            <p v-if="mpOtherPlayers.length === 0" class="text-sm text-muted italic text-center py-1">
+              {{ $t('phase10.mp.waitingForPlayers') }}
+            </p>
+            <div v-else class="space-y-3">
+              <div
+                v-for="player in mpOtherPlayers"
+                :key="player.playerId"
+                class="flex items-center justify-between gap-3"
+              >
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-medium truncate">
+                    {{ player.name }}
+                  </p>
+                  <div class="flex items-center gap-2 mt-1">
+                    <div class="h-1.5 rounded-full bg-muted/40 flex-1 overflow-hidden">
+                      <div
+                        class="h-full bg-primary rounded-full transition-all duration-500"
+                        :style="{ width: `${Math.min(100, ((player.state?.phases.length ?? 0) / phases.length) * 100)}%` }"
+                      />
+                    </div>
+                    <span class="text-xs text-muted tabular-nums shrink-0">
+                      {{ player.state?.phases.length ?? 0 }}/{{ phases.length }}
+                    </span>
+                  </div>
+                </div>
+                <p class="tabular-nums font-semibold text-sm shrink-0">
+                  {{ $t('phase10.pts', { n: player.state?.totalScore ?? 0 }) }}
+                </p>
+              </div>
+            </div>
+          </template>
         </UCard>
 
         <!-- Phases list -->
@@ -231,6 +372,7 @@
 <script setup lang="ts">
 import { usePhase10, type PhaseSetKey } from '~/composables/usePhase10'
 import { useGameHistory } from '~/composables/useGameHistory'
+import { usePhase10Multiplayer } from '~/composables/usePhase10Multiplayer'
 
 const { t, tm, rt } = useI18n()
 
@@ -294,6 +436,49 @@ const cardValueRows = computed(() => {
 
 const scoreInput = ref<string>('')
 const confirmReset = ref(false)
+
+// Multiplayer
+const {
+  roomCode: mpRoom,
+  playerName: mpPlayerName,
+  connected: mpConnected,
+  connecting: mpConnecting,
+  otherPlayers: mpOtherPlayers,
+  connectionError: mpError,
+  generateRoomCode,
+  connect: mpConnect,
+  sendUpdate: mpSendUpdate,
+  close: mpClose
+} = usePhase10Multiplayer()
+
+const mpExpanded = ref(false)
+const mpMode = ref<'create' | 'join'>('create')
+const mpNameInput = ref('')
+const mpRoomInput = ref('')
+
+async function startMultiplayer() {
+  const room = mpMode.value === 'create' ? generateRoomCode() : mpRoomInput.value
+  if (!mpNameInput.value.trim() || !room.trim()) return
+  await mpConnect(room, mpNameInput.value).catch(() => {})
+}
+
+// Sync local state to room whenever it changes
+watch(
+  [completedPhases, totalScore, phaseSetKey],
+  () => {
+    if (mpConnected.value) {
+      mpSendUpdate(completedPhases.value, totalScore.value, phaseSetKey.value)
+    }
+  },
+  { deep: true }
+)
+
+// Send initial state when connecting mid-game
+watch(mpConnected, (val) => {
+  if (val && phaseSetKey.value !== null) {
+    mpSendUpdate(completedPhases.value, totalScore.value, phaseSetKey.value)
+  }
+})
 
 const validScore = computed(() => {
   const n = Number(scoreInput.value)

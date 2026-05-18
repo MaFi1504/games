@@ -95,6 +95,25 @@
     "cancel": "Cancel",
     "reset": "Reset",
     "resetGame": "Reset game",
+    "mp": {
+      "playWithOthers": "Play with others",
+      "namePlaceholder": "Your name",
+      "createRoom": "Create room",
+      "joinRoom": "Join room",
+      "roomCodePlaceholder": "Room code (e.g. ABC123)",
+      "connect": "Connect",
+      "connected": "Connected",
+      "shareCode": "Share this code with the other players:",
+      "playingAs": "Playing as {name}",
+      "disconnect": "Disconnect",
+      "otherPlayers": "Other players",
+      "waitingForPlayers": "Waiting for others to join…",
+      "error": {
+        "timeout": "Connection timed out. Is the server reachable?",
+        "failed": "Connection failed. Please try again.",
+        "Room is full": "This room is already full (max 10 players)."
+      }
+    },
     "selectPhaseSet": "Choose Phase Set",
     "selectPhaseSetSubtitle": "Select which phases you want to play this game.",
     "phaseSetClassicName": "Classic",
