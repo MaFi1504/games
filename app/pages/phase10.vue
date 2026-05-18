@@ -480,6 +480,18 @@ watch(mpConnected, (val) => {
   }
 })
 
+// Adopt the room's phase set when joining — only if the local game hasn't started yet.
+// This ensures all players always play with the same variant.
+watch(
+  () => mpOtherPlayers.value.map(p => p.state?.phaseSetKey).find(k => k != null),
+  (remoteKey) => {
+    if (!mpConnected.value || !remoteKey) return
+    if (completedPhases.value.length === 0 && scores.value.length === 0) {
+      selectPhaseSet(remoteKey as PhaseSetKey)
+    }
+  }
+)
+
 const validScore = computed(() => {
   const n = Number(scoreInput.value)
   return scoreInput.value !== '' && Number.isFinite(n) && n >= 0
