@@ -18,9 +18,9 @@
           >
             <div class="flex items-center gap-2">
               <UIcon name="i-lucide-users" class="w-4 h-4 text-muted" />
-              <span class="font-medium text-sm">{{ $t('phase10.mp.playWithOthers') }}</span>
+              <span class="font-medium text-sm">{{ $t('mp.playWithOthers') }}</span>
               <UBadge v-if="mpConnected" color="success" variant="subtle" size="xs">
-                {{ $t('phase10.mp.connected') }}
+                {{ $t('mp.connected') }}
               </UBadge>
             </div>
             <UIcon
@@ -33,7 +33,7 @@
             <template v-if="!mpConnected">
               <UInput
                 v-model="mpNameInput"
-                :placeholder="$t('phase10.mp.namePlaceholder')"
+                :placeholder="$t('mp.namePlaceholder')"
                 :disabled="mpConnecting"
                 size="sm"
               />
@@ -44,7 +44,7 @@
                   :class="mpMode === 'create' ? 'bg-primary text-white' : 'hover:bg-muted/40'"
                   @click="mpMode = 'create'"
                 >
-                  {{ $t('phase10.mp.createRoom') }}
+                  {{ $t('mp.createRoom') }}
                 </button>
                 <button
                   type="button"
@@ -52,13 +52,13 @@
                   :class="mpMode === 'join' ? 'bg-primary text-white' : 'hover:bg-muted/40'"
                   @click="mpMode = 'join'"
                 >
-                  {{ $t('phase10.mp.joinRoom') }}
+                  {{ $t('mp.joinRoom') }}
                 </button>
               </div>
               <UInput
                 v-if="mpMode === 'join'"
                 v-model="mpRoomInput"
-                :placeholder="$t('phase10.mp.roomCodePlaceholder')"
+                :placeholder="$t('mp.roomCodePlaceholder')"
                 :disabled="mpConnecting"
                 size="sm"
                 class="uppercase"
@@ -68,7 +68,7 @@
                 v-if="mpError"
                 color="error"
                 variant="subtle"
-                :description="$t(`phase10.mp.error.${mpError}`, {}, { missingWarn: false }) || $t('phase10.mp.error.failed')"
+                :description="$t(`mp.error.${mpError}`, {}, { missingWarn: false }) || $t('mp.error.failed')"
                 icon="i-lucide-triangle-alert"
               />
               <UButton
@@ -77,7 +77,7 @@
                 :disabled="!mpNameInput.trim() || (mpMode === 'join' && !mpRoomInput.trim())"
                 @click="startMultiplayer"
               >
-                {{ $t('phase10.mp.connect') }}
+                {{ $t('mp.connect') }}
               </UButton>
             </template>
 
@@ -85,13 +85,13 @@
               <div class="flex items-start justify-between gap-3">
                 <div>
                   <p class="text-xs text-muted mb-1">
-                    {{ $t('phase10.mp.shareCode') }}
+                    {{ $t('mp.shareCode') }}
                   </p>
                   <p class="text-3xl font-bold tracking-widest font-mono">
                     {{ mpRoom }}
                   </p>
                   <p class="text-xs text-muted mt-1">
-                    {{ $t('phase10.mp.playingAs', { name: mpPlayerName }) }}
+                    {{ $t('mp.playingAs', { name: mpPlayerName }) }}
                   </p>
                 </div>
                 <UButton
@@ -101,7 +101,7 @@
                   icon="i-lucide-log-out"
                   @click="mpClose"
                 >
-                  {{ $t('phase10.mp.disconnect') }}
+                  {{ $t('mp.disconnect') }}
                 </UButton>
               </div>
             </template>
@@ -211,10 +211,10 @@
           <template v-if="mpConnected">
             <USeparator class="mt-4 mb-3" />
             <p class="text-xs text-muted uppercase tracking-wide mb-2">
-              {{ $t('phase10.mp.otherPlayers') }}
+              {{ $t('mp.otherPlayers') }}
             </p>
             <p v-if="mpOtherPlayers.length === 0" class="text-sm text-muted italic text-center py-1">
-              {{ $t('phase10.mp.waitingForPlayers') }}
+              {{ $t('mp.waitingForPlayers') }}
             </p>
             <div v-else class="space-y-3">
               <div
