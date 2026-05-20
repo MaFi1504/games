@@ -1,8 +1,19 @@
 {
   "app": {
-    "title": "Game Sheets",
-    "subtitle": "Select a game to open your personal score sheet.",
+    "title": "Games",
+    "subtitle": "A collection of game tools for your next game night.",
     "credits": "Credits"
+  },
+  "sheets": {
+    "title": "Game Sheets",
+    "subtitle": "Select a game to open your personal score sheet."
+  },
+  "apps": {
+    "sheets": {
+      "name": "Game Sheets",
+      "description": "Score sheets for Phase 10, Kniffel and more.",
+      "tags": ["Score Tracking", "Multiplayer"]
+    }
   },
   "pwa": {
     "updateAvailable": "New version available!",

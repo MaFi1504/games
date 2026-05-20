@@ -1,8 +1,19 @@
 {
   "app": {
-    "title": "Spielbögen",
-    "subtitle": "Wähle ein Spiel, um deinen persönlichen Spielbogen zu öffnen.",
+    "title": "Spiele",
+    "subtitle": "Eine Sammlung von Spielhilfen für deinen nächsten Spieleabend.",
     "credits": "Danksagungen"
+  },
+  "sheets": {
+    "title": "Spielbögen",
+    "subtitle": "Wähle ein Spiel, um deinen persönlichen Spielbogen zu öffnen."
+  },
+  "apps": {
+    "sheets": {
+      "name": "Spielbögen",
+      "description": "Spielbögen für Phase 10, Kniffel und mehr.",
+      "tags": ["Punkte-Tracking", "Mehrspieler"]
+    }
   },
   "pwa": {
     "updateAvailable": "Neue Version verfügbar!",

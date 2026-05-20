@@ -7,8 +7,9 @@ const { phase10History, kniffelHistory, init, clearPhase10History, clearKniffelH
 
 onMounted(init)
 
-const isPhase10 = computed(() => route.path === '/phase10')
-const isKniffel = computed(() => route.path === '/kniffel')
+const isPhase10 = computed(() => route.path === '/sheets/phase10')
+const isKniffel = computed(() => route.path === '/sheets/kniffel')
+const isInSheets = computed(() => route.path.startsWith('/sheets/'))
 
 interface HistoryGroup {
   key: string
@@ -95,6 +96,12 @@ async function switchLocale(code: 'en' | 'de') {
         <NuxtLink to="/">
           <span class="text-lg font-bold tracking-tight">{{ $t('app.title') }}</span>
         </NuxtLink>
+        <template v-if="isInSheets">
+          <span class="text-muted mx-1.5">/</span>
+          <NuxtLink to="/sheets">
+            <span class="text-lg font-bold tracking-tight">{{ $t('sheets.title') }}</span>
+          </NuxtLink>
+        </template>
       </template>
 
       <template #right>

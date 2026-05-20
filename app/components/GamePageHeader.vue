@@ -1,13 +1,13 @@
 <template>
   <div class="flex items-center gap-2 mb-4">
     <UButton
-      to="/"
       icon="i-lucide-arrow-left"
       variant="ghost"
       color="neutral"
       size="md"
       :aria-label="$t('nav.back')"
       class="shrink-0"
+      @click="router.back()"
     />
     <h1 class="text-xl font-bold flex-1">
       {{ title }}
@@ -26,6 +26,8 @@
 </template>
 
 <script setup lang="ts">
+const router = useRouter()
+
 defineProps<{
   title: string
   resetAriaLabel: string

@@ -1,9 +1,10 @@
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 import { ref, computed } from 'vue'
 import { mountSuspended, mockNuxtImport } from '@nuxt/test-utils/runtime'
-import Phase10Page from '../../app/pages/phase10.vue'
+import Phase10Page from '../../app/pages/sheets/phase10.vue'
+import SheetsIndexPage from '../../app/pages/sheets/index.vue'
 import IndexPage from '../../app/pages/index.vue'
-import NotizblockPage from '../../app/pages/notizblock.vue'
+import NotizblockPage from '../../app/pages/sheets/notizblock.vue'
 
 // Mutable module-level refs so individual tests can override state
 // without calling mockNuxtImport again (which causes hoisting issues)
@@ -115,31 +116,49 @@ describe('Phase10 page', () => {
   })
 })
 
-describe('Index page', () => {
-  it('renders the app title', async () => {
-    const wrapper = await mountSuspended(IndexPage)
+describe('Sheets Index page', () => {
+  it('renders the sheets title', async () => {
+    const wrapper = await mountSuspended(SheetsIndexPage)
     expect(wrapper.text()).toContain('Game Sheets')
   })
 
   it('renders the Phase 10 game card', async () => {
-    const wrapper = await mountSuspended(IndexPage)
+    const wrapper = await mountSuspended(SheetsIndexPage)
     expect(wrapper.text()).toContain('Phase 10')
   })
 
-  it('Phase 10 card links to /phase10', async () => {
-    const wrapper = await mountSuspended(IndexPage)
-    const link = wrapper.find('a[href="/phase10"]')
+  it('Phase 10 card links to /sheets/phase10', async () => {
+    const wrapper = await mountSuspended(SheetsIndexPage)
+    const link = wrapper.find('a[href="/sheets/phase10"]')
     expect(link.exists()).toBe(true)
   })
 
   it('renders the Notepad game card', async () => {
-    const wrapper = await mountSuspended(IndexPage)
+    const wrapper = await mountSuspended(SheetsIndexPage)
     expect(wrapper.text()).toContain('Notepad')
   })
 
-  it('Notepad card links to /notizblock', async () => {
+  it('Notepad card links to /sheets/notizblock', async () => {
+    const wrapper = await mountSuspended(SheetsIndexPage)
+    const link = wrapper.find('a[href="/sheets/notizblock"]')
+    expect(link.exists()).toBe(true)
+  })
+})
+
+describe('Index page', () => {
+  it('renders the app title', async () => {
     const wrapper = await mountSuspended(IndexPage)
-    const link = wrapper.find('a[href="/notizblock"]')
+    expect(wrapper.text()).toContain('Games')
+  })
+
+  it('renders the Game Sheets app card', async () => {
+    const wrapper = await mountSuspended(IndexPage)
+    expect(wrapper.text()).toContain('Game Sheets')
+  })
+
+  it('Game Sheets card links to /sheets', async () => {
+    const wrapper = await mountSuspended(IndexPage)
+    const link = wrapper.find('a[href="/sheets"]')
     expect(link.exists()).toBe(true)
   })
 })
