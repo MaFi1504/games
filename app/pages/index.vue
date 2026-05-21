@@ -62,6 +62,16 @@ const apps = computed(() => [
     tags: Array.isArray(tm('apps.sheets.tags'))
       ? (tm('apps.sheets.tags') as any[]).map(tag => rt(tag))
       : []
+  },
+  {
+    id: 'sudoku',
+    name: t('apps.sudoku.name'),
+    emoji: '🔢',
+    route: '/sudoku',
+    description: t('apps.sudoku.description'),
+    tags: Array.isArray(tm('apps.sudoku.tags'))
+      ? (tm('apps.sudoku.tags') as any[]).map(tag => rt(tag))
+      : []
   }
 ])
 </script>

@@ -13,6 +13,11 @@
       "name": "Game Sheets",
       "description": "Score sheets for Phase 10, Kniffel and more.",
       "tags": ["Score Tracking", "Multiplayer"]
+    },
+    "sudoku": {
+      "name": "Sudoku",
+      "description": "Generate and solve Sudoku puzzles. See exactly how the backtracking algorithm creates a valid grid.",
+      "tags": ["Puzzle", "Algorithm", "Solo"]
     }
   },
   "pwa": {
@@ -200,6 +205,27 @@
       "tenOrLess": "10 or Less",
       "thirtyThreeOrMore": "33 or More",
       "superChance": "Super Chance (×2)"
+    }
+  },
+  "sudoku": {
+    "title": "Sudoku",
+    "subtitle": "Generate puzzles and learn how the backtracking algorithm works.",
+    "easy": "Easy",
+    "medium": "Medium",
+    "hard": "Hard",
+    "newPuzzle": "New puzzle",
+    "reset": "Reset",
+    "reveal": "Reveal",
+    "solved": "Solved! Well done!",
+    "howItWorks": {
+      "title": "How does Sudoku generation work?",
+      "phase1Title": "Phase 1 – Build a complete solution",
+      "phase1Body": "The three diagonal 3×3 boxes are filled independently with a shuffled set of 1–9 (they can't conflict with each other). A recursive backtracking algorithm then fills the remaining 54 cells: try a random digit, check row/column/box constraints, move forward — or backtrack if no digit fits.",
+      "phase2Title": "Phase 2 – Carve out clues",
+      "phase2Body": "Cells are removed one at a time in random order. After each removal the solver counts the number of solutions. If more than one solution exists, the digit is restored. This continues until the desired number of clues is reached.",
+      "uniquenessTitle": "Why uniqueness matters",
+      "uniquenessBody": "A valid Sudoku puzzle must have exactly one solution. The uniqueness check is the most expensive step — it runs a full backtracking search after every removal, which is why generation can take a moment on harder difficulties.",
+      "learnMore": "Learn more on Wikipedia →"
     }
   },
   "credits": {

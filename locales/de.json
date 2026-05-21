@@ -13,6 +13,11 @@
       "name": "Spielbögen",
       "description": "Spielbögen für Phase 10, Kniffel und mehr.",
       "tags": ["Punkte-Tracking", "Mehrspieler"]
+    },
+    "sudoku": {
+      "name": "Sudoku",
+      "description": "Sudoku-Rätsel generieren und lösen. Sieh genau, wie der Backtracking-Algorithmus ein gültiges Raster erstellt.",
+      "tags": ["Rätsel", "Algorithmus", "Solo"]
     }
   },
   "pwa": {
@@ -200,6 +205,27 @@
       "tenOrLess": "10 oder weniger",
       "thirtyThreeOrMore": "33 oder mehr",
       "superChance": "Superchance (×2)"
+    }
+  },
+  "sudoku": {
+    "title": "Sudoku",
+    "subtitle": "Rätsel generieren und den Backtracking-Algorithmus verstehen.",
+    "easy": "Leicht",
+    "medium": "Mittel",
+    "hard": "Schwer",
+    "newPuzzle": "Neues Rätsel",
+    "reset": "Zurücksetzen",
+    "reveal": "Lösung zeigen",
+    "solved": "Gelöst! Gut gemacht!",
+    "howItWorks": {
+      "title": "Wie funktioniert die Sudoku-Generierung?",
+      "phase1Title": "Phase 1 – Vollständige Lösung erstellen",
+      "phase1Body": "Die drei diagonalen 3×3-Boxen werden unabhängig voneinander mit einem zufällig sortierten Satz von 1–9 befüllt (sie können sich gegenseitig nicht beeinflussen). Ein rekursiver Backtracking-Algorithmus füllt dann die übrigen 54 Zellen: Probiere eine zufällige Zahl, prüfe Reihen-, Spalten- und Box-Bedingungen, geh weiter – oder geh zurück, wenn keine Zahl passt.",
+      "phase2Title": "Phase 2 – Hinweise herausschnitzen",
+      "phase2Body": "Zellen werden nacheinander in zufälliger Reihenfolge entfernt. Nach jeder Entfernung zählt der Solver die Anzahl der Lösungen. Wenn mehr als eine Lösung existiert, wird die Zahl wiederhergestellt. Dies wird wiederholt, bis die gewünschte Anzahl an Hinweisen erreicht ist.",
+      "uniquenessTitle": "Warum Eindeutigkeit wichtig ist",
+      "uniquenessBody": "Ein gültiges Sudoku-Rätsel muss genau eine Lösung haben. Die Eindeutigkeitsprüfung ist der aufwändigste Schritt – sie führt nach jeder Entfernung eine vollständige Backtracking-Suche durch, weshalb die Generierung bei schwierigeren Stufen einen Moment dauern kann.",
+      "learnMore": "Mehr auf Wikipedia erfahren →"
     }
   },
   "credits": {
