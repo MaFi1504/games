@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "Games",
-    "subtitle": "A collection of game tools for your next game night.",
+    "subtitle": "A collection of browser games and game tools for your next game night.",
     "credits": "Credits"
   },
   "sheets": {
@@ -237,7 +237,13 @@
     "newPuzzle": "New puzzle",
     "reset": "Reset",
     "reveal": "Reveal",
-    "solved": "Solved! Well done!"
+    "solved": "Solved! Well done!",
+    "animateCreation": "Animate",
+    "phase": {
+      "diagonal": "Filling diagonal boxes\u2026",
+      "solving": "Solving via backtracking\u2026",
+      "carving": "Carving out clues\u2026"
+    }
   },
   "credits": {
     "title": "Credits & Attribution",

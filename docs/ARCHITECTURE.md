@@ -211,7 +211,9 @@ Difficulties and target clue counts:
 | medium | ~30 |
 | hard | ~25 |
 
-Exported types: `Grid = (number | null)[][]`, `Difficulty = 'easy' | 'medium' | 'hard'`
+Exported types: `Grid = (number | null)[][]`, `Difficulty = 'easy' | 'medium' | 'hard'`, `GenerationPhase = 'diagonal' | 'solving' | 'carving' | ''`
+
+**Animated generation** (`visualize` ref): when enabled, `generate()` runs an async path (`generateAnimated`) that yields to the UI every `STEP_DELAY` ms (25 ms) between steps and every `SOLVE_STEP_INTERVAL` (6) backtracking placements. The working grid is exposed via `visualGrid`; the current phase is exposed via `generationPhase`. The sudoku page switches the rendered grid to `visualGrid` and displays a phase label during animation.
 
 ### `use2048`
 

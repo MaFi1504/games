@@ -58,7 +58,25 @@
       >
         {{ $t('sudoku.reveal') }}
       </UButton>
+
+      <UButton
+        :variant="visualize ? 'solid' : 'outline'"
+        color="neutral"
+        size="sm"
+        icon="i-lucide-film"
+        :disabled="isGenerating"
+        @click="visualize = !visualize"
+      >
+        {{ $t('sudoku.animateCreation') }}
+      </UButton>
     </div>
+
+    <p
+      v-if="isGenerating && visualize && generationPhase"
+      class="text-center text-sm text-muted mb-4"
+    >
+      {{ $t('sudoku.phase.' + generationPhase) }}
+    </p>
 
     <!-- Solved banner -->
     <UAlert
@@ -76,7 +94,7 @@
       :style="{ width: `${gridPx}px`, height: `${gridPx}px` }"
     >
       <div
-        v-if="isGenerating"
+        v-if="isGenerating && !visualize"
         class="absolute inset-0 flex items-center justify-center bg-background/60 rounded z-10"
       >
         <UIcon
@@ -91,7 +109,7 @@
         :style="{ width: `${gridPx}px`, height: `${gridPx}px` }"
       >
         <template
-          v-for="(row, r) in playerGrid"
+          v-for="(row, r) in activeGrid"
           :key="r"
         >
           <div
@@ -143,6 +161,9 @@ const {
   playerGrid,
   difficulty,
   isGenerating,
+  visualize,
+  visualGrid,
+  generationPhase,
   isSolved,
   cellStates,
   generate,
@@ -153,6 +174,11 @@ const {
 
 // Grid size in px – responsive via JS so we can compute borders
 const gridPx = 360
+
+/** Show the working grid during animated generation, player grid otherwise */
+const activeGrid = computed(() =>
+  isGenerating.value && visualize.value ? visualGrid.value : playerGrid.value
+)
 
 const difficulties: { value: Difficulty, label: string }[] = [
   { value: 'easy', label: t('sudoku.easy') },
@@ -193,6 +219,11 @@ function onKey(e: KeyboardEvent) {
 }
 
 function cellClass(r: number, c: number): string[] {
+  // During animated generation show a neutral style – no puzzle state yet
+  if (isGenerating.value && visualize.value) {
+    return [activeGrid.value[r]![c] !== null ? 'text-muted' : '']
+  }
+
   const state = cellStates.value[r][c]
   const isSelected = selected.value?.[0] === r && selected.value?.[1] === c
   const isSameBox = selected.value

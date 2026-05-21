@@ -134,6 +134,48 @@ function solveCount(grid: Grid, limit: number, count: { value: number }): void {
   count.value++
 }
 
+// ---------------------------------------------------------------------------
+// Animated generation helpers
+// ---------------------------------------------------------------------------
+
+export type GenerationPhase = 'diagonal' | 'solving' | 'carving' | ''
+
+/** How many ms to pause between visualised steps */
+const STEP_DELAY = 25
+/** Yield to the UI every N backtracking placements/removals */
+const SOLVE_STEP_INTERVAL = 6
+
+/**
+ * Async backtracking solver that periodically yields to the UI so the grid
+ * can be rerendered between steps. Only used when visualise mode is on.
+ */
+async function solveAnimated(
+  grid: Grid,
+  counter: { steps: number },
+  onStep: (g: Grid) => Promise<void>
+): Promise<boolean> {
+  for (let r = 0; r < 9; r++) {
+    for (let c = 0; c < 9; c++) {
+      if (grid[r]![c] !== null) continue
+
+      const candidates = shuffle(digits())
+      for (const n of candidates) {
+        if (!conflicts(grid, r, c, n)) {
+          grid[r]![c] = n
+          counter.steps++
+          if (counter.steps % SOLVE_STEP_INTERVAL === 0) await onStep(grid)
+          if (await solveAnimated(grid, counter, onStep)) return true
+          grid[r]![c] = null
+          counter.steps++
+          if (counter.steps % SOLVE_STEP_INTERVAL === 0) await onStep(grid)
+        }
+      }
+      return false
+    }
+  }
+  return true
+}
+
 function generateSolution(): Grid {
   const grid = emptyGrid()
   // Fill the three independent diagonal boxes first
@@ -188,18 +230,82 @@ export function useSudoku() {
   const difficulty = ref<Difficulty>('easy')
   const isGenerating = ref(false)
 
+  /** Whether to animate the generation process step-by-step */
+  const visualize = ref(false)
+  /** Grid shown during animated generation; mirrors the solver's working state */
+  const visualGrid = ref<Grid>(emptyGrid())
+  /** Which phase of animated generation is currently running */
+  const generationPhase = ref<GenerationPhase>('')
+
+  /** Run the full animated generation and update refs step-by-step */
+  async function generateAnimated(diff: Difficulty): Promise<void> {
+    const delay = (): Promise<void> => new Promise(resolve => setTimeout(resolve, STEP_DELAY))
+    const onStep = async (g: Grid): Promise<void> => {
+      visualGrid.value = cloneGrid(g)
+      await delay()
+    }
+
+    // Phase 1a – fill the three independent diagonal 3×3 boxes
+    generationPhase.value = 'diagonal'
+    const grid = emptyGrid()
+    for (const [br, bc] of [[0, 0], [3, 3], [6, 6]] as [number, number][]) {
+      const nums = shuffle(digits())
+      let idx = 0
+      for (let r = br; r < br + 3; r++) {
+        for (let c = bc; c < bc + 3; c++) {
+          grid[r]![c] = nums[idx++]!
+          await onStep(grid)
+        }
+      }
+    }
+
+    // Phase 1b – fill the remaining cells via backtracking
+    generationPhase.value = 'solving'
+    const counter = { steps: 0 }
+    await solveAnimated(grid, counter, onStep)
+    solution.value = cloneGrid(grid)
+
+    // Phase 2 – carve out clues
+    generationPhase.value = 'carving'
+    const cells: [number, number][] = []
+    for (let r = 0; r < 9; r++) {
+      for (let c = 0; c < 9; c++) cells.push([r, c])
+    }
+    shuffle(cells)
+
+    const puzzleGrid = cloneGrid(grid)
+    let filled = 81
+    for (const [r, c] of cells) {
+      if (filled <= CLUE_COUNTS[diff]) break
+      const saved = puzzleGrid[r]![c]!
+      puzzleGrid[r]![c] = null
+      await onStep(puzzleGrid)
+      if (countSolutions(puzzleGrid, 2) !== 1) {
+        puzzleGrid[r]![c] = saved
+      } else {
+        filled--
+      }
+    }
+
+    puzzle.value = cloneGrid(puzzleGrid)
+    playerGrid.value = cloneGrid(puzzleGrid)
+    generationPhase.value = ''
+  }
+
   /** Generate a new puzzle at the current difficulty */
-  function generate(diff: Difficulty = difficulty.value) {
+  async function generate(diff: Difficulty = difficulty.value): Promise<void> {
     isGenerating.value = true
     difficulty.value = diff
 
-    // Run in next tick so the UI can show a loading state
-    nextTick(() => {
+    await nextTick()
+    if (visualize.value) {
+      await generateAnimated(diff)
+    } else {
       solution.value = generateSolution()
       puzzle.value = carveClues(solution.value, CLUE_COUNTS[diff])
       playerGrid.value = cloneGrid(puzzle.value)
-      isGenerating.value = false
-    })
+    }
+    isGenerating.value = false
   }
 
   /** Set a player digit at (row, col). Clue cells are locked. */
@@ -242,6 +348,9 @@ export function useSudoku() {
     playerGrid,
     difficulty,
     isGenerating,
+    visualize,
+    visualGrid: readonly(visualGrid),
+    generationPhase: readonly(generationPhase),
     isSolved,
     cellStates,
     generate,

@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "Spiele",
-    "subtitle": "Eine Sammlung von Spielhilfen für deinen nächsten Spieleabend.",
+    "subtitle": "Eine Sammlung von Browser Games und Spielhilfen für deinen nächsten Spieleabend.",
     "credits": "Danksagungen"
   },
   "sheets": {
@@ -237,7 +237,13 @@
     "newPuzzle": "Neues Rätsel",
     "reset": "Zurücksetzen",
     "reveal": "Lösung zeigen",
-    "solved": "Gelöst! Gut gemacht!"
+    "solved": "Gelöst! Gut gemacht!",
+    "animateCreation": "Animieren",
+    "phase": {
+      "diagonal": "Diagonale Blöcke befüllen…",
+      "solving": "Lösung via Backtracking…",
+      "carving": "Hinweise herausarbeiten…"
+    }
   },
   "credits": {
     "title": "Danksagungen & Lizenzen",

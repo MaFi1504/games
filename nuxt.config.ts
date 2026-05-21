@@ -48,7 +48,7 @@ export default defineNuxtConfig({
   },
 
   pwa: {
-    registerType: 'autoUpdate',
+    registerType: 'prompt',
     includeAssets: ['favicon.ico', 'icon.svg', 'icon-192.png', 'icon-512.png'],
     manifest: {
       name: 'Game Sheets',
