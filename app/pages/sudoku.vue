@@ -130,7 +130,6 @@
         @click="enterDigit(null)"
       />
     </div>
-
   </UContainer>
 </template>
 
