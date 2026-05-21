@@ -203,7 +203,7 @@ describe('Notizblock page', () => {
     ]
 
     const wrapper = await mountSuspended(NotizblockPage)
-    const vm = wrapper.vm as any
+    const vm = wrapper.vm as Record<string, unknown>
     const nameButtons = wrapper.findAll('button[type="button"]')
       .filter(button => button.text().includes('Tap name to add points'))
 
@@ -220,7 +220,7 @@ describe('Notizblock page', () => {
     ]
 
     const wrapper = await mountSuspended(NotizblockPage)
-    const vm = wrapper.vm as any
+    const vm = wrapper.vm as Record<string, unknown>
 
     const nameButton = wrapper.findAll('button[type="button"]')
       .find(button => button.text().includes('Tap name to add points'))
@@ -242,7 +242,7 @@ describe('Notizblock page', () => {
     ]
 
     const wrapper = await mountSuspended(NotizblockPage)
-    const vm = wrapper.vm as any
+    const vm = wrapper.vm as Record<string, unknown>
 
     const nameButton = wrapper.findAll('button[type="button"]')
       .find(button => button.text().includes('Tap name to add points'))

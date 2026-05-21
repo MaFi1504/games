@@ -92,18 +92,17 @@ export function useMultiplayer<TState>(options: UseMultiplayerOptions) {
             connecting.value = false
             connected.value = true
             resolve()
-          }
-          else if (data.type === 'players') {
+          } else if (data.type === 'players') {
             players.value = data.players as MultiplayerPlayer<TState>[]
-          }
-          else if (data.type === 'error') {
+          } else if (data.type === 'error') {
             clearTimeout(timeout)
             connecting.value = false
             connectionError.value = data.message
             reject(new Error(data.message))
           }
+        } catch {
+          // no-op: invalid JSON message ignored
         }
-        catch {}
       }
 
       socket.onerror = () => {

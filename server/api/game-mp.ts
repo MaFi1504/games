@@ -11,16 +11,16 @@ const VALID_GAMES = new Set<GameId>(['phase10', 'kniffel', 'notepad'])
 // validation happens here.
 interface PlayerEntry {
   peer: Peer
-  roomKey: string   // `${gameId}:${roomCode}`
+  roomKey: string // `${gameId}:${roomCode}`
   playerId: string
   name: string
-  state: unknown    // game-specific, validated on the client
+  state: unknown // game-specific, validated on the client
 }
 
 // In-memory store: roomKey → (playerId → PlayerEntry)
 const rooms = new Map<string, Map<string, PlayerEntry>>()
 // Reverse lookup: peer.id → { roomKey, playerId }
-const peerMeta = new Map<string, { roomKey: string; playerId: string }>()
+const peerMeta = new Map<string, { roomKey: string, playerId: string }>()
 
 const MAX_ROOM_SIZE = 10
 const ROOM_CODE_RE = /^[A-Z0-9]{4,10}$/
@@ -42,8 +42,11 @@ function broadcast(roomKey: string) {
   }))
   const msg = JSON.stringify({ type: 'players', players })
   for (const entry of room.values()) {
-    try { entry.peer.send(msg) }
-    catch {}
+    try {
+      entry.peer.send(msg)
+    } catch {
+      // no-op: peer may have disconnected
+    }
   }
 }
 
@@ -56,8 +59,7 @@ function removePeer(peer: Peer) {
   room.delete(meta.playerId)
   if (room.size === 0) {
     rooms.delete(meta.roomKey)
-  }
-  else {
+  } else {
     broadcast(meta.roomKey)
   }
 }
@@ -67,8 +69,7 @@ export default defineWebSocketHandler({
     let data: Record<string, unknown>
     try {
       data = JSON.parse(message.text())
-    }
-    catch {
+    } catch {
       return
     }
 
@@ -101,8 +102,7 @@ export default defineWebSocketHandler({
 
       peer.send(JSON.stringify({ type: 'joined', game: gameId, room: roomCode }))
       broadcast(roomKey)
-    }
-    else if (type === 'update') {
+    } else if (type === 'update') {
       const meta = peerMeta.get(peer.id)
       if (!meta || meta.roomKey !== roomKey || meta.playerId !== playerId) return
 
@@ -118,8 +118,7 @@ export default defineWebSocketHandler({
       const entry = room.get(playerId)!
       entry.state = rawState
       broadcast(roomKey)
-    }
-    else if (type === 'leave') {
+    } else if (type === 'leave') {
       const meta = peerMeta.get(peer.id)
       if (meta && meta.roomKey === roomKey && meta.playerId === playerId) {
         removePeer(peer)

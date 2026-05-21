@@ -41,22 +41,22 @@ export function useNotepad() {
     if (!data) return
 
     players.value = Array.isArray(data.players)
-        ? data.players
+      ? data.players
           .filter(player => player && typeof player.name === 'string')
           .map(player => ({
             id: typeof player.id === 'string' && player.id.length > 0 ? player.id : createId(),
             name: player.name.trim(),
             entries: Array.isArray(player.entries)
               ? player.entries
-                .filter(entry => entry && Number.isFinite(entry.points))
-                .map(entry => ({
-                  id: typeof entry.id === 'string' && entry.id.length > 0 ? entry.id : createId(),
-                  points: Number(entry.points)
-                }))
+                  .filter(entry => entry && Number.isFinite(entry.points))
+                  .map(entry => ({
+                    id: typeof entry.id === 'string' && entry.id.length > 0 ? entry.id : createId(),
+                    points: Number(entry.points)
+                  }))
               : []
           }))
           .filter(player => player.name.length > 0)
-        : []
+      : []
   }
 
   function save() {

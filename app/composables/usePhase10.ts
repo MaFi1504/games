@@ -54,8 +54,7 @@ export function usePhase10(totalPhases = 10) {
     const idx = completedPhases.value.indexOf(id)
     if (idx >= 0) {
       completedPhases.value.splice(idx, 1)
-    }
-    else {
+    } else {
       completedPhases.value.push(id)
     }
     save()

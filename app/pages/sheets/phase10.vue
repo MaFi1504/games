@@ -17,9 +17,17 @@
             @click="mpExpanded = !mpExpanded"
           >
             <div class="flex items-center gap-2">
-              <UIcon name="i-lucide-users" class="w-4 h-4 text-muted" />
+              <UIcon
+                name="i-lucide-users"
+                class="w-4 h-4 text-muted"
+              />
               <span class="font-medium text-sm">{{ $t('mp.playWithOthers') }}</span>
-              <UBadge v-if="mpConnected" color="success" variant="subtle" size="xs">
+              <UBadge
+                v-if="mpConnected"
+                color="success"
+                variant="subtle"
+                size="xs"
+              >
                 {{ $t('mp.connected') }}
               </UBadge>
             </div>
@@ -29,7 +37,10 @@
             />
           </button>
 
-          <div v-if="mpExpanded" class="mt-4 space-y-3">
+          <div
+            v-if="mpExpanded"
+            class="mt-4 space-y-3"
+          >
             <template v-if="!mpConnected">
               <UInput
                 v-model="mpNameInput"
@@ -138,11 +149,24 @@
       <template v-else>
         <!-- Phase set indicator -->
         <div class="flex items-center gap-2 mb-4">
-          <UBadge color="primary" variant="subtle" size="sm">
+          <UBadge
+            color="primary"
+            variant="subtle"
+            size="sm"
+          >
             {{ activeSetName }}
           </UBadge>
-          <UBadge v-if="mpConnected" color="success" variant="subtle" size="sm" class="flex items-center gap-1 font-mono">
-            <UIcon name="i-lucide-users" class="w-3 h-3" />
+          <UBadge
+            v-if="mpConnected"
+            color="success"
+            variant="subtle"
+            size="sm"
+            class="flex items-center gap-1 font-mono"
+          >
+            <UIcon
+              name="i-lucide-users"
+              class="w-3 h-3"
+            />
             {{ mpRoom }}
           </UBadge>
         </div>
@@ -180,7 +204,10 @@
           </div>
 
           <!-- Round history -->
-          <div v-if="scores.length > 0" class="mt-4">
+          <div
+            v-if="scores.length > 0"
+            class="mt-4"
+          >
             <USeparator class="mb-3" />
             <p class="text-xs text-muted uppercase tracking-wide mb-2">
               {{ $t('phase10.roundHistory') }}
@@ -213,10 +240,16 @@
             <p class="text-xs text-muted uppercase tracking-wide mb-2">
               {{ $t('mp.otherPlayers') }}
             </p>
-            <p v-if="mpOtherPlayers.length === 0" class="text-sm text-muted italic text-center py-1">
+            <p
+              v-if="mpOtherPlayers.length === 0"
+              class="text-sm text-muted italic text-center py-1"
+            >
               {{ $t('mp.waitingForPlayers') }}
             </p>
-            <div v-else class="space-y-3">
+            <div
+              v-else
+              class="space-y-3"
+            >
               <div
                 v-for="player in mpOtherPlayers"
                 :key="player.playerId"
@@ -252,12 +285,18 @@
             <h2 class="font-semibold text-base">
               {{ $t('phase10.phases') }}
             </h2>
-            <p v-if="currentPhase" class="text-xs text-muted">
+            <p
+              v-if="currentPhase"
+              class="text-xs text-muted"
+            >
               {{ $t('phase10.currentPhaseLabel', { n: currentPhase.id }) }}
             </p>
           </div>
 
-          <div class="space-y-1" data-testid="phase-list">
+          <div
+            class="space-y-1"
+            data-testid="phase-list"
+          >
             <button
               v-for="phase in phases"
               :key="phase.id"
@@ -294,10 +333,20 @@
                   >
                     {{ $t('phase10.phaseN', { n: phase.id }) }}
                   </span>
-                  <UBadge v-if="currentPhase?.id === phase.id" size="xs" color="primary" variant="subtle">
+                  <UBadge
+                    v-if="currentPhase?.id === phase.id"
+                    size="xs"
+                    color="primary"
+                    variant="subtle"
+                  >
                     {{ $t('phase10.current') }}
                   </UBadge>
-                  <UBadge v-if="isCompleted(phase.id)" size="xs" color="success" variant="subtle">
+                  <UBadge
+                    v-if="isCompleted(phase.id)"
+                    size="xs"
+                    color="success"
+                    variant="subtle"
+                  >
                     {{ $t('phase10.done') }}
                   </UBadge>
                 </div>
@@ -384,10 +433,13 @@ const { savePhase10Game } = useGameHistory()
 function resolvePhaseList(key: 'phase10.phaseList' | 'phase10.phaseListAlt') {
   const raw = tm(key as string)
   if (!Array.isArray(raw)) return []
-  return (raw as any[]).map((p, i) => ({
-    id: i + 1,
-    description: typeof p === 'object' && p.description ? rt(p.description) : String(p)
-  }))
+  return (raw as unknown[]).map((p, i) => {
+    const item = p as Record<string, unknown>
+    return {
+      id: i + 1,
+      description: typeof item.description === 'string' ? rt(item.description) : String(p)
+    }
+  })
 }
 
 const classicPhases = computed(() => resolvePhaseList('phase10.phaseList'))
@@ -426,12 +478,15 @@ const activeSetName = computed(() =>
 )
 
 const cardValueRows = computed(() => {
-  const raw = (tm('phase10.cardValuesRows') as any[])
+  const raw = tm('phase10.cardValuesRows')
   if (!Array.isArray(raw)) return []
-  return (raw as any[]).map(r => ({
-    label: typeof r === 'object' && r.label ? rt(r.label) : '',
-    value: typeof r === 'object' && r.value ? rt(r.value) : ''
-  }))
+  return (raw as unknown[]).map((r) => {
+    const row = r as Record<string, unknown>
+    return {
+      label: typeof row.label === 'string' ? rt(row.label) : '',
+      value: typeof row.value === 'string' ? rt(row.value) : ''
+    }
+  })
 })
 
 const scoreInput = ref<string>('')

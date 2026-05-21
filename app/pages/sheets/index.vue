@@ -60,7 +60,7 @@ const games = computed(() => [
     route: '/sheets/phase10',
     description: t('games.phase10.description'),
     tags: Array.isArray(tm('games.phase10.tags'))
-      ? (tm('games.phase10.tags') as any[]).map(tag => rt(tag))
+      ? (tm('games.phase10.tags') as unknown[]).map(tag => rt(tag as string))
       : []
   },
   {
@@ -70,7 +70,7 @@ const games = computed(() => [
     route: '/sheets/kniffel',
     description: t('games.kniffel.description'),
     tags: Array.isArray(tm('games.kniffel.tags'))
-      ? (tm('games.kniffel.tags') as any[]).map(tag => rt(tag))
+      ? (tm('games.kniffel.tags') as unknown[]).map(tag => rt(tag as string))
       : []
   },
   {
@@ -80,7 +80,7 @@ const games = computed(() => [
     route: '/sheets/notizblock',
     description: t('games.notizblock.description'),
     tags: Array.isArray(tm('games.notizblock.tags'))
-      ? (tm('games.notizblock.tags') as any[]).map(tag => rt(tag))
+      ? (tm('games.notizblock.tags') as unknown[]).map(tag => rt(tag as string))
       : []
   }
 ])

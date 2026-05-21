@@ -40,11 +40,6 @@ function digits(): number[] {
   return [1, 2, 3, 4, 5, 6, 7, 8, 9]
 }
 
-/** 0-based box index for cell (row, col) */
-function boxIndex(row: number, col: number): number {
-  return Math.floor(row / 3) * 3 + Math.floor(col / 3)
-}
-
 /** Returns true if placing `n` at (row, col) violates a constraint */
 function conflicts(grid: Grid, row: number, col: number, n: number): boolean {
   // Row
@@ -155,7 +150,7 @@ function generateSolution(): Grid {
 const CLUE_COUNTS: Record<Difficulty, number> = {
   easy: 36,
   medium: 30,
-  hard: 25,
+  hard: 25
 }
 
 function carveClues(solution: Grid, targetClues: number): Grid {
@@ -173,8 +168,7 @@ function carveClues(solution: Grid, targetClues: number): Grid {
     grid[r]![c] = null
     if (countSolutions(grid, 2) !== 1) {
       grid[r]![c] = saved // restore – removing this cell breaks uniqueness
-    }
-    else {
+    } else {
       filled--
     }
   }
@@ -249,6 +243,6 @@ export function useSudoku() {
     generate,
     setCell,
     reset,
-    reveal,
+    reveal
   }
 }

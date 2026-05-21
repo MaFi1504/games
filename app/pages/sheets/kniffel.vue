@@ -17,9 +17,17 @@
             @click="mpExpanded = !mpExpanded"
           >
             <div class="flex items-center gap-2">
-              <UIcon name="i-lucide-users" class="w-4 h-4 text-muted" />
+              <UIcon
+                name="i-lucide-users"
+                class="w-4 h-4 text-muted"
+              />
               <span class="font-medium text-sm">{{ $t('mp.playWithOthers') }}</span>
-              <UBadge v-if="mpConnected" color="success" variant="subtle" size="xs">
+              <UBadge
+                v-if="mpConnected"
+                color="success"
+                variant="subtle"
+                size="xs"
+              >
                 {{ $t('mp.connected') }}
               </UBadge>
             </div>
@@ -29,7 +37,10 @@
             />
           </button>
 
-          <div v-if="mpExpanded" class="mt-4 space-y-3">
+          <div
+            v-if="mpExpanded"
+            class="mt-4 space-y-3"
+          >
             <template v-if="!mpConnected">
               <UInput
                 v-model="mpNameInput"
@@ -142,11 +153,24 @@
       <template v-else>
         <!-- Variant indicator -->
         <div class="flex items-center gap-2 mb-4">
-          <UBadge color="primary" variant="subtle" size="sm">
+          <UBadge
+            color="primary"
+            variant="subtle"
+            size="sm"
+          >
             {{ variant === 'standard' ? $t('kniffel.variantStandard') : $t('kniffel.variantExtrem') }}
           </UBadge>
-          <UBadge v-if="mpConnected" color="success" variant="subtle" size="sm" class="flex items-center gap-1 font-mono">
-            <UIcon name="i-lucide-users" class="w-3 h-3" />
+          <UBadge
+            v-if="mpConnected"
+            color="success"
+            variant="subtle"
+            size="sm"
+            class="flex items-center gap-1 font-mono"
+          >
+            <UIcon
+              name="i-lucide-users"
+              class="w-3 h-3"
+            />
             {{ mpRoom }}
           </UBadge>
         </div>
@@ -189,10 +213,16 @@
             <p class="text-xs text-muted uppercase tracking-wide mb-2">
               {{ $t('mp.otherPlayers') }}
             </p>
-            <p v-if="mpOtherPlayers.length === 0" class="text-sm text-muted italic text-center py-1">
+            <p
+              v-if="mpOtherPlayers.length === 0"
+              class="text-sm text-muted italic text-center py-1"
+            >
               {{ $t('mp.waitingForPlayers') }}
             </p>
-            <div v-else class="space-y-3">
+            <div
+              v-else
+              class="space-y-3"
+            >
               <div
                 v-for="player in mpOtherPlayers"
                 :key="player.playerId"
@@ -237,9 +267,9 @@
             <KniffelCategoryRow
               v-for="cat in upperCategories"
               :key="cat.id"
+              v-model:input-value="categoryInputs[cat.id]"
               :cat="cat"
               :fixed-points="getFixedPoints(cat.id)"
-              v-model:input-value="categoryInputs[cat.id]"
               @score-fixed="scoreFixedCategory"
               @score-input="scoreFromInput"
               @remove="removeScore"
@@ -274,10 +304,10 @@
             <KniffelCategoryRow
               v-for="cat in lowerCategories"
               :key="cat.id"
+              v-model:input-value="categoryInputs[cat.id]"
               :cat="cat"
               :fixed-points="getFixedPoints(cat.id)"
               :show-fixed-hint="true"
-              v-model:input-value="categoryInputs[cat.id]"
               @score-fixed="scoreFixedCategory"
               @score-input="scoreFromInput"
               @remove="removeScore"
@@ -328,7 +358,7 @@ const {
   allCategoriesScored,
   scoredCount,
   bonusThreshold,
-  bonusValue,
+  bonusValue: _bonusValue,
   load,
   selectVariant,
   scoreCategory,
@@ -337,11 +367,11 @@ const {
   getFixedPoints
 } = useKniffel()
 
-const upperCategories = computed(() => 
+const upperCategories = computed(() =>
   categoryList.value.filter(cat => UPPER_SECTION_IDS.includes(cat.id))
 )
 
-const lowerCategories = computed(() => 
+const lowerCategories = computed(() =>
   categoryList.value.filter(cat => !UPPER_SECTION_IDS.includes(cat.id))
 )
 
@@ -414,7 +444,7 @@ function scoreFromInput(categoryId: string) {
     const score = Number(inputValue) || 0
     if (score >= 0) {
       scoreCategory(categoryId, score)
-      delete categoryInputs[categoryId]
+      Reflect.deleteProperty(categoryInputs, categoryId)
     }
   }
 }
@@ -440,7 +470,7 @@ function handleReset() {
     })
   }
   reset()
-  Object.keys(categoryInputs).forEach(key => delete categoryInputs[key])
+  Object.keys(categoryInputs).forEach(key => Reflect.deleteProperty(categoryInputs, key))
   confirmReset.value = false
 }
 

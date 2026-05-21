@@ -79,7 +79,10 @@
         v-if="isGenerating"
         class="absolute inset-0 flex items-center justify-center bg-background/60 rounded z-10"
       >
-        <UIcon name="i-lucide-loader-circle" class="animate-spin text-primary text-3xl" />
+        <UIcon
+          name="i-lucide-loader-circle"
+          class="animate-spin text-primary text-3xl"
+        />
       </div>
 
       <div
@@ -132,7 +135,10 @@
     <UCard class="mt-10">
       <template #header>
         <div class="flex items-center gap-2">
-          <UIcon name="i-lucide-code-2" class="text-primary" />
+          <UIcon
+            name="i-lucide-code-2"
+            class="text-primary"
+          />
           <span class="font-semibold">{{ $t('sudoku.howItWorks.title') }}</span>
         </div>
       </template>
@@ -186,16 +192,16 @@ const {
   generate,
   setCell,
   reset,
-  reveal,
+  reveal
 } = useSudoku()
 
 // Grid size in px – responsive via JS so we can compute borders
 const gridPx = 360
 
-const difficulties: { value: Difficulty; label: string }[] = [
+const difficulties: { value: Difficulty, label: string }[] = [
   { value: 'easy', label: t('sudoku.easy') },
   { value: 'medium', label: t('sudoku.medium') },
-  { value: 'hard', label: t('sudoku.hard') },
+  { value: 'hard', label: t('sudoku.hard') }
 ]
 
 // Selected cell
@@ -260,7 +266,7 @@ function cellBorderStyle(r: number, c: number): Record<string, string> {
     borderTop: r % 3 === 0 && r !== 0 ? '2px solid var(--ui-border-accented)' : '1px solid var(--ui-border)',
     borderLeft: c % 3 === 0 && c !== 0 ? '2px solid var(--ui-border-accented)' : '1px solid var(--ui-border)',
     borderBottom: '0',
-    borderRight: '0',
+    borderRight: '0'
   }
 }
 </script>

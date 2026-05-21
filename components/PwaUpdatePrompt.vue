@@ -49,8 +49,6 @@
 </template>
 
 <script setup lang="ts">
-const { t } = useI18n()
-
 // Only import in client-side
 const needRefresh = ref(false)
 const updateServiceWorker = ref<((reloadPage?: boolean) => Promise<void>) | null>(null)
@@ -72,15 +70,15 @@ onMounted(async () => {
           }
         }
       })
-      
+
       needRefresh.value = swNeedRefresh.value
       updateServiceWorker.value = swUpdateServiceWorker
-      
+
       // Watch for changes
       watch(swNeedRefresh, (value) => {
         needRefresh.value = value
       })
-    } catch (e) {
+    } catch {
       // PWA not available
       console.log('PWA registration not available')
     }

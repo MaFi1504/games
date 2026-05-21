@@ -28,16 +28,20 @@
         <div class="space-y-4">
           <!-- Icon preview -->
           <div class="flex justify-center py-4">
-            <img src="/icon.svg" alt="App Icon" class="w-32 h-32" />
+            <img
+              src="/icon.svg"
+              alt="App Icon"
+              class="w-32 h-32"
+            >
           </div>
 
           <!-- Attribution details -->
           <div class="space-y-2 text-sm">
             <div class="flex gap-2">
               <span class="font-semibold min-w-20">{{ $t('credits.author') }}:</span>
-              <a 
-                href="https://commons.wikimedia.org/wiki/User:Silsor" 
-                target="_blank" 
+              <a
+                href="https://commons.wikimedia.org/wiki/User:Silsor"
+                target="_blank"
                 rel="noopener noreferrer"
                 class="text-primary hover:underline"
               >
@@ -47,9 +51,9 @@
 
             <div class="flex gap-2">
               <span class="font-semibold min-w-20">{{ $t('credits.source') }}:</span>
-              <a 
-                href="https://commons.wikimedia.org/w/index.php?curid=359539" 
-                target="_blank" 
+              <a
+                href="https://commons.wikimedia.org/w/index.php?curid=359539"
+                target="_blank"
                 rel="noopener noreferrer"
                 class="text-primary hover:underline"
               >
@@ -59,9 +63,9 @@
 
             <div class="flex gap-2">
               <span class="font-semibold min-w-20">{{ $t('credits.license') }}:</span>
-              <a 
-                href="https://creativecommons.org/licenses/by-sa/3.0/" 
-                target="_blank" 
+              <a
+                href="https://creativecommons.org/licenses/by-sa/3.0/"
+                target="_blank"
                 rel="noopener noreferrer"
                 class="text-primary hover:underline"
               >
@@ -76,8 +80,8 @@
           </div>
 
           <!-- License explanation -->
-          <UAlert 
-            color="neutral" 
+          <UAlert
+            color="neutral"
             variant="subtle"
             icon="i-lucide-info"
             :title="$t('credits.licenseTitle')"
@@ -101,7 +105,9 @@
           </p>
 
           <div class="pt-3 border-t border-default">
-            <h3 class="font-semibold mb-2">{{ $t('credits.technologies') }}</h3>
+            <h3 class="font-semibold mb-2">
+              {{ $t('credits.technologies') }}
+            </h3>
             <ul class="list-disc list-inside space-y-1 text-muted">
               <li>Nuxt 4 / Vue 3</li>
               <li>Nuxt UI / Tailwind CSS</li>
@@ -124,7 +130,7 @@
 <script setup lang="ts">
 const { t } = useI18n()
 
-useSeoMeta({ 
+useSeoMeta({
   title: () => t('credits.title'),
   description: () => t('credits.appDescription')
 })

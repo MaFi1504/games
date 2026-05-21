@@ -120,7 +120,10 @@ async function switchLocale(code: 'en' | 'de') {
         <UColorModeButton />
       </template>
 
-      <template v-if="isPhase10 || isKniffel" #body>
+      <template
+        v-if="isPhase10 || isKniffel"
+        #body
+      >
         <div class="flex items-center justify-between mb-3">
           <p class="font-semibold text-sm uppercase tracking-wide text-muted">
             {{ $t('history.title') }}
@@ -136,15 +139,26 @@ async function switchLocale(code: 'en' | 'de') {
           />
         </div>
 
-        <div v-if="!hasHistory" class="text-sm text-muted text-center py-4">
+        <div
+          v-if="!hasHistory"
+          class="text-sm text-muted text-center py-4"
+        >
           {{ $t('history.noGames') }}
         </div>
 
-        <div v-else class="space-y-5">
-          <div v-for="group in groupedHistory" :key="group.key">
+        <div
+          v-else
+          class="space-y-5"
+        >
+          <div
+            v-for="group in groupedHistory"
+            :key="group.key"
+          >
             <!-- Group header -->
             <div class="flex items-center justify-between mb-2 pb-1.5 border-b border-default">
-              <p class="text-sm font-semibold">{{ group.label }}</p>
+              <p class="text-sm font-semibold">
+                {{ group.label }}
+              </p>
               <span class="text-xs text-muted">
                 {{ $t('history.avgScore') }}
                 <span class="font-semibold tabular-nums text-default">{{ group.avgScore }}</span>
@@ -171,17 +185,25 @@ async function switchLocale(code: 'en' | 'de') {
                 </div>
                 <div class="grid grid-cols-2 gap-2 text-center">
                   <div>
-                    <p class="text-xs text-muted mb-0.5">{{ $t('history.score') }}</p>
-                    <p class="text-lg font-bold tabular-nums leading-none">{{ entry.totalScore }}</p>
+                    <p class="text-xs text-muted mb-0.5">
+                      {{ $t('history.score') }}
+                    </p>
+                    <p class="text-lg font-bold tabular-nums leading-none">
+                      {{ entry.totalScore }}
+                    </p>
                   </div>
                   <div v-if="isPhase10">
-                    <p class="text-xs text-muted mb-0.5">{{ $t('history.phases') }}</p>
+                    <p class="text-xs text-muted mb-0.5">
+                      {{ $t('history.phases') }}
+                    </p>
                     <p class="text-lg font-bold tabular-nums leading-none">
                       {{ (entry as Phase10HistoryEntry).phasesCompleted }}<span class="text-muted text-sm">/{{ (entry as Phase10HistoryEntry).totalPhases }}</span>
                     </p>
                   </div>
                   <div v-else-if="isKniffel">
-                    <p class="text-xs text-muted mb-0.5">{{ $t('history.categories') }}</p>
+                    <p class="text-xs text-muted mb-0.5">
+                      {{ $t('history.categories') }}
+                    </p>
                     <p class="text-lg font-bold tabular-nums leading-none">
                       {{ (entry as KniffelHistoryEntry).categoriesScored }}<span class="text-muted text-sm">/{{ (entry as KniffelHistoryEntry).totalCategories }}</span>
                     </p>
@@ -205,7 +227,7 @@ async function switchLocale(code: 'en' | 'de') {
         </p>
       </template>
       <template #right>
-        <NuxtLink 
+        <NuxtLink
           to="/credits"
           class="text-sm text-muted hover:text-default transition-colors"
         >

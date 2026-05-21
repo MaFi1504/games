@@ -1,5 +1,8 @@
 <template>
-  <UModal :open="open" @update:open="$emit('update:open', $event)">
+  <UModal
+    :open="open"
+    @update:open="$emit('update:open', $event)"
+  >
     <template #content>
       <UCard>
         <template #header>
@@ -43,6 +46,6 @@ defineProps<{
 
 defineEmits<{
   'update:open': [value: boolean]
-  confirm: []
+  'confirm': []
 }>()
 </script>

@@ -31,8 +31,8 @@ const EXTREM_CATEGORIES = [
   // Upper section
   'ones', 'twos', 'threes', 'fours', 'fives', 'sixes',
   // Lower section
-  'threeOfAKind', 'fourOfAKind', 'twoPairs', 'threePairs', 'twoThreeOfAKind', 'fullHouse', 'largeFullHouse', 
-  'smallStraight', 'largeStraight', 'highway', 'kniffel', 'kniffelExtrem', 'tenOrLess', 'thirtyThreeOrMore', 
+  'threeOfAKind', 'fourOfAKind', 'twoPairs', 'threePairs', 'twoThreeOfAKind', 'fullHouse', 'largeFullHouse',
+  'smallStraight', 'largeStraight', 'highway', 'kniffel', 'kniffelExtrem', 'tenOrLess', 'thirtyThreeOrMore',
   'chance', 'superChance'
 ]
 
@@ -112,13 +112,13 @@ export function useKniffel() {
   })
 
   const allCategoriesScored = computed(() => {
-    return categoryIds.value.every(id => 
+    return categoryIds.value.every(id =>
       categories.value[id] !== null && categories.value[id] !== undefined
     )
   })
 
   const scoredCount = computed(() => {
-    return categoryIds.value.filter(id => 
+    return categoryIds.value.filter(id =>
       categories.value[id] !== null && categories.value[id] !== undefined
     ).length
   })
@@ -146,7 +146,7 @@ export function useKniffel() {
   function scoreCategory(id: string, value: number) {
     if (!categoryIds.value.includes(id)) return
     if (categories.value[id] !== null && categories.value[id] !== undefined) return
-    
+
     categories.value = {
       ...categories.value,
       [id]: Math.max(0, Math.floor(value))
@@ -171,17 +171,17 @@ export function useKniffel() {
 
   function getFixedPoints(categoryId: string): number | null {
     const isExtrem = variant.value === 'extrem'
-    
+
     // Check Extrem-specific overrides first
     if (isExtrem && EXTREM_FIXED_POINTS[categoryId] !== undefined) {
       return EXTREM_FIXED_POINTS[categoryId]
     }
-    
+
     // Then check general fixed points
     if (CATEGORY_FIXED_POINTS[categoryId] !== undefined) {
       return CATEGORY_FIXED_POINTS[categoryId]
     }
-    
+
     return null
   }
 

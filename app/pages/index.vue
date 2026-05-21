@@ -60,7 +60,7 @@ const apps = computed(() => [
     route: '/sheets',
     description: t('apps.sheets.description'),
     tags: Array.isArray(tm('apps.sheets.tags'))
-      ? (tm('apps.sheets.tags') as any[]).map(tag => rt(tag))
+      ? (tm('apps.sheets.tags') as unknown[]).map(tag => rt(tag as string))
       : []
   },
   {
@@ -70,7 +70,7 @@ const apps = computed(() => [
     route: '/sudoku',
     description: t('apps.sudoku.description'),
     tags: Array.isArray(tm('apps.sudoku.tags'))
-      ? (tm('apps.sudoku.tags') as any[]).map(tag => rt(tag))
+      ? (tm('apps.sudoku.tags') as unknown[]).map(tag => rt(tag as string))
       : []
   }
 ])

@@ -12,13 +12,13 @@ export default defineConfig<ConfigOptions>({
   use: {
     trace: 'on-first-retry',
     nuxt: {
-      rootDir: fileURLToPath(new URL('.', import.meta.url)),
-    },
+      rootDir: fileURLToPath(new URL('.', import.meta.url))
+    }
   },
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
-  ],
+      use: { ...devices['Desktop Chrome'] }
+    }
+  ]
 })

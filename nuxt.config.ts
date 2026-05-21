@@ -9,6 +9,44 @@ export default defineNuxtConfig({
     '@vite-pwa/nuxt'
   ],
 
+  devtools: {
+    enabled: true
+  },
+
+  css: ['~/assets/css/main.css'],
+
+  compatibilityDate: '2025-01-15',
+
+  nitro: {
+    experimental: {
+      websocket: true
+    }
+  },
+
+  eslint: {
+    config: {
+      stylistic: {
+        commaDangle: 'never',
+        braceStyle: '1tbs'
+      }
+    }
+  },
+
+  i18n: {
+    locales: [
+      { code: 'en', language: 'en-US', name: 'English', file: 'en.json' },
+      { code: 'de', language: 'de-DE', name: 'Deutsch', file: 'de.json' }
+    ],
+    defaultLocale: 'en',
+    langDir: '../locales/',
+    strategy: 'no_prefix',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+      redirectOn: 'root'
+    }
+  },
+
   pwa: {
     registerType: 'autoUpdate',
     includeAssets: ['favicon.ico', 'icon.svg', 'icon-192.png', 'icon-512.png'],
@@ -106,44 +144,6 @@ export default defineNuxtConfig({
       enabled: true,
       suppressWarnings: true,
       type: 'module'
-    }
-  },
-
-  i18n: {
-    locales: [
-      { code: 'en', language: 'en-US', name: 'English', file: 'en.json' },
-      { code: 'de', language: 'de-DE', name: 'Deutsch', file: 'de.json' }
-    ],
-    defaultLocale: 'en',
-    langDir: '../locales/',
-    strategy: 'no_prefix',
-    detectBrowserLanguage: {
-      useCookie: true,
-      cookieKey: 'i18n_redirected',
-      redirectOn: 'root'
-    }
-  },
-
-  nitro: {
-    experimental: {
-      websocket: true
-    }
-  },
-
-  devtools: {
-    enabled: true
-  },
-
-  css: ['~/assets/css/main.css'],
-
-  compatibilityDate: '2025-01-15',
-
-  eslint: {
-    config: {
-      stylistic: {
-        commaDangle: 'never',
-        braceStyle: '1tbs'
-      }
     }
   }
 })

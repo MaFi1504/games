@@ -7,8 +7,7 @@ export function loadFromStorage<T>(key: string): T | null {
   try {
     const raw = localStorage.getItem(key)
     if (raw) return JSON.parse(raw) as T
-  }
-  catch {
+  } catch {
     // ignore corrupt data
   }
   return null

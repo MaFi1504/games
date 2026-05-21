@@ -6,7 +6,10 @@
     <div class="flex-1 min-w-0">
       <p class="text-sm font-medium">
         {{ $t(`kniffel.categories.${cat.id}`) }}
-        <span v-if="showFixedHint && fixedPoints !== null" class="text-muted">
+        <span
+          v-if="showFixedHint && fixedPoints !== null"
+          class="text-muted"
+        >
           ({{ fixedPoints }})
         </span>
       </p>
@@ -20,7 +23,10 @@
           class="w-6 h-6 rounded border-2 border-primary hover:bg-primary/10 flex items-center justify-center transition-colors"
           @click="$emit('scoreFixed', cat.id)"
         >
-          <UIcon name="i-lucide-check" class="w-4 h-4 text-primary opacity-0" />
+          <UIcon
+            name="i-lucide-check"
+            class="w-4 h-4 text-primary opacity-0"
+          />
         </button>
         <!-- Input field for variable-value categories -->
         <UInput
@@ -38,7 +44,10 @@
           @blur="$emit('scoreInput', cat.id)"
         />
       </template>
-      <div v-else class="flex items-center gap-2 w-20">
+      <div
+        v-else
+        class="flex items-center gap-2 w-20"
+      >
         <span class="tabular-nums text-sm font-semibold flex-1 text-right">
           {{ cat.value }}
         </span>
@@ -66,9 +75,9 @@ defineProps<{
 }>()
 
 defineEmits<{
-  scoreFixed: [id: string]
-  scoreInput: [id: string]
-  remove: [id: string]
+  'scoreFixed': [id: string]
+  'scoreInput': [id: string]
+  'remove': [id: string]
   'update:inputValue': [value: string]
 }>()
 </script>

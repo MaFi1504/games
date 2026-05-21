@@ -37,7 +37,10 @@
           />
         </div>
 
-        <div v-if="players.length > 0" class="mt-4 space-y-2">
+        <div
+          v-if="players.length > 0"
+          class="mt-4 space-y-2"
+        >
           <div
             v-for="player in players"
             :key="player.id"
@@ -56,14 +59,23 @@
         </div>
       </UCard>
 
-      <div v-if="playerSummaries.length === 0" class="text-center py-10 text-muted">
-        <UIcon name="i-lucide-notebook-pen" class="w-10 h-10 mx-auto mb-3 opacity-60" />
+      <div
+        v-if="playerSummaries.length === 0"
+        class="text-center py-10 text-muted"
+      >
+        <UIcon
+          name="i-lucide-notebook-pen"
+          class="w-10 h-10 mx-auto mb-3 opacity-60"
+        />
         <p class="text-sm leading-relaxed">
           {{ $t('notepad.emptyState') }}
         </p>
       </div>
 
-      <div v-else class="space-y-3">
+      <div
+        v-else
+        class="space-y-3"
+      >
         <UCard
           v-for="player in playerSummaries"
           :key="player.id"
@@ -107,7 +119,10 @@
               <h3 class="font-semibold text-base">
                 {{ $t('notepad.addPointsTitle') }}
               </h3>
-              <p v-if="activePlayer" class="text-sm text-muted mt-1">
+              <p
+                v-if="activePlayer"
+                class="text-sm text-muted mt-1"
+              >
                 {{ activePlayer.name }}
               </p>
             </div>
@@ -151,17 +166,29 @@
               <h3 class="font-semibold text-base">
                 {{ $t('notepad.entriesTitle') }}
               </h3>
-              <p v-if="activePlayer" class="text-sm text-muted mt-1">
+              <p
+                v-if="activePlayer"
+                class="text-sm text-muted mt-1"
+              >
                 {{ activePlayer.name }}
               </p>
             </div>
           </template>
 
-          <div v-if="activePlayer" class="space-y-3">
-            <div v-if="activePlayer.entries.length === 0" class="text-sm text-muted">
+          <div
+            v-if="activePlayer"
+            class="space-y-3"
+          >
+            <div
+              v-if="activePlayer.entries.length === 0"
+              class="text-sm text-muted"
+            >
               {{ $t('notepad.noEntries') }}
             </div>
-            <div v-else class="space-y-2 max-h-80 overflow-y-auto pr-1">
+            <div
+              v-else
+              class="space-y-2 max-h-80 overflow-y-auto pr-1"
+            >
               <div
                 v-for="(entry, index) in activePlayer.entries"
                 :key="entry.id"
