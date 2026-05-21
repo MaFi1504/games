@@ -5,6 +5,7 @@ import Phase10Page from '../../app/pages/sheets/phase10.vue'
 import SheetsIndexPage from '../../app/pages/sheets/index.vue'
 import IndexPage from '../../app/pages/index.vue'
 import NotizblockPage from '../../app/pages/sheets/notizblock.vue'
+import KniffelPage from '../../app/pages/sheets/kniffel.vue'
 
 // Mutable module-level refs so individual tests can override state
 // without calling mockNuxtImport again (which causes hoisting issues)
@@ -46,6 +47,69 @@ const mockAddEntry = vi.fn()
 const mockUpdateEntry = vi.fn()
 const mockRemoveEntry = vi.fn()
 const mockResetNotepad = vi.fn()
+
+// Kniffel mocks
+const mockVariant = ref<'standard' | 'extrem' | null>(null)
+const mockCategoryList = ref<Array<{ id: string, scored: boolean, value: number | null }>>([])
+const mockKniffelUpperSectionScore = ref(0)
+const mockKniffelUpperSectionBonus = ref(0)
+const mockKniffelUpperSectionTotal = ref(0)
+const mockKniffelLowerSectionScore = ref(0)
+const mockKniffelTotalScore = ref(0)
+const mockAllCategoriesScored = ref(false)
+const mockScoredCount = ref(0)
+const mockBonusThreshold = ref(63)
+const mockKniffelLoad = vi.fn()
+const mockSelectVariant = vi.fn()
+
+const mockMpConnected = ref(false)
+const mockMpConnecting = ref(false)
+const mockMpRoom = ref('')
+const mockMpPlayerName = ref('')
+const mockMpOtherPlayers = ref<unknown[]>([])
+const mockMpError = ref<string | null>(null)
+
+mockNuxtImport('useKniffel', () => () => ({
+  variant: mockVariant,
+  categoryList: mockCategoryList,
+  upperSectionScore: mockKniffelUpperSectionScore,
+  upperSectionBonus: mockKniffelUpperSectionBonus,
+  upperSectionTotal: mockKniffelUpperSectionTotal,
+  lowerSectionScore: mockKniffelLowerSectionScore,
+  totalScore: mockKniffelTotalScore,
+  allCategoriesScored: mockAllCategoriesScored,
+  scoredCount: mockScoredCount,
+  bonusThreshold: mockBonusThreshold,
+  bonusValue: ref(35),
+  load: mockKniffelLoad,
+  selectVariant: mockSelectVariant,
+  scoreCategory: vi.fn(),
+  removeScore: vi.fn(),
+  reset: vi.fn(),
+  getFixedPoints: vi.fn().mockReturnValue(null)
+}))
+
+mockNuxtImport('useKniffelMultiplayer', () => () => ({
+  roomCode: mockMpRoom,
+  playerName: mockMpPlayerName,
+  connected: mockMpConnected,
+  connecting: mockMpConnecting,
+  otherPlayers: mockMpOtherPlayers,
+  connectionError: mockMpError,
+  connect: vi.fn(),
+  sendUpdate: vi.fn(),
+  close: vi.fn()
+}))
+
+mockNuxtImport('useGameHistory', () => () => ({
+  phase10History: ref([]),
+  kniffelHistory: ref([]),
+  init: vi.fn(),
+  savePhase10Game: vi.fn(),
+  saveKniffelGame: vi.fn(),
+  clearPhase10History: vi.fn(),
+  clearKniffelHistory: vi.fn()
+}))
 
 mockNuxtImport('useNotepad', () => () => ({
   players: mockPlayers,
@@ -255,5 +319,89 @@ describe('Notizblock page', () => {
 
     expect(mockAddEntry).toHaveBeenCalledWith('p1', 9)
     expect(vm.pointsInput).toBe('')
+  })
+})
+
+describe('Kniffel page', () => {
+  beforeEach(() => {
+    mockVariant.value = null
+    mockCategoryList.value = []
+    mockKniffelTotalScore.value = 0
+    mockScoredCount.value = 0
+    mockAllCategoriesScored.value = false
+    mockMpConnected.value = false
+    vi.clearAllMocks()
+  })
+
+  it('renders the page title', async () => {
+    const wrapper = await mountSuspended(KniffelPage)
+    expect(wrapper.text()).toContain('Kniffel')
+  })
+
+  it('calls load on mount', async () => {
+    await mountSuspended(KniffelPage)
+    expect(mockKniffelLoad).toHaveBeenCalledOnce()
+  })
+
+  it('shows variant selection when no variant is set', async () => {
+    const wrapper = await mountSuspended(KniffelPage)
+    expect(wrapper.text()).toContain('Standard')
+    expect(wrapper.text()).toContain('Extrem')
+  })
+
+  it('calls selectVariant with "standard" when standard button is clicked', async () => {
+    const wrapper = await mountSuspended(KniffelPage)
+    const buttons = wrapper.findAll('button[type="button"]')
+    const standardButton = buttons.find(b => b.text().includes('Standard'))
+    expect(standardButton?.exists()).toBe(true)
+    await standardButton!.trigger('click')
+    expect(mockSelectVariant).toHaveBeenCalledWith('standard')
+  })
+
+  it('calls selectVariant with "extrem" when extrem button is clicked', async () => {
+    const wrapper = await mountSuspended(KniffelPage)
+    const buttons = wrapper.findAll('button[type="button"]')
+    const extremButton = buttons.find(b => b.text().includes('Extrem'))
+    expect(extremButton?.exists()).toBe(true)
+    await extremButton!.trigger('click')
+    expect(mockSelectVariant).toHaveBeenCalledWith('extrem')
+  })
+
+  it('shows score summary once a variant is selected', async () => {
+    mockVariant.value = 'standard'
+    mockKniffelTotalScore.value = 0
+    mockScoredCount.value = 0
+    mockCategoryList.value = [{ id: 'ones', scored: false, value: null }]
+    const wrapper = await mountSuspended(KniffelPage)
+    expect(wrapper.text()).toContain('Total Score')
+  })
+
+  it('shows win banner when all categories are scored', async () => {
+    mockVariant.value = 'standard'
+    mockAllCategoriesScored.value = true
+    mockCategoryList.value = [{ id: 'ones', scored: true, value: 3 }]
+    const wrapper = await mountSuspended(KniffelPage)
+    expect(wrapper.text()).toMatch(/game complete/i)
+  })
+
+  it('displays total score', async () => {
+    mockVariant.value = 'standard'
+    mockKniffelTotalScore.value = 287
+    mockCategoryList.value = [{ id: 'ones', scored: false, value: null }]
+    const wrapper = await mountSuspended(KniffelPage)
+    expect(wrapper.text()).toContain('287')
+  })
+
+  it('shows scored count', async () => {
+    mockVariant.value = 'standard'
+    mockScoredCount.value = 5
+    mockCategoryList.value = Array.from({ length: 13 }, (_, i) => ({
+      id: `cat${i}`,
+      scored: i < 5,
+      value: i < 5 ? 10 : null
+    }))
+    const wrapper = await mountSuspended(KniffelPage)
+    expect(wrapper.text()).toContain('5')
+    expect(wrapper.text()).toContain('/13')
   })
 })

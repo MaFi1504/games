@@ -10,114 +10,15 @@
       <!-- Variant selection (shown when no game started yet) -->
       <template v-if="!variant">
         <!-- Multiplayer setup -->
-        <UCard class="mb-4">
-          <button
-            type="button"
-            class="w-full flex items-center justify-between"
-            @click="mpExpanded = !mpExpanded"
-          >
-            <div class="flex items-center gap-2">
-              <UIcon
-                name="i-lucide-users"
-                class="w-4 h-4 text-muted"
-              />
-              <span class="font-medium text-sm">{{ $t('mp.playWithOthers') }}</span>
-              <UBadge
-                v-if="mpConnected"
-                color="success"
-                variant="subtle"
-                size="xs"
-              >
-                {{ $t('mp.connected') }}
-              </UBadge>
-            </div>
-            <UIcon
-              :name="mpExpanded ? 'i-lucide-chevron-up' : 'i-lucide-chevron-down'"
-              class="w-4 h-4 text-muted"
-            />
-          </button>
-
-          <div
-            v-if="mpExpanded"
-            class="mt-4 space-y-3"
-          >
-            <template v-if="!mpConnected">
-              <UInput
-                v-model="mpNameInput"
-                :placeholder="$t('mp.namePlaceholder')"
-                :disabled="mpConnecting"
-                size="sm"
-              />
-              <div class="flex rounded-lg border border-default overflow-hidden text-sm">
-                <button
-                  type="button"
-                  class="flex-1 py-2 text-center transition-colors"
-                  :class="mpMode === 'create' ? 'bg-primary text-white' : 'hover:bg-muted/40'"
-                  @click="mpMode = 'create'"
-                >
-                  {{ $t('mp.createRoom') }}
-                </button>
-                <button
-                  type="button"
-                  class="flex-1 py-2 text-center transition-colors"
-                  :class="mpMode === 'join' ? 'bg-primary text-white' : 'hover:bg-muted/40'"
-                  @click="mpMode = 'join'"
-                >
-                  {{ $t('mp.joinRoom') }}
-                </button>
-              </div>
-              <UInput
-                v-if="mpMode === 'join'"
-                v-model="mpRoomInput"
-                :placeholder="$t('mp.roomCodePlaceholder')"
-                :disabled="mpConnecting"
-                size="sm"
-                class="uppercase"
-                maxlength="10"
-              />
-              <UAlert
-                v-if="mpError"
-                color="error"
-                variant="subtle"
-                :description="$t(`mp.error.${mpError}`, {}, { missingWarn: false }) || $t('mp.error.failed')"
-                icon="i-lucide-triangle-alert"
-              />
-              <UButton
-                block
-                :loading="mpConnecting"
-                :disabled="!mpNameInput.trim() || (mpMode === 'join' && !mpRoomInput.trim())"
-                @click="startMultiplayer"
-              >
-                {{ $t('mp.connect') }}
-              </UButton>
-            </template>
-
-            <template v-else>
-              <div class="flex items-start justify-between gap-3">
-                <div>
-                  <p class="text-xs text-muted mb-1">
-                    {{ $t('mp.shareCode') }}
-                  </p>
-                  <p class="text-3xl font-bold tracking-widest font-mono">
-                    {{ mpRoom }}
-                  </p>
-                  <p class="text-xs text-muted mt-1">
-                    {{ $t('mp.playingAs', { name: mpPlayerName }) }}
-                  </p>
-                </div>
-                <UButton
-                  variant="ghost"
-                  size="sm"
-                  color="neutral"
-                  icon="i-lucide-log-out"
-                  @click="mpClose"
-                >
-                  {{ $t('mp.disconnect') }}
-                </UButton>
-              </div>
-            </template>
-          </div>
-        </UCard>
+        <MultiplayerSetup
+          :connected="mpConnected"
+          :connecting="mpConnecting"
+          :error="mpError"
+          :room="mpRoom"
+          :player-name="mpPlayerName"
+          @connect="(name, room) => mpConnect(room, name).catch(() => {})"
+          @disconnect="mpClose"
+        />
 
         <p class="text-sm text-muted mb-4 text-center">
           {{ $t('kniffel.selectVariantSubtitle') }}
@@ -388,22 +289,10 @@ const {
   connecting: mpConnecting,
   otherPlayers: mpOtherPlayers,
   connectionError: mpError,
-  generateRoomCode,
   connect: mpConnect,
   sendUpdate: mpSendUpdate,
   close: mpClose
 } = useKniffelMultiplayer()
-
-const mpExpanded = ref(false)
-const mpMode = ref<'create' | 'join'>('create')
-const mpNameInput = ref('')
-const mpRoomInput = ref('')
-
-async function startMultiplayer() {
-  const room = mpMode.value === 'create' ? generateRoomCode() : mpRoomInput.value
-  if (!mpNameInput.value.trim() || !room.trim()) return
-  await mpConnect(room, mpNameInput.value).catch(() => {})
-}
 
 const categoriesRecord = computed(() =>
   Object.fromEntries(categoryList.value.map(cat => [cat.id, cat.value]))

@@ -12,6 +12,8 @@
  *   Stop when the remaining clue count reaches the target.
  */
 
+import { ref, computed, nextTick, readonly } from 'vue'
+
 export type Grid = (number | null)[][]
 export type Difficulty = 'easy' | 'medium' | 'hard'
 
@@ -206,12 +208,14 @@ export function useSudoku() {
     playerGrid.value[row]![col] = value
   }
 
-  /** True if the player's grid matches the solution */
-  const isSolved = computed(() =>
-    playerGrid.value.every((row, r) =>
+  /** True if the player's grid matches the solution (and a puzzle has been generated) */
+  const isSolved = computed(() => {
+    const hasPuzzle = solution.value.some(row => row.some(cell => cell !== null))
+    if (!hasPuzzle) return false
+    return playerGrid.value.every((row, r) =>
       row.every((cell, c) => cell === solution.value[r]![c])
     )
-  )
+  })
 
   /** For each cell: 'clue' | 'correct' | 'wrong' | 'empty' */
   const cellStates = computed(() =>

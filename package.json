@@ -9,10 +9,10 @@
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
     "typecheck": "nuxt typecheck",
-    "test": "vitest",
+    "test": "vitest --run",
     "test:watch": "vitest --watch",
-    "test:unit": "vitest --project unit",
-    "test:nuxt": "vitest --project nuxt",
+    "test:unit": "vitest --project unit --run",
+    "test:nuxt": "vitest --project nuxt --run",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui"
   },

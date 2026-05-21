@@ -43,7 +43,7 @@ const CATEGORY_FIXED_POINTS: Record<string, number | null> = {
   smallStraight: 25,
   largeStraight: 30,
   kniffel: 50,
-  // Extrem
+  // Extrem-only
   threePairs: 35,
   twoThreeOfAKind: 45,
   largeFullHouse: 45,
@@ -53,12 +53,10 @@ const CATEGORY_FIXED_POINTS: Record<string, number | null> = {
   thirtyThreeOrMore: 40
 }
 
-// For Extrem: different fixed values for some categories
-const EXTREM_FIXED_POINTS: Record<string, number | null> = {
-  fullHouse: 25,
+// Extrem overrides – only values that differ from CATEGORY_FIXED_POINTS
+const EXTREM_FIXED_POINTS_OVERRIDES: Record<string, number | null> = {
   smallStraight: 30,
-  largeStraight: 40,
-  kniffel: 50
+  largeStraight: 40
 }
 
 export function useKniffel() {
@@ -88,10 +86,7 @@ export function useKniffel() {
   })
 
   const upperSectionBonus = computed(() => {
-    const isExtrem = variant.value === 'extrem'
-    const threshold = isExtrem ? 73 : 63
-    const bonus = isExtrem ? 45 : 35
-    return upperSectionScore.value >= threshold ? bonus : 0
+    return upperSectionScore.value >= bonusThreshold.value ? bonusValue.value : 0
   })
 
   const upperSectionTotal = computed(() => {
@@ -173,8 +168,8 @@ export function useKniffel() {
     const isExtrem = variant.value === 'extrem'
 
     // Check Extrem-specific overrides first
-    if (isExtrem && EXTREM_FIXED_POINTS[categoryId] !== undefined) {
-      return EXTREM_FIXED_POINTS[categoryId]
+    if (isExtrem && EXTREM_FIXED_POINTS_OVERRIDES[categoryId] !== undefined) {
+      return EXTREM_FIXED_POINTS_OVERRIDES[categoryId]
     }
 
     // Then check general fixed points
@@ -185,8 +180,8 @@ export function useKniffel() {
     return null
   }
 
-  const bonusThreshold = computed(() => variant.value === 'extrem' ? 73 : 63)
-  const bonusValue = computed(() => variant.value === 'extrem' ? 45 : 35)
+  const bonusThreshold = computed(() => (variant.value === 'extrem' ? 73 : 63))
+  const bonusValue = computed(() => (variant.value === 'extrem' ? 45 : 35))
 
   return {
     variant,

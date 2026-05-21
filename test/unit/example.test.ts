@@ -1,7 +1,6 @@
 import { describe, expect, it, beforeEach, vi } from 'vitest'
 import { usePhase10 } from '../../app/composables/usePhase10'
 
-// Stub localStorage (not available in Node environment)
 const localStorageMock = (() => {
   let store: Record<string, string> = {}
   return {

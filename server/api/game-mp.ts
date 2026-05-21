@@ -2,9 +2,9 @@ import type { Peer } from 'crossws'
 
 // The game discriminator tells the server which game the room is for.
 // Rooms are namespaced per game so "ABC123" in phase10 is separate from "ABC123" in kniffel.
-export type GameId = 'phase10' | 'kniffel' | 'notepad'
+export type GameId = 'phase10' | 'kniffel'
 
-const VALID_GAMES = new Set<GameId>(['phase10', 'kniffel', 'notepad'])
+const VALID_GAMES = new Set<GameId>(['phase10', 'kniffel'])
 
 // Per-player state: identity fields are managed by the server; `state` is an
 // opaque JSON blob sent by the client. We only size-limit it — no game-specific

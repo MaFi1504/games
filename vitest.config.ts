@@ -1,7 +1,13 @@
 import { fileURLToPath } from 'node:url'
+import { createRequire } from 'node:module'
 import { defineConfig } from 'vitest/config'
 import { defineVitestProject } from '@nuxt/test-utils/config'
-import { resolve } from 'node:path'
+
+// pnpm's strict hoisting means the Vue package lives in a version-specific
+// subdirectory instead of node_modules/vue. Resolving it at runtime avoids
+// a hardcoded path that breaks on every Vue version bump.
+const require = createRequire(import.meta.url)
+const vuePath = require.resolve('vue')
 
 export default defineConfig({
   test: {
@@ -9,7 +15,7 @@ export default defineConfig({
       {
         resolve: {
           alias: {
-            vue: resolve('./node_modules/.pnpm/vue@3.5.33_typescript@6.0.3/node_modules/vue')
+            vue: vuePath
           }
         },
         test: {
