@@ -131,49 +131,6 @@
       />
     </div>
 
-    <!-- How it works section -->
-    <UCard class="mt-10">
-      <template #header>
-        <div class="flex items-center gap-2">
-          <UIcon
-            name="i-lucide-code-2"
-            class="text-primary"
-          />
-          <span class="font-semibold">{{ $t('sudoku.howItWorks.title') }}</span>
-        </div>
-      </template>
-
-      <div class="space-y-4 text-sm text-muted leading-relaxed">
-        <div>
-          <p class="font-semibold text-default mb-1">
-            {{ $t('sudoku.howItWorks.phase1Title') }}
-          </p>
-          <p>{{ $t('sudoku.howItWorks.phase1Body') }}</p>
-        </div>
-        <div>
-          <p class="font-semibold text-default mb-1">
-            {{ $t('sudoku.howItWorks.phase2Title') }}
-          </p>
-          <p>{{ $t('sudoku.howItWorks.phase2Body') }}</p>
-        </div>
-        <div>
-          <p class="font-semibold text-default mb-1">
-            {{ $t('sudoku.howItWorks.uniquenessTitle') }}
-          </p>
-          <p>{{ $t('sudoku.howItWorks.uniquenessBody') }}</p>
-        </div>
-      </div>
-
-      <template #footer>
-        <NuxtLink
-          to="https://en.wikipedia.org/wiki/Sudoku_solving_algorithms"
-          target="_blank"
-          class="text-xs text-primary hover:underline"
-        >
-          {{ $t('sudoku.howItWorks.learnMore') }}
-        </NuxtLink>
-      </template>
-    </UCard>
   </UContainer>
 </template>
 
