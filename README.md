@@ -1,91 +1,160 @@
 # Game Sheets
 
-A Progressive Web App for tracking scores in board and card games.
+A Progressive Web App for tracking scores in board and card games. Built with **Nuxt 4**, **Nuxt UI**, and **Tailwind CSS v4**. All game state lives in the browser (`localStorage`); an optional Nitro WebSocket server enables real-time multiplayer.
 
-## Features
+> For a full architectural overview see [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
-- 🎮 **Multiple Games**: Phase 10, Kniffel (Standard & Extrem)
-- 📱 **PWA Support**: Install as standalone app, works offline
-- 🌍 **Multilingual**: English and German support
-- 💾 **Local Storage**: All game data saved in browser
-- 🔄 **Auto Updates**: Notifies when new version is available
-- 🎨 **Modern UI**: Built with Nuxt UI and Tailwind CSS
+---
 
-## PWA Features
+## Games
 
-This app is a full Progressive Web App (PWA) with:
+| Game | Route | Description |
+|---|---|---|
+| Phase 10 | `/sheets/phase10` | Track completed phases and penalty scores |
+| Kniffel | `/sheets/kniffel` | Standard (5-dice) and Extrem (6-dice) variants |
+| Notizblock | `/sheets/notizblock` | Freeform multi-player score notepad |
+| Sudoku | `/sudoku` | Client-side puzzle generator (easy / medium / hard) |
 
-- ✅ **Offline Support** - Works without internet connection
-- ✅ **Installable** - Add to home screen on mobile/desktop
-- ✅ **Auto Updates** - Checks for updates every hour
-- ✅ **Update Notifications** - Users are notified when new version is available
-- ✅ **Asset Caching** - All resources cached for fast loading
+---
 
-### Installing on Your Device
+## Tech Stack
 
-#### Mobile (iOS/Android)
-1. Open the app in your browser (Safari/Chrome)
-2. Tap the share button / menu (⋮)
-3. Select "Add to Home Screen"
-4. The app will appear as a standalone app icon
+| Concern | Tool |
+|---|---|
+| Framework | Nuxt 4 |
+| UI | Nuxt UI v4 + Tailwind CSS v4 |
+| i18n | @nuxtjs/i18n (en / de, no URL prefix) |
+| PWA | @vite-pwa/nuxt (Workbox, auto-update) |
+| Testing | Vitest v4 (unit + Nuxt integration) + Playwright (e2e) |
+| Linting | ESLint v10 via @nuxt/eslint |
+| Package manager | pnpm |
 
-#### Desktop (Chrome/Edge)
-1. Open the app in your browser
-2. Look for the install icon in the address bar
-3. Click "Install" to add to your applications
+---
 
-### How Updates Work
+## Development
 
-The app automatically checks for updates every hour when online. When a new version is available:
+### Prerequisites
 
-1. A notification appears at the bottom of the screen
-2. Click "Update Now" to install the new version
-3. The page refreshes with the latest features
-4. Or click "Later" to update next time
+- Node.js >= 20
+- pnpm
 
-All your game data is preserved during updates!
-
-## Quick Start
-
-```bash [Terminal]
-npm create nuxt@latest -- -t ui
-```
-
-## Deploy your own
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-name=starter&repository-url=https%3A%2F%2Fgithub.com%2Fnuxt-ui-templates%2Fstarter&demo-image=https%3A%2F%2Fui.nuxt.com%2Fassets%2Ftemplates%2Fnuxt%2Fstarter-dark.png&demo-url=https%3A%2F%2Fstarter-template.nuxt.dev%2F&demo-title=Nuxt%20Starter%20Template&demo-description=A%20minimal%20template%20to%20get%20started%20with%20Nuxt%20UI.)
-
-## Setup
-
-Make sure to install the dependencies:
+### Install dependencies
 
 ```bash
 pnpm install
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
+### Start dev server (http://localhost:3000)
 
 ```bash
 pnpm dev
 ```
 
+### Type-check
+
+```bash
+pnpm typecheck
+```
+
+### Lint
+
+```bash
+pnpm lint
+```
+
+---
+
+## Testing
+
+```bash
+pnpm test              # all tests (unit + nuxt integration)
+pnpm test:unit         # Vitest unit tests only  (test/unit/)
+pnpm test:nuxt         # Nuxt integration tests  (test/nuxt/)
+pnpm test:e2e          # Playwright e2e          (tests/)
+pnpm test:e2e:ui       # Playwright with UI mode
+```
+
+Run a single test file:
+
+```bash
+pnpm exec vitest --project nuxt --run test/nuxt/pages.test.ts
+```
+
+---
+
 ## Production
 
-Build the application for production:
+Build:
 
 ```bash
 pnpm build
 ```
 
-Locally preview production build:
+Preview the production build locally:
 
 ```bash
 pnpm preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+See the [Nuxt deployment docs](https://nuxt.com/docs/getting-started/deployment) for hosting options.
+
+---
+
+## Docker
+
+A `Dockerfile` and `docker-compose.yml` are included for containerised deployment:
+
+```bash
+docker compose up -d --build
+```
+
+---
+
+## PWA
+
+- Installs as a standalone app on mobile and desktop.
+- Works fully offline (Workbox caches pages, JS/CSS bundles, and Google Fonts).
+- Checks for updates every hour; shows an "Update Now" banner when a new version is available.
+- All game data (localStorage) is preserved across updates.
+
+### Install on device
+
+**Mobile (iOS/Android):** open in Safari/Chrome → share menu → "Add to Home Screen".
+
+**Desktop (Chrome/Edge):** look for the install icon in the address bar → "Install".
+
+---
+
+## i18n
+
+Two locales, auto-detected via cookie:
+
+| Code | Language |
+|---|---|
+| `en` | English (default) |
+| `de` | Deutsch |
+
+Translation files: `locales/en.json`, `locales/de.json`.
+
+---
+
+## Key localStorage Keys
+
+| Key | Composable | Content |
+|---|---|---|
+| `phase10-game` | `usePhase10` | Active Phase 10 game state |
+| `kniffel-game` | `useKniffel` | Active Kniffel game state |
+| `notepad-game` | `useNotepad` | Notepad players and entries |
+| `phase10-history` | `useGameHistory` | Last 20 completed Phase 10 games |
+| `kniffel-history` | `useGameHistory` | Last 20 completed Kniffel games |
+
+---
+
+## Adding a New Game
+
+See the **Adding a New Game** section in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for a step-by-step guide.
+
+---
 
 ## Renovate integration
 
