@@ -88,6 +88,7 @@ Nuxt file-based routing. All routes are unlocalized (i18n strategy: `no_prefix`)
 |---|---|---|
 | `/` | `pages/index.vue` | Game selection grid |
 | `/sudoku` | `pages/sudoku.vue` | Sudoku puzzle generator |
+| `/2048` | `pages/2048.vue` | 2048 tile-merging puzzle |
 | `/sheets` | `pages/sheets/index.vue` | Score sheets hub |
 | `/sheets/kniffel` | `pages/sheets/kniffel.vue` | Kniffel tracker |
 | `/sheets/phase10` | `pages/sheets/phase10.vue` | Phase 10 tracker |
@@ -211,6 +212,22 @@ Difficulties and target clue counts:
 | hard | ~25 |
 
 Exported types: `Grid = (number | null)[][]`, `Difficulty = 'easy' | 'medium' | 'hard'`
+
+### `use2048`
+
+Client-side 2048 game engine with variable grid size.
+
+Key types: `GridSize = 4 | 6 | 8`, `GameStatus = 'idle' | 'playing' | 'won' | 'over'`, `Tile = { id: number, value: number }`
+
+State shape (`localStorage` key: `2048-game`):
+```ts
+{ grid: (Tile | null)[][], score: number, bestScore: number, status: GameStatus, gridSize: GridSize, wonAcknowledged: boolean }
+```
+
+- **Sliding algorithm**: `slideRow()` (exported for testing) collapses a row leftward — tiles slide, equal adjacent tiles merge (once per move). Applied via grid rotation for all four directions.
+- **Win**: first tile reaching 2048 sets `status = 'won'` (overlay shown). `continueGame()` dismisses the overlay and sets `wonAcknowledged = true` so it won't re-trigger.
+- **Game over**: detected when no empty cells and no adjacent equal tiles exist.
+- **bestScore** persists across new games; `score` resets on `newGame()`.
 
 ---
 

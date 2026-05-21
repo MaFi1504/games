@@ -18,7 +18,28 @@
       "name": "Sudoku",
       "description": "Sudoku-Rätsel generieren und lösen. Sieh genau, wie der Backtracking-Algorithmus ein gültiges Raster erstellt.",
       "tags": ["Rätsel", "Algorithmus", "Solo"]
+    },
+    "2048": {
+      "name": "2048",
+      "description": "Verbinde Kacheln, um 2048 zu erreichen. Wähle ein 4×4-, 6×6- oder 8×8-Feld und spiele nach dem Sieg weiter.",
+      "tags": ["Rätsel", "Solo", "Strategie"]
     }
+  },
+  "2048": {
+    "title": "2048",
+    "subtitle": "Verbinde Kacheln, um 2048 zu erreichen – und mehr!",
+    "score": "Punkte",
+    "best": "Beste",
+    "newGame": "Neues Spiel",
+    "chooseSize": "Wähle eine Spielfeldgröße, um zu starten.",
+    "wonTitle": "Du hast 2048 erreicht!",
+    "wonMessage": "Mach weiter für eine noch höhere Punktzahl.",
+    "keepGoing": "Weiterspielen",
+    "overTitle": "Spiel vorbei",
+    "overMessage": "Keine weiteren Züge möglich.",
+    "tryAgain": "Nochmal versuchen",
+    "changeSize": "Größe ändern",
+    "keyboardHint": "Pfeiltasten oder Wischen zum Bewegen der Kacheln."
   },
   "pwa": {
     "updateAvailable": "Neue Version verfügbar!",

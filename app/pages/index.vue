@@ -72,6 +72,16 @@ const apps = computed(() => [
     tags: Array.isArray(tm('apps.sudoku.tags'))
       ? (tm('apps.sudoku.tags') as unknown[]).map(tag => rt(tag as string))
       : []
+  },
+  {
+    id: '2048',
+    name: t('apps.2048.name'),
+    emoji: '🟨',
+    route: '/2048',
+    description: t('apps.2048.description'),
+    tags: Array.isArray(tm('apps.2048.tags'))
+      ? (tm('apps.2048.tags') as unknown[]).map(tag => rt(tag as string))
+      : []
   }
 ])
 </script>

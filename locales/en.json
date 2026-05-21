@@ -18,7 +18,28 @@
       "name": "Sudoku",
       "description": "Generate and solve Sudoku puzzles. See exactly how the backtracking algorithm creates a valid grid.",
       "tags": ["Puzzle", "Algorithm", "Solo"]
+    },
+    "2048": {
+      "name": "2048",
+      "description": "Merge tiles to reach 2048. Choose a 4×4, 6×6, or 8×8 grid and keep playing after you win.",
+      "tags": ["Puzzle", "Solo", "Strategy"]
     }
+  },
+  "2048": {
+    "title": "2048",
+    "subtitle": "Merge tiles to reach 2048 – and beyond!",
+    "score": "Score",
+    "best": "Best",
+    "newGame": "New Game",
+    "chooseSize": "Choose your grid size to start playing.",
+    "wonTitle": "You reached 2048!",
+    "wonMessage": "Keep going to achieve an even higher score.",
+    "keepGoing": "Keep Going",
+    "overTitle": "Game Over",
+    "overMessage": "No more moves available.",
+    "tryAgain": "Try Again",
+    "changeSize": "Change Size",
+    "keyboardHint": "Use arrow keys or swipe to move tiles."
   },
   "pwa": {
     "updateAvailable": "New version available!",
