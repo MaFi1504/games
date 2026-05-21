@@ -68,16 +68,16 @@ pnpm lint
 
 ```bash
 pnpm test              # all tests (unit + nuxt integration)
-pnpm test:unit         # Vitest unit tests only  (test/unit/)
-pnpm test:nuxt         # Nuxt integration tests  (test/nuxt/)
-pnpm test:e2e          # Playwright e2e          (tests/)
+pnpm test:unit         # Vitest unit tests only  (tests/unit/)
+pnpm test:nuxt         # Nuxt integration tests  (tests/nuxt/)
+pnpm test:e2e          # Playwright e2e          (tests/e2e/)
 pnpm test:e2e:ui       # Playwright with UI mode
 ```
 
 Run a single test file:
 
 ```bash
-pnpm exec vitest --project nuxt --run test/nuxt/pages.test.ts
+pnpm exec vitest --project nuxt --run tests/nuxt/pages.test.ts
 ```
 
 ---

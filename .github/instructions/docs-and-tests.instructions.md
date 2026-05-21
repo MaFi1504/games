@@ -9,7 +9,7 @@ description: "Use when implementing features, adding games, changing composables
 ### 1. Update tests
 
 - If a composable, component, or page is added or modified, update or add the corresponding test.
-- Unit tests live in `test/unit/`. Nuxt integration tests live in `test/nuxt/`. E2E tests live in `tests/`.
+- Unit tests live in `tests/unit/`. Nuxt integration tests live in `tests/nuxt/`. E2E tests live in `tests/e2e/`.
 - Run the relevant test suite after the change:
 
 ```bash

@@ -66,8 +66,10 @@ games/
 │   └── api/
 │       └── game-mp.ts       # Nitro WebSocket multiplayer handler
 ├── public/                  # Static assets, icons, manifest
-├── test/                    # Vitest unit + Nuxt integration tests
-├── tests/                   # Playwright e2e tests
+├── tests/                   # All tests
+│   ├── unit/                # Vitest unit tests
+│   ├── nuxt/                # Vitest Nuxt integration tests
+│   └── e2e/                 # Playwright e2e tests
 ├── types/
 │   └── pwa.d.ts             # PWA type augmentations
 ├── nuxt.config.ts
@@ -293,20 +295,20 @@ Configured via `@vite-pwa/nuxt` with Workbox.
 
 Two projects defined in `vitest.config.ts`:
 
-- **`unit`** – plain Vitest with happy-dom. Files: `test/unit/**`.
-- **`nuxt`** – `@nuxt/test-utils` environment. Files: `test/nuxt/**`.
+- **`unit`** – plain Vitest with happy-dom. Files: `tests/unit/**`.
+- **`nuxt`** – `@nuxt/test-utils` environment. Files: `tests/nuxt/**`.
 
 Useful commands:
 ```bash
 pnpm test                    # run all
 pnpm test:unit               # unit only
 pnpm test:nuxt               # nuxt integration only
-pnpm exec vitest --project nuxt --run test/nuxt/pages.test.ts  # single file
+pnpm exec vitest --project nuxt --run tests/nuxt/pages.test.ts  # single file
 ```
 
 ### E2E (Playwright)
 
-Config: `playwright.config.ts`. Tests live in `tests/`.
+Config: `playwright.config.ts`. Tests live in `tests/e2e/`.
 
 ```bash
 pnpm test:e2e        # headless
@@ -323,4 +325,4 @@ pnpm test:e2e:ui     # Playwright UI mode
 4. **Home card** – add a card entry to `app/pages/index.vue` linking to the new page.
 5. **History** (optional) – extend `useGameHistory` with a new entry type and storage key; wire up a history save call on game-over; add the history panel in `app.vue` for the new route.
 6. **Multiplayer** (optional) – add the `GameId` to `VALID_GAMES` in `server/api/game-mp.ts`; create a `useMyGameMultiplayer.ts` that wraps `useMultiplayer<TState>`.
-7. **Tests** – add a page route test in `test/nuxt/pages.test.ts` and unit tests in `test/unit/`.
+7. **Tests** – add a page route test in `tests/nuxt/pages.test.ts` and unit tests in `tests/unit/`.
