@@ -12,17 +12,38 @@
     "sheets": {
       "name": "Game Sheets",
       "description": "Score sheets for Phase 10, Kniffel and more.",
-      "tags": ["Score Tracking", "Multiplayer"]
+      "tags": [
+        "Score Tracking",
+        "Multiplayer"
+      ]
     },
     "sudoku": {
       "name": "Sudoku",
       "description": "Generate and solve Sudoku puzzles. See exactly how the backtracking algorithm creates a valid grid.",
-      "tags": ["Puzzle", "Algorithm", "Solo"]
+      "tags": [
+        "Puzzle",
+        "Algorithm",
+        "Solo"
+      ]
     },
     "2048": {
       "name": "2048",
       "description": "Merge tiles to reach 2048. Choose a 4×4, 6×6, or 8×8 grid and keep playing after you win.",
-      "tags": ["Puzzle", "Solo", "Strategy"]
+      "tags": [
+        "Puzzle",
+        "Solo",
+        "Strategy"
+      ]
+    },
+    "minesweeper": {
+      "name": "Minesweeper",
+      "description": "Clear the board without hitting a mine. Flag suspicious cells and use logic to survive.",
+      "tags": [
+        "Puzzle",
+        "Solo",
+        "Strategy",
+        "Classic"
+      ]
     }
   },
   "2048": {
@@ -69,17 +90,32 @@
     "phase10": {
       "name": "Phase 10",
       "description": "Complete all 10 phases before your opponents. Track your phases and score each round.",
-      "tags": ["Card Game", "2–6 Players", "Phase Tracking", "Score Tracking"]
+      "tags": [
+        "Card Game",
+        "2–6 Players",
+        "Phase Tracking",
+        "Score Tracking"
+      ]
     },
     "kniffel": {
       "name": "Kniffel",
       "description": "Roll the dice and score in 13 categories. Play classic 5-dice or Extrem 6-dice variant.",
-      "tags": ["Dice Game", "1+ Players", "Strategy", "Score Tracking"]
+      "tags": [
+        "Dice Game",
+        "1+ Players",
+        "Strategy",
+        "Score Tracking"
+      ]
     },
     "notizblock": {
       "name": "Notepad",
       "description": "Add players, tap their name to enter points, and tap the total to review and edit every entry later.",
-      "tags": ["Universal", "2+ Players", "Editable History", "Quick Scoring"]
+      "tags": [
+        "Universal",
+        "2+ Players",
+        "Editable History",
+        "Quick Scoring"
+      ]
     }
   },
   "notepad": {
@@ -145,10 +181,22 @@
     "phaseCompleted": "Phase {n} completed",
     "cardValues": "Card Values",
     "cardValuesRows": [
-      { "label": "Cards 1–9", "value": "1–9 pts" },
-      { "label": "Cards 10–12", "value": "10–12 pts" },
-      { "label": "Skip cards", "value": "20 pts" },
-      { "label": "Wild cards", "value": "20 pts" }
+      {
+        "label": "Cards 1–9",
+        "value": "1–9 pts"
+      },
+      {
+        "label": "Cards 10–12",
+        "value": "10–12 pts"
+      },
+      {
+        "label": "Skip cards",
+        "value": "20 pts"
+      },
+      {
+        "label": "Wild cards",
+        "value": "20 pts"
+      }
     ],
     "resetTitle": "Reset game?",
     "resetBody": "This will clear all completed phases and your score history. This cannot be undone.",
@@ -160,28 +208,68 @@
     "phaseSetClassicName": "Classic",
     "phaseSetAltName": "Variant",
     "phaseList": [
-      { "description": "2 sets of 3" },
-      { "description": "1 set of 3 + 1 run of 4" },
-      { "description": "1 set of 4 + 1 run of 4" },
-      { "description": "1 run of 7" },
-      { "description": "1 run of 8" },
-      { "description": "1 run of 9" },
-      { "description": "2 sets of 4" },
-      { "description": "7 cards of one color" },
-      { "description": "1 set of 5 + 1 set of 2" },
-      { "description": "1 set of 5 + 1 set of 3" }
+      {
+        "description": "2 sets of 3"
+      },
+      {
+        "description": "1 set of 3 + 1 run of 4"
+      },
+      {
+        "description": "1 set of 4 + 1 run of 4"
+      },
+      {
+        "description": "1 run of 7"
+      },
+      {
+        "description": "1 run of 8"
+      },
+      {
+        "description": "1 run of 9"
+      },
+      {
+        "description": "2 sets of 4"
+      },
+      {
+        "description": "7 cards of one color"
+      },
+      {
+        "description": "1 set of 5 + 1 set of 2"
+      },
+      {
+        "description": "1 set of 5 + 1 set of 3"
+      }
     ],
     "phaseListAlt": [
-      { "description": "5 pairs" },
-      { "description": "1 set of 4 + 1 run of 4" },
-      { "description": "1 set of 4 + 1 run of 4 of one color" },
-      { "description": "1 run of 9" },
-      { "description": "1 run of 10" },
-      { "description": "2 sets of 4" },
-      { "description": "Run of 5 of one color" },
-      { "description": "3 sets of 3" },
-      { "description": "1 set of 5 + 1 set of 3" },
-      { "description": "1 set of 5 + 1 run of 3 of one color" }
+      {
+        "description": "5 pairs"
+      },
+      {
+        "description": "1 set of 4 + 1 run of 4"
+      },
+      {
+        "description": "1 set of 4 + 1 run of 4 of one color"
+      },
+      {
+        "description": "1 run of 9"
+      },
+      {
+        "description": "1 run of 10"
+      },
+      {
+        "description": "2 sets of 4"
+      },
+      {
+        "description": "Run of 5 of one color"
+      },
+      {
+        "description": "3 sets of 3"
+      },
+      {
+        "description": "1 set of 5 + 1 set of 3"
+      },
+      {
+        "description": "1 set of 5 + 1 run of 3 of one color"
+      }
     ]
   },
   "kniffel": {
@@ -247,9 +335,9 @@
     "pause": "Pause",
     "resume": "Resume",
     "phase": {
-      "diagonal": "Filling diagonal boxes\u2026",
-      "solving": "Solving via backtracking\u2026",
-      "carving": "Carving out clues\u2026"
+      "diagonal": "Filling diagonal boxes…",
+      "solving": "Solving via backtracking…",
+      "carving": "Carving out clues…"
     }
   },
   "credits": {
@@ -266,5 +354,28 @@
     "appDescription": "Game Sheets is a Progressive Web App for tracking scores in board and card games. All game data is stored locally in your browser.",
     "technologies": "Built With",
     "copyright": "© {year} Game Sheets. All other code and assets created by project contributors."
+  },
+  "minesweeper": {
+    "title": "Minesweeper",
+    "subtitle": "Clear the board without hitting a mine.",
+    "chooseDifficulty": "Choose a difficulty to start playing.",
+    "easy": "Easy",
+    "easyConfig": "9×9, 10 mines",
+    "medium": "Medium",
+    "mediumConfig": "16×16, 40 mines",
+    "hard": "Hard",
+    "hardConfig": "16×30, 99 mines",
+    "newGame": "New Game",
+    "changeDifficulty": "Change Difficulty",
+    "wonTitle": "You cleared the board!",
+    "wonMessage": "Finished in {time}. Impressive!",
+    "playAgain": "Play Again",
+    "overTitle": "Game Over",
+    "overMessage": "You hit a mine. Better luck next time.",
+    "tryAgain": "Try Again",
+    "hint": "Left-click to reveal · Right-click to flag · Double-click to chord",
+    "cell": "Cell",
+    "modeReveal": "Reveal",
+    "modeFlag": "Flag"
   }
 }
