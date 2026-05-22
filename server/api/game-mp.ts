@@ -21,8 +21,11 @@ interface PlayerEntry {
 const rooms = new Map<string, Map<string, PlayerEntry>>()
 // Reverse lookup: peer.id → { roomKey, playerId }
 const peerMeta = new Map<string, { roomKey: string, playerId: string }>()
+// Rate limiting: peer.id → { count, resetAt }
+const peerRateMap = new Map<string, { count: number, resetAt: number }>()
 
 const MAX_ROOM_SIZE = 10
+const RATE_LIMIT_MESSAGES = 20 // max messages per peer per second
 const ROOM_CODE_RE = /^[A-Z0-9]{4,10}$/
 const PLAYER_ID_RE = /^[a-z0-9]{8,20}$/
 const NAME_MAX = 30
@@ -52,6 +55,7 @@ function broadcast(roomKey: string) {
 
 function removePeer(peer: Peer) {
   const meta = peerMeta.get(peer.id)
+  peerRateMap.delete(peer.id)
   if (!meta) return
   peerMeta.delete(peer.id)
   const room = rooms.get(meta.roomKey)
@@ -64,8 +68,22 @@ function removePeer(peer: Peer) {
   }
 }
 
+function isRateLimited(peerId: string): boolean {
+  const now = Date.now()
+  const entry = peerRateMap.get(peerId) ?? { count: 0, resetAt: now + 1000 }
+  if (now > entry.resetAt) {
+    entry.count = 0
+    entry.resetAt = now + 1000
+  }
+  entry.count++
+  peerRateMap.set(peerId, entry)
+  return entry.count > RATE_LIMIT_MESSAGES
+}
+
 export default defineWebSocketHandler({
   message(peer, message) {
+    if (isRateLimited(peer.id)) return
+
     let data: Record<string, unknown>
     try {
       data = JSON.parse(message.text())
