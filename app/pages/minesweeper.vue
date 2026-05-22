@@ -24,10 +24,24 @@ const {
 
 const difficulties: Difficulty[] = ['easy', 'medium', 'hard']
 
+// ── mobile mode toggle ───────────────────────────────────────────────────────
+
+const isTouchDevice = ref(false)
+const flagMode = ref(false)
+
+function startGame(diff: Difficulty) {
+  flagMode.value = false
+  newGame(diff)
+}
+
 // ── input handling ────────────────────────────────────────────────────────────
 
 function onCellClick(row: number, col: number) {
-  reveal(row, col)
+  if (flagMode.value) {
+    toggleFlag(row, col)
+  } else {
+    reveal(row, col)
+  }
 }
 
 function onCellRightClick(e: MouseEvent, row: number, col: number) {
@@ -59,6 +73,7 @@ function clearLongPress() {
 // ── lifecycle ─────────────────────────────────────────────────────────────────
 
 onMounted(() => {
+  isTouchDevice.value = 'ontouchstart' in window || navigator.maxTouchPoints > 0
   load()
 })
 
@@ -118,12 +133,6 @@ const colCount = computed(() => board.value[0]?.length ?? 0)
   <UContainer class="py-8 px-4">
     <!-- Header -->
     <div class="mb-6 text-center">
-      <NuxtLink
-        to="/"
-        class="text-sm text-muted hover:text-primary mb-3 inline-block transition-colors"
-      >
-        ← {{ $t('nav.back') }}
-      </NuxtLink>
       <h1 class="text-3xl font-bold mb-1">
         {{ $t('minesweeper.title') }}
       </h1>
@@ -147,7 +156,7 @@ const colCount = computed(() => board.value[0]?.length ?? 0)
           block
           size="lg"
           variant="outline"
-          @click="newGame(diff)"
+          @click="startGame(diff)"
         >
           {{ $t(`minesweeper.${diff}`) }}
           <span class="ml-2 text-muted text-xs">
@@ -177,6 +186,37 @@ const colCount = computed(() => board.value[0]?.length ?? 0)
         <div class="flex items-center gap-1 text-sm font-mono">
           <span aria-hidden="true">⏱</span>
           <span class="font-bold">{{ formattedTime(elapsedSeconds) }}</span>
+        </div>
+      </div>
+
+      <!-- Mobile mode toggle -->
+      <div
+        v-if="isTouchDevice && (status === 'playing' || status === 'idle')"
+        class="flex justify-center mb-3"
+      >
+        <div class="inline-flex rounded-lg border border-gray-300 dark:border-gray-600 overflow-hidden">
+          <button
+            :class="[
+              'px-4 py-1.5 text-sm font-medium transition-colors',
+              !flagMode
+                ? 'bg-primary-500 dark:bg-primary-400 text-white'
+                : 'bg-transparent text-muted hover:bg-gray-100 dark:hover:bg-gray-700'
+            ]"
+            @click="flagMode = false"
+          >
+            🔍 {{ $t('minesweeper.modeReveal') }}
+          </button>
+          <button
+            :class="[
+              'px-4 py-1.5 text-sm font-medium transition-colors border-l border-gray-300 dark:border-gray-600',
+              flagMode
+                ? 'bg-primary-500 dark:bg-primary-400 text-white'
+                : 'bg-transparent text-muted hover:bg-gray-100 dark:hover:bg-gray-700'
+            ]"
+            @click="flagMode = true"
+          >
+            🚩 {{ $t('minesweeper.modeFlag') }}
+          </button>
         </div>
       </div>
 

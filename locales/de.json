@@ -370,6 +370,8 @@
     "overMessage": "Du hast eine Mine getroffen. Viel Glück beim nächsten Mal.",
     "tryAgain": "Nochmal versuchen",
     "hint": "Linksklick zum Aufdecken · Rechtsklick zum Markieren · Doppelklick zum Chord",
-    "cell": "Feld"
+    "cell": "Feld",
+    "modeReveal": "Aufdecken",
+    "modeFlag": "Markieren"
   }
 }

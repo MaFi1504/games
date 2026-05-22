@@ -370,6 +370,8 @@
     "overMessage": "You hit a mine. Better luck next time.",
     "tryAgain": "Try Again",
     "hint": "Left-click to reveal · Right-click to flag · Double-click to chord",
-    "cell": "Cell"
+    "cell": "Cell",
+    "modeReveal": "Reveal",
+    "modeFlag": "Flag"
   }
 }
