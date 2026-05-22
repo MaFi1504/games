@@ -26,14 +26,20 @@ const peerRateMap = new Map<string, { count: number, resetAt: number }>()
 // Connection count per IP
 const connPerIp = new Map<string, number>()
 
-const MAX_ROOM_SIZE = 10
-const MAX_ROOMS = 10
-const MAX_CONNS_PER_IP = 20
-const RATE_LIMIT_MESSAGES = 20 // max messages per peer per second
+function envInt(name: string, fallback: number): number {
+  const v = parseInt(process.env[name] ?? '', 10)
+  return Number.isFinite(v) && v > 0 ? v : fallback
+}
+
+const MAX_ROOM_SIZE = envInt('MP_MAX_ROOM_SIZE', 10)
+const MAX_ROOMS = envInt('MP_MAX_ROOMS', 1000)
+const MAX_CONNS_PER_IP = envInt('MP_MAX_CONNS_PER_IP', 20)
+const RATE_LIMIT_MESSAGES = envInt('MP_RATE_LIMIT_MESSAGES', 20) // per second per peer
+const MSG_MAX_BYTES = envInt('MP_MSG_MAX_BYTES', 8192)
+const NAME_MAX = envInt('MP_NAME_MAX', 30)
+const STATE_JSON_MAX = envInt('MP_STATE_JSON_MAX', 4096)
 const ROOM_CODE_RE = /^[A-Z0-9]{4,10}$/
 const PLAYER_ID_RE = /^[a-z0-9]{8,20}$/
-const NAME_MAX = 30
-const STATE_JSON_MAX = 4096
 
 function toRoomKey(gameId: GameId, roomCode: string): string {
   return `${gameId}:${roomCode}`
@@ -125,7 +131,7 @@ export default defineWebSocketHandler({
     if (isRateLimited(peer.id)) return
 
     const raw = message.text()
-    if (raw.length > 8192) return
+    if (raw.length > MSG_MAX_BYTES) return
 
     let data: Record<string, unknown>
     try {
