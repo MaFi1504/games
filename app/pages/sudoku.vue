@@ -49,14 +49,14 @@
       </UButton>
 
       <UButton
-        variant="ghost"
+        :variant="noFeedback ? 'solid' : 'outline'"
         color="neutral"
         size="sm"
-        icon="i-lucide-eye"
+        icon="i-lucide-eye-off"
         :disabled="isGenerating"
-        @click="reveal"
+        @click="noFeedback = !noFeedback"
       >
-        {{ $t('sudoku.reveal') }}
+        {{ $t('sudoku.noFeedback') }}
       </UButton>
 
       <UButton
@@ -169,11 +169,11 @@ const {
   isSolved,
   cellStates,
   completedNumbers,
+  noFeedback,
   generate,
   setCell,
   reset,
-  reveal
-} = useSudoku()
+  } = useSudoku()
 
 // Grid size in px – responsive via JS so we can compute borders
 const gridPx = 360

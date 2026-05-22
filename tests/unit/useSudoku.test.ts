@@ -240,5 +240,41 @@ describe('useSudoku', () => {
       setCell(emptyCell.r, emptyCell.c, wrongDigit !== correctDigit ? wrongDigit : (wrongDigit % 9) + 1)
       expect(cellStates.value[emptyCell.r]![emptyCell.c]).toBe('wrong')
     })
+
+    it('with noFeedback enabled, non-clue cells always have state "empty"', async () => {
+      const { puzzle, solution, setCell, cellStates, noFeedback } = await generatePuzzle('easy')
+      const emptyCell = puzzle.value.flatMap((row, r) =>
+        row.map((cell, c) => ({ r, c, cell }))
+      ).find(({ cell }) => cell === null)!
+
+      // First set a correct digit with feedback off
+      const correctDigit = solution.value[emptyCell.r]![emptyCell.c]!
+      setCell(emptyCell.r, emptyCell.c, correctDigit)
+      expect(cellStates.value[emptyCell.r]![emptyCell.c]).toBe('correct')
+
+      // Enable noFeedback
+      noFeedback.value = true
+      expect(cellStates.value[emptyCell.r]![emptyCell.c]).toBe('empty')
+
+      // Disable noFeedback – should show correct again
+      noFeedback.value = false
+      expect(cellStates.value[emptyCell.r]![emptyCell.c]).toBe('correct')
+    })
+  })
+
+  describe('noFeedback', () => {
+    it('defaults to false', async () => {
+      const { noFeedback } = await generatePuzzle('easy')
+      expect(noFeedback.value).toBe(false)
+    })
+
+    it('can be toggled', async () => {
+      const { noFeedback } = await generatePuzzle('easy')
+      expect(noFeedback.value).toBe(false)
+      noFeedback.value = true
+      expect(noFeedback.value).toBe(true)
+      noFeedback.value = false
+      expect(noFeedback.value).toBe(false)
+    })
   })
 })

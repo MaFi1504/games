@@ -237,6 +237,7 @@
     "newPuzzle": "Neues Rätsel",
     "reset": "Zurücksetzen",
     "reveal": "Lösung zeigen",
+    "noFeedback": "Kein Feedback",
     "solved": "Gelöst! Gut gemacht!",
     "animateCreation": "Animieren",
     "phase": {

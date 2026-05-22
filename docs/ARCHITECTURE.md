@@ -215,6 +215,8 @@ Exported types: `Grid = (number | null)[][]`, `Difficulty = 'easy' | 'medium' | 
 
 **Animated generation** (`visualize` ref): when enabled, `generate()` runs an async path (`generateAnimated`) that yields to the UI every `STEP_DELAY` ms (25 ms) between steps and every `SOLVE_STEP_INTERVAL` (6) backtracking placements. The working grid is exposed via `visualGrid`; the current phase is exposed via `generationPhase`. The sudoku page switches the rendered grid to `visualGrid` and displays a phase label during animation.
 
+**No Feedback mode** (`noFeedback` ref): when enabled, cells do not show visual feedback for correct/wrong answers. All non-clue cells are styled neutrally regardless of whether the entered value is correct or incorrect. This provides a challenge mode where players must solve without hint validation. Defaults to `false`.
+
 ### `use2048`
 
 Client-side 2048 game engine with variable grid size.

@@ -237,6 +237,7 @@
     "newPuzzle": "New puzzle",
     "reset": "Reset",
     "reveal": "Reveal",
+    "noFeedback": "No Feedback",
     "solved": "Solved! Well done!",
     "animateCreation": "Animate",
     "phase": {

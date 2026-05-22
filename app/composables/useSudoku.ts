@@ -236,6 +236,8 @@ export function useSudoku() {
   const visualGrid = ref<Grid>(emptyGrid())
   /** Which phase of animated generation is currently running */
   const generationPhase = ref<GenerationPhase>('')
+  /** Whether to hide feedback (correct/wrong) for player entries */
+  const noFeedback = ref(false)
 
   /** Run the full animated generation and update refs step-by-step */
   async function generateAnimated(diff: Difficulty): Promise<void> {
@@ -329,6 +331,8 @@ export function useSudoku() {
       row.map((cell, c) => {
         if (puzzle.value[r]![c] !== null) return 'clue'
         if (cell === null) return 'empty'
+        // When noFeedback is enabled, always return 'empty' for non-clue cells
+        if (noFeedback.value) return 'empty'
         return cell === solution.value[r]![c] ? 'correct' : 'wrong'
       })
     )
@@ -372,6 +376,7 @@ export function useSudoku() {
     visualize,
     visualGrid: readonly(visualGrid),
     generationPhase: readonly(generationPhase),
+    noFeedback,
     isSolved,
     cellStates,
     completedNumbers,
