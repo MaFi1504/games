@@ -334,6 +334,27 @@ export function useSudoku() {
     )
   )
 
+  /** Check if a number (1-9) is fully completed (all instances placed correctly) */
+  function isNumberComplete(num: number): boolean {
+    for (let r = 0; r < 9; r++) {
+      for (let c = 0; c < 9; c++) {
+        if (solution.value[r]![c] === num) {
+          if (playerGrid.value[r]![c] !== num) return false
+        }
+      }
+    }
+    return true
+  }
+
+  /** Set of numbers (1-9) that are fully completed */
+  const completedNumbers = computed(() => {
+    const completed = new Set<number>()
+    for (let num = 1; num <= 9; num++) {
+      if (isNumberComplete(num)) completed.add(num)
+    }
+    return completed
+  })
+
   function reset() {
     playerGrid.value = cloneGrid(puzzle.value)
   }
@@ -353,6 +374,7 @@ export function useSudoku() {
     generationPhase: readonly(generationPhase),
     isSolved,
     cellStates,
+    completedNumbers,
     generate,
     setCell,
     reset,

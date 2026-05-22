@@ -133,8 +133,10 @@
         :key="n"
         variant="outline"
         color="neutral"
-        class="w-10 h-10 text-base font-bold"
-        :disabled="isGenerating"
+        class="w-10 h-10 text-base font-bold transition-all duration-300"
+        :class="{ 'animate-pulse-complete': justCompleted === n }"
+        :disabled="isGenerating || completedNumbers.has(n)"
+        :opacity="completedNumbers.has(n) ? 'opacity-40' : 'opacity-100'"
         @click="enterDigit(n)"
       >
         {{ n }}
@@ -166,6 +168,7 @@ const {
   generationPhase,
   isSolved,
   cellStates,
+  completedNumbers,
   generate,
   setCell,
   reset,
@@ -188,6 +191,26 @@ const difficulties: { value: Difficulty, label: string }[] = [
 
 // Selected cell
 const selected = ref<[number, number] | null>(null)
+
+// Track newly completed numbers for animation
+const justCompleted = ref<number | null>(null)
+const previousCompleted = ref(new Set<number>())
+
+watch(completedNumbers, (newCompleted) => {
+  // Find which numbers are newly completed
+  for (const num of newCompleted) {
+    if (!previousCompleted.value.has(num)) {
+      justCompleted.value = num
+      setTimeout(() => {
+        if (justCompleted.value === num) {
+          justCompleted.value = null
+        }
+      }, 600)
+      break
+    }
+  }
+  previousCompleted.value = new Set(newCompleted)
+}, { immediate: true })
 
 function selectCell(r: number, c: number) {
   if (isGenerating.value) return
@@ -239,9 +262,13 @@ function cellClass(r: number, c: number): string[] {
     : null
   const hasSameNumber = selectedNumber !== null && activeGrid.value[r]![c] === selectedNumber && !isSelected
 
+  // Highlight cells from just-completed number
+  const hasJustCompletedNumber = justCompleted.value !== null && activeGrid.value[r]![c] === justCompleted.value
+
   const classes: string[] = []
 
   if (isSelected) classes.push('bg-primary/20 ring-2 ring-inset ring-primary')
+  else if (hasJustCompletedNumber) classes.push('bg-success/20 ring-2 ring-inset ring-success animate-pulse')
   else if (hasSameNumber) classes.push('bg-primary/10')
   else if (isSameRowCol || isSameBox) classes.push('bg-muted/40')
   else classes.push('hover:bg-muted/20')
@@ -264,3 +291,23 @@ function cellBorderStyle(r: number, c: number): Record<string, string> {
   }
 }
 </script>
+
+<style scoped>
+@keyframes pulse-complete {
+  0%, 100% {
+    transform: scale(1) !important;
+  }
+  50% {
+    transform: scale(1.15) !important;
+    box-shadow: 0 0 12px rgb(34 197 94 / 0.6) !important;
+  }
+}
+
+:deep(.animate-pulse-complete) {
+  animation: pulse-complete 0.6s ease-out !important;
+}
+
+:deep(.animate-pulse-complete:disabled) {
+  animation: pulse-complete 0.6s ease-out !important;
+}
+</style>
