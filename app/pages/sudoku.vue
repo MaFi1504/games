@@ -104,7 +104,7 @@
       </div>
 
       <div
-        class="grid border-2 border-default rounded overflow-hidden select-none"
+        class="grid border-4 border-default rounded overflow-hidden select-none"
         style="grid-template-columns: repeat(9, 1fr); grid-template-rows: repeat(9, 1fr);"
         :style="{ width: `${gridPx}px`, height: `${gridPx}px` }"
       >
@@ -257,8 +257,8 @@ function cellClass(r: number, c: number): string[] {
 /** Add thicker borders between 3×3 boxes */
 function cellBorderStyle(r: number, c: number): Record<string, string> {
   return {
-    borderTop: r % 3 === 0 && r !== 0 ? '2px solid var(--ui-border-accented)' : '1px solid var(--ui-border)',
-    borderLeft: c % 3 === 0 && c !== 0 ? '2px solid var(--ui-border-accented)' : '1px solid var(--ui-border)',
+    borderTop: r % 3 === 0 && r !== 0 ? '4px solid var(--ui-border-accented)' : '2px solid var(--ui-border)',
+    borderLeft: c % 3 === 0 && c !== 0 ? '4px solid var(--ui-border-accented)' : '2px solid var(--ui-border)',
     borderBottom: '0',
     borderRight: '0'
   }
