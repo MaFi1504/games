@@ -101,6 +101,14 @@ function isRateLimited(peerId: string): boolean {
 }
 
 export default defineWebSocketHandler({
+  upgrade(request) {
+    const origin = request.headers.get('origin') ?? ''
+    const allowed = process.env.NUXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
+    if (origin !== allowed) {
+      return new Response('Forbidden', { status: 403 })
+    }
+  },
+
   open(peer) {
     const ip = getPeerIp(peer)
     const current = connPerIp.get(ip) ?? 0
