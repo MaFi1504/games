@@ -233,9 +233,16 @@ function cellClass(r: number, c: number): string[] {
     ? selected.value[0] === r || selected.value[1] === c
     : false
 
+  // Highlight cells with the same number as the selected cell
+  const selectedNumber = selected.value
+    ? activeGrid.value[selected.value[0]]![selected.value[1]]
+    : null
+  const hasSameNumber = selectedNumber !== null && activeGrid.value[r]![c] === selectedNumber && !isSelected
+
   const classes: string[] = []
 
   if (isSelected) classes.push('bg-primary/20 ring-2 ring-inset ring-primary')
+  else if (hasSameNumber) classes.push('bg-primary/10')
   else if (isSameRowCol || isSameBox) classes.push('bg-muted/40')
   else classes.push('hover:bg-muted/20')
 
