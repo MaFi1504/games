@@ -121,6 +121,11 @@ export default defineWebSocketHandler({
         return
       }
 
+      if (room.has(playerId)) {
+        peer.send(JSON.stringify({ type: 'error', message: 'Player ID already taken' }))
+        return
+      }
+
       const entry: PlayerEntry = { peer, roomKey, playerId, name, state: null }
       room.set(playerId, entry)
       peerMeta.set(peer.id, { roomKey, playerId })

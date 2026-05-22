@@ -26,10 +26,7 @@ export function useMultiplayer<TState>(options: UseMultiplayerOptions) {
   )
 
   function generateId(): string {
-    return (
-      Math.random().toString(36).slice(2, 10)
-      + Math.random().toString(36).slice(2, 10)
-    ).slice(0, 16)
+    return crypto.randomUUID().replace(/-/g, '')
   }
 
   function generateRoomCode(): string {
