@@ -23,9 +23,12 @@ const rooms = new Map<string, Map<string, PlayerEntry>>()
 const peerMeta = new Map<string, { roomKey: string, playerId: string }>()
 // Rate limiting: peer.id → { count, resetAt }
 const peerRateMap = new Map<string, { count: number, resetAt: number }>()
+// Connection count per IP
+const connPerIp = new Map<string, number>()
 
 const MAX_ROOM_SIZE = 10
 const MAX_ROOMS = 10
+const MAX_CONNS_PER_IP = 20
 const RATE_LIMIT_MESSAGES = 20 // max messages per peer per second
 const ROOM_CODE_RE = /^[A-Z0-9]{4,10}$/
 const PLAYER_ID_RE = /^[a-z0-9]{8,20}$/
@@ -54,7 +57,23 @@ function broadcast(roomKey: string) {
   }
 }
 
+// peer.id → IP, so we can decrement connPerIp on close
+const peerIp = new Map<string, string>()
+
+function getPeerIp(peer: Peer): string {
+  return peer.request?.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+    ?? peer.remoteAddress
+    ?? 'unknown'
+}
+
 function removePeer(peer: Peer) {
+  const ip = peerIp.get(peer.id)
+  if (ip) {
+    peerIp.delete(peer.id)
+    const n = connPerIp.get(ip) ?? 1
+    if (n <= 1) connPerIp.delete(ip)
+    else connPerIp.set(ip, n - 1)
+  }
   const meta = peerMeta.get(peer.id)
   peerRateMap.delete(peer.id)
   if (!meta) return
@@ -82,6 +101,18 @@ function isRateLimited(peerId: string): boolean {
 }
 
 export default defineWebSocketHandler({
+  open(peer) {
+    const ip = getPeerIp(peer)
+    const current = connPerIp.get(ip) ?? 0
+    if (current >= MAX_CONNS_PER_IP) {
+      peer.send(JSON.stringify({ type: 'error', message: 'Too many connections' }))
+      peer.close()
+      return
+    }
+    connPerIp.set(ip, current + 1)
+    peerIp.set(peer.id, ip)
+  },
+
   message(peer, message) {
     if (isRateLimited(peer.id)) return
 
