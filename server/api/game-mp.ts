@@ -32,7 +32,7 @@ function envInt(name: string, fallback: number): number {
 }
 
 const MAX_ROOM_SIZE = envInt('MP_MAX_ROOM_SIZE', 10)
-const MAX_ROOMS = envInt('MP_MAX_ROOMS', 1000)
+const MAX_ROOMS = envInt('MP_MAX_ROOMS', 10)
 const MAX_CONNS_PER_IP = envInt('MP_MAX_CONNS_PER_IP', 20)
 const RATE_LIMIT_MESSAGES = envInt('MP_RATE_LIMIT_MESSAGES', 20) // per second per peer
 const MSG_MAX_BYTES = envInt('MP_MSG_MAX_BYTES', 8192)

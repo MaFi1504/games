@@ -11,3 +11,11 @@ services:
       HOST: 0.0.0.0
       PORT: 3000
     restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
