@@ -82,6 +82,16 @@ const apps = computed(() => [
     tags: Array.isArray(tm('apps.2048.tags'))
       ? (tm('apps.2048.tags') as unknown[]).map(tag => rt(tag as string))
       : []
+  },
+  {
+    id: 'minesweeper',
+    name: t('apps.minesweeper.name'),
+    emoji: '💣',
+    route: '/minesweeper',
+    description: t('apps.minesweeper.description'),
+    tags: Array.isArray(tm('apps.minesweeper.tags'))
+      ? (tm('apps.minesweeper.tags') as unknown[]).map(tag => rt(tag as string))
+      : []
   }
 ])
 </script>

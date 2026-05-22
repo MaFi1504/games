@@ -89,6 +89,7 @@ Nuxt file-based routing. All routes are unlocalized (i18n strategy: `no_prefix`)
 | `/` | `pages/index.vue` | Game selection grid |
 | `/sudoku` | `pages/sudoku.vue` | Sudoku puzzle generator |
 | `/2048` | `pages/2048.vue` | 2048 tile-merging puzzle |
+| `/minesweeper` | `pages/minesweeper.vue` | Minesweeper puzzle |
 | `/sheets` | `pages/sheets/index.vue` | Score sheets hub |
 | `/sheets/kniffel` | `pages/sheets/kniffel.vue` | Kniffel tracker |
 | `/sheets/phase10` | `pages/sheets/phase10.vue` | Phase 10 tracker |
@@ -216,6 +217,30 @@ Exported types: `Grid = (number | null)[][]`, `Difficulty = 'easy' | 'medium' | 
 **Animated generation** (`visualize` ref): when enabled, `generate()` runs an async path (`generateAnimated`) that yields to the UI every `STEP_DELAY` ms (25 ms) between steps and every `SOLVE_STEP_INTERVAL` (6) backtracking placements. The working grid is exposed via `visualGrid`; the current phase is exposed via `generationPhase`. The sudoku page switches the rendered grid to `visualGrid` and displays a phase label during animation.
 
 **No Feedback mode** (`noFeedback` ref): when enabled, cells do not show visual feedback for correct/wrong answers. All non-clue cells are styled neutrally regardless of whether the entered value is correct or incorrect. This provides a challenge mode where players must solve without hint validation. Defaults to `false`.
+
+### `useMinesweeper`
+
+Client-side Minesweeper engine.
+
+Key types: `Difficulty = 'easy' | 'medium' | 'hard'`, `GameStatus = 'idle' | 'playing' | 'won' | 'over'`, `Cell = { isMine, isRevealed, isFlagged, adjacentMines }`
+
+Difficulties:
+
+| Difficulty | Grid | Mines |
+|---|---|---|
+| easy | 9×9 | 10 |
+| medium | 16×16 | 40 |
+| hard | 16×30 | 99 |
+
+State shape (`localStorage` key: `minesweeper-game`):
+```ts
+{ board: Cell[][], status: GameStatus, difficulty: Difficulty, elapsedSeconds: number, firstClick: boolean }
+```
+
+- **First-click safety**: mines are placed on the first `reveal()` call, excluding the clicked cell and its 8 neighbours.
+- **Flood-fill**: `floodReveal()` (exported for testing) BFS-reveals all connected empty cells and their numbered borders.
+- **Chord**: `chord(row, col)` auto-reveals all unflagged neighbours of a numbered cell when the adjacent flag count matches `adjacentMines`.
+- **Timer**: `setInterval` counting `elapsedSeconds` while `status === 'playing'`; stopped on win/over and restored from storage.
 
 ### `use2048`
 

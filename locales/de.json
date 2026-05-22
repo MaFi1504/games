@@ -12,17 +12,38 @@
     "sheets": {
       "name": "Spielbögen",
       "description": "Spielbögen für Phase 10, Kniffel und mehr.",
-      "tags": ["Punkte-Tracking", "Mehrspieler"]
+      "tags": [
+        "Punkte-Tracking",
+        "Mehrspieler"
+      ]
     },
     "sudoku": {
       "name": "Sudoku",
       "description": "Sudoku-Rätsel generieren und lösen. Sieh genau, wie der Backtracking-Algorithmus ein gültiges Raster erstellt.",
-      "tags": ["Rätsel", "Algorithmus", "Solo"]
+      "tags": [
+        "Rätsel",
+        "Algorithmus",
+        "Solo"
+      ]
     },
     "2048": {
       "name": "2048",
       "description": "Verbinde Kacheln, um 2048 zu erreichen. Wähle ein 4×4-, 6×6- oder 8×8-Feld und spiele nach dem Sieg weiter.",
-      "tags": ["Rätsel", "Solo", "Strategie"]
+      "tags": [
+        "Rätsel",
+        "Solo",
+        "Strategie"
+      ]
+    },
+    "minesweeper": {
+      "name": "Minesweeper",
+      "description": "Räume das Spielfeld, ohne eine Mine zu treffen. Markiere verdächtige Felder und überlebe mit Logik.",
+      "tags": [
+        "Rätsel",
+        "Solo",
+        "Strategie",
+        "Klassiker"
+      ]
     }
   },
   "2048": {
@@ -65,17 +86,32 @@
     "phase10": {
       "name": "Phase 10",
       "description": "Schließe alle 10 Phasen ab, bevor es deine Mitspieler tun. Verfolge deine Phasen und Punkte jede Runde.",
-      "tags": ["Kartenspiel", "2–6 Spieler", "Phasen-Tracking", "Punkte-Tracking"]
+      "tags": [
+        "Kartenspiel",
+        "2–6 Spieler",
+        "Phasen-Tracking",
+        "Punkte-Tracking"
+      ]
     },
     "kniffel": {
       "name": "Kniffel",
       "description": "Würfle und trage Punkte in 13 Kategorien ein. Spiele klassisch mit 5 Würfeln oder Extrem mit 6 Würfeln.",
-      "tags": ["Würfelspiel", "1+ Spieler", "Strategie", "Punkte-Tracking"]
+      "tags": [
+        "Würfelspiel",
+        "1+ Spieler",
+        "Strategie",
+        "Punkte-Tracking"
+      ]
     },
     "notizblock": {
       "name": "Notizblock",
       "description": "Füge Spieler hinzu, tippe auf einen Namen zum Punkte eintragen und tippe auf die Summe, um alle Einträge später zu prüfen und zu bearbeiten.",
-      "tags": ["Universell", "2+ Spieler", "Bearbeitbare Historie", "Schnelles Zählen"]
+      "tags": [
+        "Universell",
+        "2+ Spieler",
+        "Bearbeitbare Historie",
+        "Schnelles Zählen"
+      ]
     }
   },
   "notepad": {
@@ -141,10 +177,22 @@
     "phaseCompleted": "Phase {n} abgeschlossen",
     "cardValues": "Kartenwerte",
     "cardValuesRows": [
-      { "label": "Karten 1–9", "value": "1–9 Pkt." },
-      { "label": "Karten 10–12", "value": "10–12 Pkt." },
-      { "label": "Aussetzen", "value": "20 Pkt." },
-      { "label": "Joker", "value": "20 Pkt." }
+      {
+        "label": "Karten 1–9",
+        "value": "1–9 Pkt."
+      },
+      {
+        "label": "Karten 10–12",
+        "value": "10–12 Pkt."
+      },
+      {
+        "label": "Aussetzen",
+        "value": "20 Pkt."
+      },
+      {
+        "label": "Joker",
+        "value": "20 Pkt."
+      }
     ],
     "resetTitle": "Spiel zurücksetzen?",
     "resetBody": "Dadurch werden alle abgeschlossenen Phasen und die Punktehistorie gelöscht. Dies kann nicht rückgängig gemacht werden.",
@@ -156,28 +204,68 @@
     "phaseSetClassicName": "Klassisch",
     "phaseSetAltName": "Variante",
     "phaseList": [
-      { "description": "2 Drillinge" },
-      { "description": "1 Drilling + 1 Viererfolge" },
-      { "description": "1 Vierling + 1 Viererfolge" },
-      { "description": "1 Siebenerfolge" },
-      { "description": "1 Achterfolge" },
-      { "description": "1 Neunerfolge" },
-      { "description": "2 Vierlinge" },
-      { "description": "7 Karten einer Farbe" },
-      { "description": "1 Fünfling + 1 Paar" },
-      { "description": "1 Fünfling + 1 Drilling" }
+      {
+        "description": "2 Drillinge"
+      },
+      {
+        "description": "1 Drilling + 1 Viererfolge"
+      },
+      {
+        "description": "1 Vierling + 1 Viererfolge"
+      },
+      {
+        "description": "1 Siebenerfolge"
+      },
+      {
+        "description": "1 Achterfolge"
+      },
+      {
+        "description": "1 Neunerfolge"
+      },
+      {
+        "description": "2 Vierlinge"
+      },
+      {
+        "description": "7 Karten einer Farbe"
+      },
+      {
+        "description": "1 Fünfling + 1 Paar"
+      },
+      {
+        "description": "1 Fünfling + 1 Drilling"
+      }
     ],
     "phaseListAlt": [
-      { "description": "5 Zwillinge" },
-      { "description": "1 Vierling + 1 Viererfolge" },
-      { "description": "1 Vierling + 1 Viererfolge einer Farbe" },
-      { "description": "1 Neunerfolge" },
-      { "description": "1 Zehnerfolge" },
-      { "description": "2 Vierlinge" },
-      { "description": "Fünferfolge einer Farbe" },
-      { "description": "3 Drillinge" },
-      { "description": "Fünfling + Drilling" },
-      { "description": "Fünfling + Dreierfolge einer Farbe" }
+      {
+        "description": "5 Zwillinge"
+      },
+      {
+        "description": "1 Vierling + 1 Viererfolge"
+      },
+      {
+        "description": "1 Vierling + 1 Viererfolge einer Farbe"
+      },
+      {
+        "description": "1 Neunerfolge"
+      },
+      {
+        "description": "1 Zehnerfolge"
+      },
+      {
+        "description": "2 Vierlinge"
+      },
+      {
+        "description": "Fünferfolge einer Farbe"
+      },
+      {
+        "description": "3 Drillinge"
+      },
+      {
+        "description": "Fünfling + Drilling"
+      },
+      {
+        "description": "Fünfling + Dreierfolge einer Farbe"
+      }
     ]
   },
   "kniffel": {
@@ -262,5 +350,26 @@
     "appDescription": "Spielbögen ist eine Progressive Web App zur Punkteverfolgung bei Brett- und Kartenspielen. Alle Spieldaten werden lokal in Ihrem Browser gespeichert.",
     "technologies": "Entwickelt mit",
     "copyright": "© {year} Spielbögen. Alle anderen Code- und Grafikelemente wurden von Projektmitwirkenden erstellt."
+  },
+  "minesweeper": {
+    "title": "Minesweeper",
+    "subtitle": "Räume das Spielfeld, ohne eine Mine zu treffen.",
+    "chooseDifficulty": "Wähle einen Schwierigkeitsgrad, um zu spielen.",
+    "easy": "Einfach",
+    "easyConfig": "9×9, 10 Minen",
+    "medium": "Mittel",
+    "mediumConfig": "16×16, 40 Minen",
+    "hard": "Schwer",
+    "hardConfig": "16×30, 99 Minen",
+    "newGame": "Neues Spiel",
+    "changeDifficulty": "Schwierigkeit ändern",
+    "wonTitle": "Du hast das Spielfeld geräumt!",
+    "wonMessage": "Fertig in {time}. Beeindruckend!",
+    "playAgain": "Nochmal spielen",
+    "overTitle": "Spiel vorbei",
+    "overMessage": "Du hast eine Mine getroffen. Viel Glück beim nächsten Mal.",
+    "tryAgain": "Nochmal versuchen",
+    "hint": "Linksklick zum Aufdecken · Rechtsklick zum Markieren · Doppelklick zum Chord",
+    "cell": "Feld"
   }
 }

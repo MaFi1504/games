@@ -15,6 +15,7 @@ A Progressive Web App for tracking scores in board and card games. Built with **
 | Notizblock | `/sheets/notizblock` | Freeform multi-player score notepad |
 | Sudoku | `/sudoku` | Client-side puzzle generator (easy / medium / hard) |
 | 2048 | `/2048` | Tile-merging puzzle with selectable grid size (4×4, 6×6, 8×8) |
+| Minesweeper | `/minesweeper` | Classic mine-clearing puzzle (easy / medium / hard) |
 
 ---
 
@@ -147,6 +148,7 @@ Translation files: `locales/en.json`, `locales/de.json`.
 | `kniffel-game` | `useKniffel` | Active Kniffel game state |
 | `notepad-game` | `useNotepad` | Notepad players and entries |
 | `2048-game` | `use2048` | Active 2048 game state (grid, score, bestScore, gridSize) |
+| `minesweeper-game` | `useMinesweeper` | Active Minesweeper game state (board, difficulty, timer) |
 | `phase10-history` | `useGameHistory` | Last 20 completed Phase 10 games |
 | `kniffel-history` | `useGameHistory` | Last 20 completed Kniffel games |
 
