@@ -124,9 +124,12 @@ export default defineWebSocketHandler({
   message(peer, message) {
     if (isRateLimited(peer.id)) return
 
+    const raw = message.text()
+    if (raw.length > 8192) return
+
     let data: Record<string, unknown>
     try {
-      data = JSON.parse(message.text())
+      data = JSON.parse(raw)
     } catch {
       return
     }
