@@ -92,7 +92,7 @@ async function switchLocale(code: 'en' | 'de') {
 
 <template>
   <UApp>
-    <UHeader>
+    <UHeader :ui="{ toggle: '!block', content: '!block', overlay: '!block' }">
       <template #left>
         <NuxtLink to="/">
           <span class="text-lg font-bold tracking-tight">{{ $t('app.title') }}</span>
