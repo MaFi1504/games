@@ -67,7 +67,10 @@ function broadcast(roomKey: string) {
 const peerIp = new Map<string, string>()
 
 function getPeerIp(peer: Peer): string {
-  return peer.request?.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+  const headers = peer.request?.headers
+  // CF-Connecting-IP is set by Cloudflare and cannot be spoofed by clients
+  return headers?.get('cf-connecting-ip')?.trim()
+    ?? headers?.get('x-forwarded-for')?.split(',')[0]?.trim()
     ?? peer.remoteAddress
     ?? 'unknown'
 }
