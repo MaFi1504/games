@@ -59,7 +59,11 @@
     "categories": "Categories",
     "avgScore": "Avg. score:",
     "won": "Won",
-    "lost": "Lost"
+    "lost": "Lost",
+    "abandoned": "Abandoned",
+    "time": "Time",
+    "avgTime": "Avg. time:",
+    "solveRate": "Solve rate:"
   },
   "games": {
     "phase10": {

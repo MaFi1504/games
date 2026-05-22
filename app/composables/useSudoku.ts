@@ -13,6 +13,7 @@
  */
 
 import { ref, computed, nextTick, readonly, watch, onUnmounted } from 'vue'
+import { useGameHistory } from './useGameHistory'
 
 export type Grid = (number | null)[][]
 export type Difficulty = 'easy' | 'medium' | 'hard'
@@ -224,6 +225,8 @@ function carveClues(solution: Grid, targetClues: number): Grid {
 // ---------------------------------------------------------------------------
 
 export function useSudoku() {
+  const { saveSudokuGame } = useGameHistory()
+
   const solution = ref<Grid>(emptyGrid())
   const puzzle = ref<Grid>(emptyGrid())
   const playerGrid = ref<Grid>(emptyGrid())
@@ -331,6 +334,12 @@ export function useSudoku() {
 
   /** Generate a new puzzle at the current difficulty */
   async function generate(diff: Difficulty = difficulty.value): Promise<void> {
+    // Save the current game as unsolved if one was in progress
+    const hasPuzzle = solution.value.some(row => row.some(cell => cell !== null))
+    if (hasPuzzle && !isSolved.value) {
+      saveSudokuGame({ difficulty: difficulty.value, timeSeconds: elapsed.value, solved: false })
+    }
+
     isGenerating.value = true
     difficulty.value = diff
 
@@ -397,7 +406,10 @@ export function useSudoku() {
 
   // Stop the timer when the puzzle is solved
   watch(isSolved, (solved) => {
-    if (solved) stopTimer()
+    if (solved) {
+      stopTimer()
+      saveSudokuGame({ difficulty: difficulty.value, timeSeconds: elapsed.value, solved: true })
+    }
   })
 
   // Clean up the interval when the component using this composable is unmounted

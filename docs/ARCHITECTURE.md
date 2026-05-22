@@ -102,7 +102,7 @@ Nuxt file-based routing. All routes are unlocalized (i18n strategy: `no_prefix`)
 The root layout wraps every page. Key responsibilities:
 
 - `UHeader` with `AppLogo` → home link, EN/DE locale switcher, dark mode toggle.
-- **Game history sidebar** – shown only on `/sheets/kniffel` and `/sheets/phase10` routes. Reads `useGameHistory` to render a grouped history panel with avg score and win/loss badges. A "clear all" action deletes the stored history for that game.
+- **Game history sidebar** – shown on `/sheets/kniffel`, `/sheets/phase10`, and `/sudoku` routes. Reads `useGameHistory` to render a grouped history panel. Phase10/Kniffel show avg score and win/loss badges; Sudoku shows avg time and solve rate grouped by difficulty. A "clear all" action deletes the stored history for that game.
 - `UMain` for page slot.
 - `UFooter` with copyright and credits link.
 - `<PwaUpdatePrompt client-only />` – renders the update banner.
@@ -132,10 +132,11 @@ Both no-op server-side (`import.meta.client` guard).
 
 ### `useGameHistory`
 
-Module-level reactive singletons (`phase10History`, `kniffelHistory`) so updates propagate across components without a provide/inject.
+Module-level reactive singletons (`phase10History`, `kniffelHistory`, `sudokuHistory`) so updates propagate across components without a provide/inject.
 
-- Max 20 entries per game (FIFO).
-- Storage keys: `phase10-history`, `kniffel-history`.
+- Max 200 entries per game (FIFO).
+- Storage keys: `phase10-history`, `kniffel-history`, `sudoku-history`.
+- Sudoku entries include `difficulty`, `timeSeconds`, and `solved` flag. A new puzzle generation saves the prior game as unsolved if it was in progress; completing the puzzle saves it as solved.
 
 ### `usePhase10`
 

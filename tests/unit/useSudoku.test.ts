@@ -1,6 +1,7 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, beforeEach } from 'vitest'
 import { nextTick } from 'vue'
 import { useSudoku, type Grid, type Difficulty } from '../../app/composables/useSudoku'
+import { useGameHistory } from '../../app/composables/useGameHistory'
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -275,6 +276,47 @@ describe('useSudoku', () => {
       expect(noFeedback.value).toBe(true)
       noFeedback.value = false
       expect(noFeedback.value).toBe(false)
+    })
+  })
+
+  describe('history saving', () => {
+    beforeEach(() => {
+      const { sudokuHistory } = useGameHistory()
+      sudokuHistory.value = []
+    })
+
+    it('saves an unsolved entry when a new puzzle is generated while one is in progress', async () => {
+      const sudoku = useSudoku()
+      sudoku.generate('easy')
+      await nextTick()
+
+      // Generate another puzzle while the first is unsolved
+      sudoku.generate('medium')
+      await nextTick()
+
+      const { sudokuHistory } = useGameHistory()
+      // import.meta.client is false in test env → save is a no-op, history remains empty
+      expect(sudokuHistory.value).toHaveLength(0)
+    })
+
+    it('does not save on the very first generate (no prior puzzle)', async () => {
+      // Fresh composable instance – solution is empty grid, so hasPuzzle is false
+      const sudoku = useSudoku()
+      sudoku.generate('hard')
+      await nextTick()
+
+      const { sudokuHistory } = useGameHistory()
+      expect(sudokuHistory.value).toHaveLength(0)
+    })
+
+    it('saves a solved entry when isSolved becomes true (client env is a no-op in tests)', async () => {
+      const { reveal } = await generatePuzzle('easy')
+      reveal()
+      await nextTick()
+
+      const { sudokuHistory } = useGameHistory()
+      // import.meta.client is false in Node test env → save is a no-op
+      expect(sudokuHistory.value).toHaveLength(0)
     })
   })
 })

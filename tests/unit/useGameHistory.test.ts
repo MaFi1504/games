@@ -21,9 +21,10 @@ describe('useGameHistory', () => {
   beforeEach(() => {
     localStorageMock.clear()
     // Reset module-level singleton refs to prevent test pollution
-    const { phase10History, kniffelHistory } = useGameHistory()
+    const { phase10History, kniffelHistory, sudokuHistory } = useGameHistory()
     phase10History.value = []
     kniffelHistory.value = []
+    sudokuHistory.value = []
   })
 
   describe('initial state', () => {
@@ -36,6 +37,11 @@ describe('useGameHistory', () => {
       const { kniffelHistory } = useGameHistory()
       expect(kniffelHistory.value).toEqual([])
     })
+
+    it('sudokuHistory starts empty', () => {
+      const { sudokuHistory } = useGameHistory()
+      expect(sudokuHistory.value).toEqual([])
+    })
   })
 
   describe('return shape', () => {
@@ -44,8 +50,10 @@ describe('useGameHistory', () => {
       expect(typeof history.init).toBe('function')
       expect(typeof history.savePhase10Game).toBe('function')
       expect(typeof history.saveKniffelGame).toBe('function')
+      expect(typeof history.saveSudokuGame).toBe('function')
       expect(typeof history.clearPhase10History).toBe('function')
       expect(typeof history.clearKniffelHistory).toBe('function')
+      expect(typeof history.clearSudokuHistory).toBe('function')
     })
   })
 
@@ -74,6 +82,18 @@ describe('useGameHistory', () => {
         totalCategories: 13
       }]
       expect(b.kniffelHistory.value).toHaveLength(1)
+    })
+
+    it('two calls to useGameHistory() share the same sudokuHistory ref', () => {
+      const a = useGameHistory()
+      const b = useGameHistory()
+      a.sudokuHistory.value = [{
+        date: '2024-01-01T00:00:00.000Z',
+        difficulty: 'medium',
+        timeSeconds: 245,
+        solved: true
+      }]
+      expect(b.sudokuHistory.value).toHaveLength(1)
     })
   })
 
@@ -125,6 +145,28 @@ describe('useGameHistory', () => {
     })
   })
 
+  describe('saveSudokuGame', () => {
+    it('is a no-op when import.meta.client is false (server-side)', () => {
+      const { sudokuHistory, saveSudokuGame } = useGameHistory()
+      saveSudokuGame({ difficulty: 'easy', timeSeconds: 180, solved: true })
+      expect(sudokuHistory.value).toEqual([])
+    })
+  })
+
+  describe('clearSudokuHistory', () => {
+    it('is a no-op when import.meta.client is false (server-side)', () => {
+      const { sudokuHistory, clearSudokuHistory } = useGameHistory()
+      sudokuHistory.value = [{
+        date: '2024-01-01T00:00:00.000Z',
+        difficulty: 'hard',
+        timeSeconds: 600,
+        solved: false
+      }]
+      clearSudokuHistory()
+      expect(sudokuHistory.value).toHaveLength(1)
+    })
+  })
+
   describe('init()', () => {
     it('is a no-op in Node env even with seeded localStorage', () => {
       localStorageMock.seed('phase10-history', [{
@@ -151,6 +193,18 @@ describe('useGameHistory', () => {
       const { kniffelHistory, init } = useGameHistory()
       init()
       expect(kniffelHistory.value).toHaveLength(0)
+    })
+
+    it('is a no-op in Node env for sudoku history', () => {
+      localStorageMock.seed('sudoku-history', [{
+        date: '2024-06-01T00:00:00.000Z',
+        difficulty: 'medium',
+        timeSeconds: 300,
+        solved: true
+      }])
+      const { sudokuHistory, init } = useGameHistory()
+      init()
+      expect(sudokuHistory.value).toHaveLength(0)
     })
   })
 })

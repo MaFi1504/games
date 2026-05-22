@@ -149,6 +149,7 @@ Translation files: `locales/en.json`, `locales/de.json`.
 | `2048-game` | `use2048` | Active 2048 game state (grid, score, bestScore, gridSize) |
 | `phase10-history` | `useGameHistory` | Last 20 completed Phase 10 games |
 | `kniffel-history` | `useGameHistory` | Last 20 completed Kniffel games |
+| `sudoku-history` | `useGameHistory` | Last 200 Sudoku game attempts (solved + abandoned) |
 
 ---
 

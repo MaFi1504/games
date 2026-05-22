@@ -59,7 +59,11 @@
     "categories": "Kategorien",
     "avgScore": "Ø Punkte:",
     "won": "Gewonnen",
-    "lost": "Verloren"
+    "lost": "Verloren",
+    "abandoned": "Abgebrochen",
+    "time": "Zeit",
+    "avgTime": "Ø Zeit:",
+    "solveRate": "Lösungsrate:"
   },
   "games": {
     "phase10": {
