@@ -25,6 +25,7 @@ const peerMeta = new Map<string, { roomKey: string, playerId: string }>()
 const peerRateMap = new Map<string, { count: number, resetAt: number }>()
 
 const MAX_ROOM_SIZE = 10
+const MAX_ROOMS = 10
 const RATE_LIMIT_MESSAGES = 20 // max messages per peer per second
 const ROOM_CODE_RE = /^[A-Z0-9]{4,10}$/
 const PLAYER_ID_RE = /^[a-z0-9]{8,20}$/
@@ -106,7 +107,13 @@ export default defineWebSocketHandler({
 
       removePeer(peer)
 
-      if (!rooms.has(roomKey)) rooms.set(roomKey, new Map())
+      if (!rooms.has(roomKey)) {
+        if (rooms.size >= MAX_ROOMS) {
+          peer.send(JSON.stringify({ type: 'error', message: 'Server is full' }))
+          return
+        }
+        rooms.set(roomKey, new Map())
+      }
       const room = rooms.get(roomKey)!
 
       if (room.size >= MAX_ROOM_SIZE) {
