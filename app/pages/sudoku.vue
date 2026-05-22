@@ -273,10 +273,15 @@ function cellClass(r: number, c: number): string[] {
   else if (isSameRowCol || isSameBox) classes.push('bg-muted/40')
   else classes.push('hover:bg-muted/20')
 
-  if (state === 'clue') classes.push('text-default')
-  else if (state === 'correct') classes.push('text-success')
-  else if (state === 'wrong') classes.push('text-error')
-  else classes.push('text-primary')
+  if (state === 'clue') {
+    classes.push('text-muted/60 bg-muted/15 cursor-not-allowed font-bold')
+  } else if (state === 'correct') {
+    classes.push('text-success')
+  } else if (state === 'wrong') {
+    classes.push('text-error')
+  } else {
+    classes.push('text-primary')
+  }
 
   return classes
 }
