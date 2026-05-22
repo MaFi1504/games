@@ -20,7 +20,14 @@ pnpm test:e2e     # full user-flow changes
 
 - If all tests pass, briefly confirm it. If any fail, fix them before considering the task done.
 
-### 2. Update README.md
+### 2. Update app version
+
+- When adding a new feature, increment the version in `package.json` and `app/app.config.ts` using semantic versioning:
+  - **PATCH** (0.1.x): Bug fixes and minor improvements
+  - **MINOR** (0.x.0): New features
+  - **MAJOR** (x.0.0): Breaking changes
+
+### 3. Update README.md
 
 Update the root `README.md` when:
 - A new game or route is added → update the **Games** table.
@@ -28,7 +35,7 @@ Update the root `README.md` when:
 - A new npm script is added → update the **Development** or **Testing** section.
 - Dependencies or the tech stack changes → update the **Tech Stack** table.
 
-### 3. Update docs/ARCHITECTURE.md
+### 4. Update docs/ARCHITECTURE.md
 
 Update `docs/ARCHITECTURE.md` when:
 - A new composable is added → add an entry under **Composables** with state shape and localStorage key.
@@ -38,7 +45,7 @@ Update `docs/ARCHITECTURE.md` when:
 - i18n namespaces change → update the **i18n** section.
 - A new component is introduced with non-trivial behavior → note it under **App Shell** or add a **Components** section.
 
-### 4. Update docs/ feature summaries
+### 5. Update docs/ feature summaries
 
 The `docs/` folder is the quick-reference source for future development tasks. When adding a significant new feature:
 - If the feature is large enough to warrant its own file (e.g. a new game, a new multiplayer flow), create `docs/<FEATURE>.md` with:

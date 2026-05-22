@@ -2,6 +2,7 @@
 import { useGameHistory, type Phase10HistoryEntry, type KniffelHistoryEntry } from '~/composables/useGameHistory'
 
 const { locale, locales, setLocale, t } = useI18n()
+const appConfig = useAppConfig()
 const route = useRoute()
 const { phase10History, kniffelHistory, init, clearPhase10History, clearKniffelHistory } = useGameHistory()
 
@@ -223,7 +224,7 @@ async function switchLocale(code: 'en' | 'de') {
     <UFooter>
       <template #left>
         <p class="text-sm text-muted">
-          {{ $t('app.title') }} • {{ new Date().getFullYear() }}
+          {{ $t('app.title') }} • {{ new Date().getFullYear() }} • v{{ appConfig.version }}
         </p>
       </template>
       <template #right>
