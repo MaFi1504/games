@@ -19,7 +19,7 @@ export interface KniffelHistoryEntry {
 
 const PHASE10_HISTORY_KEY = 'phase10-history'
 const KNIFFEL_HISTORY_KEY = 'kniffel-history'
-const MAX_HISTORY = 20
+const MAX_HISTORY = 200
 
 // Module-level reactive singletons so updates propagate across components
 const phase10History = ref<Phase10HistoryEntry[]>([])
