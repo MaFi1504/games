@@ -8,6 +8,9 @@
       <p class="text-muted text-sm">
         {{ $t('sudoku.subtitle') }}
       </p>
+      <p class="text-2xl font-mono font-semibold mt-2 tracking-widest tabular-nums">
+        {{ formattedTime }}
+      </p>
     </div>
 
     <!-- Controls -->
@@ -69,6 +72,17 @@
       >
         {{ $t('sudoku.animateCreation') }}
       </UButton>
+
+      <UButton
+        :variant="isPaused ? 'solid' : 'outline'"
+        :color="isPaused ? 'primary' : 'neutral'"
+        size="sm"
+        :icon="isPaused ? 'i-lucide-play' : 'i-lucide-pause'"
+        :disabled="isGenerating || isSolved"
+        @click="togglePause"
+      >
+        {{ isPaused ? $t('sudoku.resume') : $t('sudoku.pause') }}
+      </UButton>
     </div>
 
     <p
@@ -103,6 +117,19 @@
         />
       </div>
 
+      <!-- Pause overlay -->
+      <div
+        v-if="isPaused"
+        class="absolute inset-0 flex flex-col items-center justify-center backdrop-blur-md bg-background/30 rounded z-10 cursor-pointer"
+        @click="togglePause"
+      >
+        <UIcon
+          name="i-lucide-play"
+          class="text-5xl text-primary mb-2"
+        />
+        <span class="text-sm font-semibold text-muted">{{ $t('sudoku.resume') }}</span>
+      </div>
+
       <div
         class="grid border-4 border-default rounded overflow-hidden select-none"
         style="grid-template-columns: repeat(9, 1fr); grid-template-rows: repeat(9, 1fr);"
@@ -135,7 +162,7 @@
         color="neutral"
         class="w-10 h-10 text-base font-bold transition-all duration-300"
         :class="{ 'animate-pulse-complete': justCompleted === n }"
-        :disabled="isGenerating || completedNumbers.has(n)"
+        :disabled="isGenerating || isPaused || completedNumbers.has(n)"
         :opacity="completedNumbers.has(n) ? 'opacity-40' : 'opacity-100'"
         @click="enterDigit(n)"
       >
@@ -146,7 +173,7 @@
         color="neutral"
         class="w-10 h-10"
         icon="i-lucide-delete"
-        :disabled="isGenerating"
+        :disabled="isGenerating || isPaused"
         @click="enterDigit(null)"
       />
     </div>
@@ -170,13 +197,29 @@ const {
   cellStates,
   completedNumbers,
   noFeedback,
+  elapsed,
+  isPaused,
   generate,
   setCell,
   reset,
-  } = useSudoku()
+  pauseTimer,
+  resumeTimer
+} = useSudoku()
 
 // Grid size in px – responsive via JS so we can compute borders
 const gridPx = 360
+
+/** Format elapsed seconds as MM:SS */
+const formattedTime = computed(() => {
+  const m = Math.floor(elapsed.value / 60)
+  const s = elapsed.value % 60
+  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
+})
+
+function togglePause() {
+  if (isPaused.value) resumeTimer()
+  else pauseTimer()
+}
 
 /** Show the working grid during animated generation, player grid otherwise */
 const activeGrid = computed(() =>
@@ -213,7 +256,7 @@ watch(completedNumbers, (newCompleted) => {
 }, { immediate: true })
 
 function selectCell(r: number, c: number) {
-  if (isGenerating.value) return
+  if (isGenerating.value || isPaused.value) return
   selected.value = [r, c]
 }
 
@@ -233,6 +276,7 @@ onUnmounted(() => {
 })
 
 function onKey(e: KeyboardEvent) {
+  if (isPaused.value) return
   if (e.key >= '1' && e.key <= '9') enterDigit(Number(e.key))
   else if (e.key === 'Backspace' || e.key === 'Delete' || e.key === '0') enterDigit(null)
   else if (e.key === 'ArrowUp' && selected.value) selected.value = [Math.max(0, selected.value[0] - 1), selected.value[1]]

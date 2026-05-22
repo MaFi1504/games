@@ -240,6 +240,8 @@
     "noFeedback": "No Feedback",
     "solved": "Solved! Well done!",
     "animateCreation": "Animate",
+    "pause": "Pause",
+    "resume": "Resume",
     "phase": {
       "diagonal": "Filling diagonal boxes\u2026",
       "solving": "Solving via backtracking\u2026",

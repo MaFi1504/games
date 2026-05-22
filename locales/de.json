@@ -240,6 +240,8 @@
     "noFeedback": "Kein Feedback",
     "solved": "Gelöst! Gut gemacht!",
     "animateCreation": "Animieren",
+    "pause": "Pausieren",
+    "resume": "Fortsetzen",
     "phase": {
       "diagonal": "Diagonale Blöcke befüllen…",
       "solving": "Lösung via Backtracking…",

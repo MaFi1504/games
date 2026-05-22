@@ -12,7 +12,7 @@
  *   Stop when the remaining clue count reaches the target.
  */
 
-import { ref, computed, nextTick, readonly } from 'vue'
+import { ref, computed, nextTick, readonly, watch } from 'vue'
 
 export type Grid = (number | null)[][]
 export type Difficulty = 'easy' | 'medium' | 'hard'
@@ -239,6 +239,41 @@ export function useSudoku() {
   /** Whether to hide feedback (correct/wrong) for player entries */
   const noFeedback = ref(false)
 
+  // ---------------------------------------------------------------------------
+  // Timer
+  // ---------------------------------------------------------------------------
+
+  /** Elapsed time in seconds since the puzzle was started */
+  const elapsed = ref(0)
+  /** Whether the timer (and game) is paused */
+  const isPaused = ref(false)
+
+  let timerInterval: ReturnType<typeof setInterval> | null = null
+
+  function startTimer() {
+    stopTimer()
+    elapsed.value = 0
+    isPaused.value = false
+    timerInterval = setInterval(() => {
+      if (!isPaused.value) elapsed.value++
+    }, 1000)
+  }
+
+  function stopTimer() {
+    if (timerInterval !== null) {
+      clearInterval(timerInterval)
+      timerInterval = null
+    }
+  }
+
+  function pauseTimer() {
+    isPaused.value = true
+  }
+
+  function resumeTimer() {
+    isPaused.value = false
+  }
+
   /** Run the full animated generation and update refs step-by-step */
   async function generateAnimated(diff: Difficulty): Promise<void> {
     const delay = (): Promise<void> => new Promise(resolve => setTimeout(resolve, STEP_DELAY))
@@ -308,6 +343,7 @@ export function useSudoku() {
       playerGrid.value = cloneGrid(puzzle.value)
     }
     isGenerating.value = false
+    startTimer()
   }
 
   /** Set a player digit at (row, col). Clue cells are locked. */
@@ -359,8 +395,14 @@ export function useSudoku() {
     return completed
   })
 
+  // Stop the timer when the puzzle is solved
+  watch(isSolved, (solved) => {
+    if (solved) stopTimer()
+  })
+
   function reset() {
     playerGrid.value = cloneGrid(puzzle.value)
+    startTimer()
   }
 
   function reveal() {
@@ -377,12 +419,16 @@ export function useSudoku() {
     visualGrid: readonly(visualGrid),
     generationPhase: readonly(generationPhase),
     noFeedback,
+    elapsed: readonly(elapsed),
+    isPaused: readonly(isPaused),
     isSolved,
     cellStates,
     completedNumbers,
     generate,
     setCell,
     reset,
-    reveal
+    reveal,
+    pauseTimer,
+    resumeTimer
   }
 }
