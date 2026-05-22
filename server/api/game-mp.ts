@@ -72,16 +72,13 @@ function getPeerIp(peer: Peer): string {
     ?? 'unknown'
 }
 
-function removePeer(peer: Peer) {
-  const ip = peerIp.get(peer.id)
-  if (ip) {
-    peerIp.delete(peer.id)
-    const n = connPerIp.get(ip) ?? 1
-    if (n <= 1) connPerIp.delete(ip)
-    else connPerIp.set(ip, n - 1)
-  }
+/**
+ * Remove this peer from its current room (if any). Does NOT touch connection-
+ * level accounting (`connPerIp`, `peerIp`, `peerRateMap`). Call this when the
+ * client wants to re-join or explicitly leaves a room.
+ */
+function leaveRoom(peer: Peer) {
   const meta = peerMeta.get(peer.id)
-  peerRateMap.delete(peer.id)
   if (!meta) return
   peerMeta.delete(peer.id)
   const room = rooms.get(meta.roomKey)
@@ -92,6 +89,22 @@ function removePeer(peer: Peer) {
   } else {
     broadcast(meta.roomKey)
   }
+}
+
+/**
+ * Full teardown for an actual socket close: clean up connection accounting
+ * and then remove the peer from its room.
+ */
+function removePeer(peer: Peer) {
+  const ip = peerIp.get(peer.id)
+  if (ip) {
+    peerIp.delete(peer.id)
+    const n = connPerIp.get(ip) ?? 1
+    if (n <= 1) connPerIp.delete(ip)
+    else connPerIp.set(ip, n - 1)
+  }
+  peerRateMap.delete(peer.id)
+  leaveRoom(peer)
 }
 
 function isRateLimited(peerId: string): boolean {
@@ -131,7 +144,7 @@ export default defineWebSocketHandler({
     if (isRateLimited(peer.id)) return
 
     const raw = message.text()
-    if (raw.length > MSG_MAX_BYTES) return
+    if (Buffer.byteLength(raw, 'utf8') > MSG_MAX_BYTES) return
 
     let data: Record<string, unknown>
     try {
@@ -153,7 +166,7 @@ export default defineWebSocketHandler({
       const name = String(data.name ?? '').trim().slice(0, NAME_MAX)
       if (!name) return
 
-      removePeer(peer)
+      leaveRoom(peer)
 
       if (!rooms.has(roomKey)) {
         if (rooms.size >= MAX_ROOMS) {
@@ -192,7 +205,7 @@ export default defineWebSocketHandler({
       const rawState = data.state
       if (rawState === null || typeof rawState !== 'object' || Array.isArray(rawState)) return
       const stateJson = JSON.stringify(rawState)
-      if (stateJson.length > STATE_JSON_MAX) return
+      if (Buffer.byteLength(stateJson, 'utf8') > STATE_JSON_MAX) return
 
       const entry = room.get(playerId)!
       entry.state = rawState
@@ -200,7 +213,7 @@ export default defineWebSocketHandler({
     } else if (type === 'leave') {
       const meta = peerMeta.get(peer.id)
       if (meta && meta.roomKey === roomKey && meta.playerId === playerId) {
-        removePeer(peer)
+        leaveRoom(peer)
       }
     }
   },

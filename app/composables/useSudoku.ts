@@ -12,7 +12,7 @@
  *   Stop when the remaining clue count reaches the target.
  */
 
-import { ref, computed, nextTick, readonly, watch } from 'vue'
+import { ref, computed, nextTick, readonly, watch, onUnmounted } from 'vue'
 
 export type Grid = (number | null)[][]
 export type Difficulty = 'easy' | 'medium' | 'hard'
@@ -399,6 +399,9 @@ export function useSudoku() {
   watch(isSolved, (solved) => {
     if (solved) stopTimer()
   })
+
+  // Clean up the interval when the component using this composable is unmounted
+  onUnmounted(stopTimer)
 
   function reset() {
     playerGrid.value = cloneGrid(puzzle.value)
