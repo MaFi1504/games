@@ -157,6 +157,7 @@ export default defineWebSocketHandler({
 
       if (room.size >= MAX_ROOM_SIZE) {
         peer.send(JSON.stringify({ type: 'error', message: 'Room is full' }))
+        peer.close()
         return
       }
 

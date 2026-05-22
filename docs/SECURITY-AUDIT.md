@@ -14,7 +14,7 @@
 | 3 | Session hijacking via `playerId` collision + `Math.random()` | High | Fixed |
 | 4 | No WebSocket connection limit per IP | High | Fixed |
 | 5 | No Origin header validation (CSWSH) | Medium | Fixed |
-| 6 | Orphaned connections on full-room rejection | Low | Open |
+| 6 | Orphaned connections on full-room rejection | Low | Fixed |
 | 7 | Raw message not size-checked before `JSON.parse` | Low | Open |
 
 ---
