@@ -21,7 +21,9 @@ COPY . .
 RUN pnpm build
 
 # ---- runtime stage ----
-FROM node:22-alpine AS runner
+# Distroless: no shell, no package manager, minimal attack surface.
+# :nonroot tag runs as uid/gid 65532 out of the box.
+FROM gcr.io/distroless/nodejs22-debian12:nonroot AS runner
 
 WORKDIR /app
 
@@ -29,9 +31,10 @@ ENV NODE_ENV=production
 ENV PORT=3000
 ENV HOST=0.0.0.0
 
-# Copy only the built output – no node_modules needed at runtime
-COPY --from=builder /app/.output ./
+# Copy only the built output – no node_modules needed at runtime.
+# Assign ownership to the distroless nonroot user (65532:65532).
+COPY --from=builder --chown=65532:65532 /app/.output ./
 
 EXPOSE 3000
 
-CMD ["node", "server/index.mjs"]
+CMD ["server/index.mjs"]
