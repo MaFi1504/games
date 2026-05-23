@@ -16,6 +16,7 @@ import { ref, computed, nextTick, readonly, watch, onUnmounted } from 'vue'
 import { useGameHistory } from './useGameHistory'
 
 export type Grid = (number | null)[][]
+export type NoteGrid = number[][][]
 export type Difficulty = 'easy' | 'medium' | 'hard'
 
 // ---------------------------------------------------------------------------
@@ -24,6 +25,10 @@ export type Difficulty = 'easy' | 'medium' | 'hard'
 
 function emptyGrid(): Grid {
   return Array.from({ length: 9 }, () => Array(9).fill(null))
+}
+
+function emptyNoteGrid(): NoteGrid {
+  return Array.from({ length: 9 }, () => Array.from({ length: 9 }, () => []))
 }
 
 function cloneGrid(grid: Grid): Grid {
@@ -230,6 +235,8 @@ export function useSudoku() {
   const solution = ref<Grid>(emptyGrid())
   const puzzle = ref<Grid>(emptyGrid())
   const playerGrid = ref<Grid>(emptyGrid())
+  const noteGrid = ref<NoteGrid>(emptyNoteGrid())
+  const isNoteMode = ref(false)
   const difficulty = ref<Difficulty>('easy')
   const isGenerating = ref(false)
 
@@ -351,6 +358,7 @@ export function useSudoku() {
       puzzle.value = carveClues(solution.value, CLUE_COUNTS[diff])
       playerGrid.value = cloneGrid(puzzle.value)
     }
+    noteGrid.value = emptyNoteGrid()
     isGenerating.value = false
     startTimer()
   }
@@ -358,7 +366,24 @@ export function useSudoku() {
   /** Set a player digit at (row, col). Clue cells are locked. */
   function setCell(row: number, col: number, value: number | null) {
     if (puzzle.value[row]![col] !== null) return // locked clue cell
+
+    if (isNoteMode.value && value !== null) {
+      // Toggle the note for this number in this cell
+      const notes = noteGrid.value[row]![col]!
+      const idx = notes.indexOf(value)
+      if (idx >= 0) {
+        noteGrid.value[row]![col] = notes.filter(n => n !== value)
+      } else {
+        noteGrid.value[row]![col] = [...notes, value].sort((a, b) => a - b)
+      }
+      return
+    }
+
+    // Normal mode: place digit and clear any notes for this cell
     playerGrid.value[row]![col] = value
+    if (value !== null) {
+      noteGrid.value[row]![col] = []
+    }
   }
 
   /** True if the player's grid matches the solution (and a puzzle has been generated) */
@@ -417,6 +442,7 @@ export function useSudoku() {
 
   function reset() {
     playerGrid.value = cloneGrid(puzzle.value)
+    noteGrid.value = emptyNoteGrid()
     startTimer()
   }
 
@@ -428,6 +454,8 @@ export function useSudoku() {
     solution: readonly(solution),
     puzzle: readonly(puzzle),
     playerGrid,
+    noteGrid: readonly(noteGrid),
+    isNoteMode,
     difficulty,
     isGenerating,
     visualize,

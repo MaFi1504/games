@@ -334,6 +334,7 @@
     "animateCreation": "Animieren",
     "pause": "Pausieren",
     "resume": "Fortsetzen",
+    "noteMode": "Notizen",
     "phase": {
       "diagonal": "Diagonale Blöcke befüllen…",
       "solving": "Lösung via Backtracking…",

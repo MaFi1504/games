@@ -334,10 +334,11 @@
     "animateCreation": "Animate",
     "pause": "Pause",
     "resume": "Resume",
+    "noteMode": "Notes",
     "phase": {
-      "diagonal": "Filling diagonal boxes…",
-      "solving": "Solving via backtracking…",
-      "carving": "Carving out clues…"
+      "diagonal": "Filling diagonal boxes\u2026",
+      "solving": "Solving via backtracking\u2026",
+      "carving": "Carving out clues\u2026"
     }
   },
   "credits": {

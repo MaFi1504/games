@@ -83,6 +83,17 @@
       >
         {{ isPaused ? $t('sudoku.resume') : $t('sudoku.pause') }}
       </UButton>
+
+      <UButton
+        :variant="isNoteMode ? 'solid' : 'outline'"
+        :color="isNoteMode ? 'primary' : 'neutral'"
+        size="sm"
+        icon="i-lucide-pencil"
+        :disabled="isGenerating || isSolved"
+        @click="isNoteMode = !isNoteMode"
+      >
+        {{ $t('sudoku.noteMode') }}
+      </UButton>
     </div>
 
     <p
@@ -142,12 +153,32 @@
           <div
             v-for="(cell, c) in row"
             :key="`${r}-${c}`"
-            class="flex items-center justify-center text-lg font-semibold cursor-pointer transition-colors relative"
-            :class="cellClass(r, c)"
+            class="text-lg font-semibold cursor-pointer transition-colors relative"
+            :class="[
+              ...cellClass(r, c),
+              activeNotes(r, c).length > 0 && activeGrid[r]![c] === null
+                ? 'p-0.5'
+                : 'flex items-center justify-center'
+            ]"
             :style="cellBorderStyle(r, c)"
             @click="selectCell(r, c)"
           >
-            {{ cell ?? '' }}
+            <div
+              v-if="activeNotes(r, c).length > 0 && activeGrid[r]![c] === null"
+              class="grid grid-cols-3 w-full h-full"
+            >
+              <span
+                v-for="n in 9"
+                :key="n"
+                class="text-[8px] leading-none text-center flex items-center justify-center font-medium"
+                :class="activeNotes(r, c).includes(n) ? 'text-primary/80' : 'invisible'"
+              >
+                {{ n }}
+              </span>
+            </div>
+            <template v-else>
+              {{ activeGrid[r]![c] ?? '' }}
+            </template>
           </div>
         </template>
       </div>
@@ -199,6 +230,8 @@ const {
   noFeedback,
   elapsed,
   isPaused,
+  noteGrid,
+  isNoteMode,
   generate,
   setCell,
   reset,
@@ -225,6 +258,12 @@ function togglePause() {
 const activeGrid = computed(() =>
   isGenerating.value && visualize.value ? visualGrid.value : playerGrid.value
 )
+
+/** Returns the notes for a cell, or empty array during animated generation */
+function activeNotes(r: number, c: number): number[] {
+  if (isGenerating.value && visualize.value) return []
+  return (noteGrid.value[r]![c] ?? []) as number[]
+}
 
 const difficulties: { value: Difficulty, label: string }[] = [
   { value: 'easy', label: t('sudoku.easy') },
@@ -323,9 +362,10 @@ function cellClass(r: number, c: number): string[] {
     classes.push('text-success')
   } else if (state === 'wrong') {
     classes.push('text-error')
-  } else {
+  } else if (activeGrid.value[r]![c] === null) {
     classes.push('text-primary')
   }
+  // else: cell has a value but noFeedback suppresses colour – inherit neutral text
 
   return classes
 }
