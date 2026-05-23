@@ -116,7 +116,48 @@
         "Bearbeitbare Historie",
         "Schnelles Zählen"
       ]
+    },
+    "wizard": {
+      "name": "Wizard",
+      "description": "Sage voraus, wie viele Stiche du gewinnst, und trage das Ergebnis danach ein. Richtig: 20 + 10 Punkte pro Stich. Falsch: −10 Punkte pro Stich Differenz.",
+      "tags": [
+        "Kartenspiel",
+        "3–6 Spieler",
+        "Ansage",
+        "Punkte-Tracking"
+      ]
     }
+  },
+  "wizard": {
+    "title": "Wizard",
+    "setupTitle": "Spieler",
+    "setupDescription": "Füge mindestens 2 Spieler hinzu. Jede Runde werden Ansagen und gewonnene Stiche eingetragen.",
+    "playerNamePlaceholder": "Spielername",
+    "addPlayer": "Spieler hinzufügen",
+    "removePlayer": "Spieler entfernen",
+    "startGame": "Spiel starten",
+    "mpReadyToStart": "Mit einem Raum verbunden. Starte das Spiel, um deine Runden zu erfassen.",
+    "scoringTitle": "Punkteregeln",
+    "scoringCorrect": "Ansage korrekt: 20 Punkte + 10 pro gewonnenen Stich",
+    "scoringWrong": "Ansage falsch: −10 Punkte pro Stich Differenz",
+    "you": "Du",
+    "round": "Runde",
+    "bidShort": "Ans.",
+    "tricksShort": "Gew.",
+    "lockBid": "Ansage sperren",
+    "total": "Summe",
+    "addRound": "Nächste Runde",
+    "removeLastRound": "Letzte Runde entfernen",
+    "emptyState": "Tippe auf \"Nächste Runde\", um Ansagen und Stiche zu erfassen.",
+    "waitingForBids": "Warte darauf, dass alle Spieler ihre Ansage sperren…",
+    "waitingForTricks": "Warte darauf, dass alle Spieler ihre Stiche eingetragen haben…",
+    "winner": "{name} gewinnt!",
+    "winnerPoints": "{points} Punkte gesamt",
+    "resetTitle": "Spiel zurücksetzen?",
+    "resetBody": "Dadurch werden alle Spieler und Runden gelöscht. Dies kann nicht rückgängig gemacht werden.",
+    "cancel": "Abbrechen",
+    "reset": "Zurücksetzen",
+    "resetGame": "Spiel zurücksetzen"
   },
   "notepad": {
     "title": "Notizblock",
