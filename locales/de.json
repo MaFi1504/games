@@ -116,7 +116,41 @@
         "Bearbeitbare Historie",
         "Schnelles Zählen"
       ]
+    },
+    "wizard": {
+      "name": "Wizard",
+      "description": "Sage voraus, wie viele Stiche du gewinnst, und trage das Ergebnis danach ein. Richtig: 20 + 10 Punkte pro Stich. Falsch: −10 Punkte pro Stich Differenz.",
+      "tags": [
+        "Kartenspiel",
+        "3–6 Spieler",
+        "Ansage",
+        "Punkte-Tracking"
+      ]
     }
+  },
+  "wizard": {
+    "title": "Wizard",
+    "setupTitle": "Spieler",
+    "setupDescription": "Füge mindestens 2 Spieler hinzu. Jede Runde werden Ansagen und gewonnene Stiche eingetragen.",
+    "playerNamePlaceholder": "Spielername",
+    "addPlayer": "Spieler hinzufügen",
+    "removePlayer": "Spieler entfernen",
+    "startGame": "Spiel starten",
+    "scoringTitle": "Punkteregeln",
+    "scoringCorrect": "Ansage korrekt: 20 Punkte + 10 pro gewonnenen Stich",
+    "scoringWrong": "Ansage falsch: −10 Punkte pro Stich Differenz",
+    "round": "Rnd",
+    "bidShort": "Ans.",
+    "tricksShort": "Gew.",
+    "total": "Summe",
+    "addRound": "Runde hinzufügen",
+    "removeLastRound": "Letzte Runde entfernen",
+    "emptyState": "Tippe auf \"Runde hinzufügen\", um Ansagen und Stiche zu erfassen.",
+    "resetTitle": "Spiel zurücksetzen?",
+    "resetBody": "Dadurch werden alle Spieler und Runden gelöscht. Dies kann nicht rückgängig gemacht werden.",
+    "cancel": "Abbrechen",
+    "reset": "Zurücksetzen",
+    "resetGame": "Spiel zurücksetzen"
   },
   "notepad": {
     "title": "Notizblock",

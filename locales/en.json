@@ -116,7 +116,41 @@
         "Editable History",
         "Quick Scoring"
       ]
+    },
+    "wizard": {
+      "name": "Wizard",
+      "description": "Bid how many tricks you'll win each round, then record the actual result. Score 20 + 10 per trick if correct, or lose 10 per trick difference if wrong.",
+      "tags": [
+        "Card Game",
+        "3–6 Players",
+        "Bidding",
+        "Score Tracking"
+      ]
     }
+  },
+  "wizard": {
+    "title": "Wizard",
+    "setupTitle": "Players",
+    "setupDescription": "Add at least 2 players to start. Each round, enter bids then actual tricks won.",
+    "playerNamePlaceholder": "Player name",
+    "addPlayer": "Add player",
+    "removePlayer": "Remove player",
+    "startGame": "Start game",
+    "scoringTitle": "Scoring Rules",
+    "scoringCorrect": "Bid correct: 20 points + 10 per trick won",
+    "scoringWrong": "Bid wrong: −10 points per trick difference",
+    "round": "Rnd",
+    "bidShort": "Bid",
+    "tricksShort": "Won",
+    "total": "Total",
+    "addRound": "Add round",
+    "removeLastRound": "Remove last round",
+    "emptyState": "Tap \"Add round\" to start recording bids and tricks.",
+    "resetTitle": "Reset game?",
+    "resetBody": "This will clear all players and every round. This cannot be undone.",
+    "cancel": "Cancel",
+    "reset": "Reset",
+    "resetGame": "Reset game"
   },
   "notepad": {
     "title": "Notepad",

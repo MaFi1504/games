@@ -82,6 +82,16 @@ const games = computed(() => [
     tags: Array.isArray(tm('games.notizblock.tags'))
       ? (tm('games.notizblock.tags') as unknown[]).map(tag => rt(tag as string))
       : []
+  },
+  {
+    id: 'wizard',
+    name: t('games.wizard.name'),
+    emoji: '🧙',
+    route: '/sheets/wizard',
+    description: t('games.wizard.description'),
+    tags: Array.isArray(tm('games.wizard.tags'))
+      ? (tm('games.wizard.tags') as unknown[]).map(tag => rt(tag as string))
+      : []
   }
 ])
 </script>
