@@ -151,6 +151,8 @@
     "emptyState": "Tap \"Next round\" to start recording bids and tricks.",
     "waitingForBids": "Waiting for all players to lock their bid…",
     "waitingForTricks": "Waiting for all players to enter their tricks…",
+    "winner": "{name} wins!",
+    "winnerPoints": "{points} points total",
     "resetTitle": "Reset game?",
     "resetBody": "This will clear all players and every round. This cannot be undone.",
     "cancel": "Cancel",

@@ -133,6 +133,38 @@
 
       <!-- ── GAME PHASE ── -->
       <template v-else>
+        <!-- Winner banner + confetti -->
+        <div
+          v-if="gameOver && winner"
+          class="mb-4"
+        >
+          <!-- Confetti overlay -->
+          <Teleport to="body">
+            <div class="fixed inset-0 pointer-events-none overflow-hidden z-40">
+              <div
+                v-for="p in confettiPieces"
+                :key="p.id"
+                class="confetti-piece absolute top-0"
+                :style="{ left: p.left, backgroundColor: p.color, animationDuration: p.duration, animationDelay: p.delay, width: p.width, height: p.height, borderRadius: p.borderRadius }"
+              />
+            </div>
+          </Teleport>
+          <!-- Banner card -->
+          <UCard class="text-center">
+            <div class="py-3 space-y-1">
+              <div class="text-5xl">
+                🏆
+              </div>
+              <h2 class="text-xl font-bold">
+                {{ $t('wizard.winner', { name: winner.name }) }}
+              </h2>
+              <p class="text-sm text-muted">
+                {{ $t('wizard.winnerPoints', { points: winner.total }) }}
+              </p>
+            </div>
+          </UCard>
+        </div>
+
         <!-- Connected badge row -->
         <div
           v-if="mpConnected"
@@ -163,7 +195,10 @@
             <thead>
               <tr>
                 <th class="text-left text-xs text-muted uppercase tracking-wide py-2 pr-3 whitespace-nowrap w-10">
-                  {{ $t('wizard.round') }}
+                  <div class="flex flex-col gap-0.5">
+                    <span>{{ $t('wizard.round') }}</span>
+                    <span class="normal-case tracking-normal tabular-nums">{{ effectiveRoundCount }}/{{ maxRounds }}</span>
+                  </div>
                 </th>
                 <th
                   v-for="pRow in allPlayerRows"
@@ -450,6 +485,9 @@ const effectiveRoundCount = computed(() => {
   return Math.max(rounds.value.length, ...remoteLengths, 0)
 })
 
+// 60-card deck (52 + 4 Wizards + 4 Jesters); round N deals N cards each
+const maxRounds = computed(() => Math.floor(60 / allPlayerRows.value.length))
+
 function isCurrentRound(ri: number): boolean {
   return ri === effectiveRoundCount.value
 }
@@ -484,10 +522,34 @@ function getPoints(ri: number, row: PlayerRow): number | null {
 }
 
 const canAddRound = computed(() => {
+  if (effectiveRoundCount.value >= maxRounds.value) return false
   if (effectiveRoundCount.value === 0) return true
   const last = effectiveRoundCount.value - 1
   return allPlayerRows.value.every(row => row.getRound(last)?.tricks !== null)
 })
+
+const gameOver = computed(() => {
+  if (effectiveRoundCount.value < maxRounds.value || effectiveRoundCount.value === 0) return false
+  const last = effectiveRoundCount.value - 1
+  return allPlayerRows.value.every(row => row.getRound(last)?.tricks !== null)
+})
+
+const winner = computed(() => {
+  if (!gameOver.value || allPlayerRows.value.length === 0) return null
+  return allPlayerRows.value.reduce((best, row) => row.total > best.total ? row : best)
+})
+
+const CONFETTI_COLORS = ['#ef4444', '#f97316', '#eab308', '#22c55e', '#3b82f6', '#a855f7', '#ec4899']
+const confettiPieces = Array.from({ length: 40 }, (_, i) => ({
+  id: i,
+  left: `${((i * 97 + 3) % 100).toFixed(1)}%`,
+  color: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
+  duration: `${(3 + (i * 23 % 30) / 10).toFixed(1)}s`,
+  delay: `-${((i * 31 % 30) / 10).toFixed(1)}s`,
+  width: i % 3 === 0 ? '10px' : '7px',
+  height: i % 3 === 0 ? '7px' : '10px',
+  borderRadius: i % 5 === 0 ? '50%' : '2px'
+}))
 
 // ── Setup actions ──
 
@@ -578,3 +640,16 @@ watch(() => players.value.length, (newLen, oldLen) => {
   }
 })
 </script>
+
+<style scoped>
+.confetti-piece {
+  will-change: transform;
+  animation: confettiFall linear infinite;
+}
+
+@keyframes confettiFall {
+  0%   { transform: translateY(-12px) rotate(0deg);   opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
+}
+</style>

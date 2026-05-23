@@ -151,6 +151,8 @@
     "emptyState": "Tippe auf \"Nächste Runde\", um Ansagen und Stiche zu erfassen.",
     "waitingForBids": "Warte darauf, dass alle Spieler ihre Ansage sperren…",
     "waitingForTricks": "Warte darauf, dass alle Spieler ihre Stiche eingetragen haben…",
+    "winner": "{name} gewinnt!",
+    "winnerPoints": "{points} Punkte gesamt",
     "resetTitle": "Spiel zurücksetzen?",
     "resetBody": "Dadurch werden alle Spieler und Runden gelöscht. Dies kann nicht rückgängig gemacht werden.",
     "cancel": "Abbrechen",
