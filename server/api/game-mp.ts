@@ -2,9 +2,9 @@ import type { Peer } from 'crossws'
 
 // The game discriminator tells the server which game the room is for.
 // Rooms are namespaced per game so "ABC123" in phase10 is separate from "ABC123" in kniffel.
-export type GameId = 'phase10' | 'kniffel'
+export type GameId = 'phase10' | 'kniffel' | 'wizard'
 
-const VALID_GAMES = new Set<GameId>(['phase10', 'kniffel'])
+const VALID_GAMES = new Set<GameId>(['phase10', 'kniffel', 'wizard'])
 
 // Per-player state: identity fields are managed by the server; `state` is an
 // opaque JSON blob sent by the client. We only size-limit it — no game-specific
@@ -39,7 +39,7 @@ const MSG_MAX_BYTES = envInt('MP_MSG_MAX_BYTES', 8192)
 const NAME_MAX = envInt('MP_NAME_MAX', 30)
 const STATE_JSON_MAX = envInt('MP_STATE_JSON_MAX', 4096)
 const ROOM_CODE_RE = /^[A-Z0-9]{4,10}$/
-const PLAYER_ID_RE = /^[a-z0-9]{8,20}$/
+const PLAYER_ID_RE = /^[a-z0-9]{8,36}$/
 
 function toRoomKey(gameId: GameId, roomCode: string): string {
   return `${gameId}:${roomCode}`

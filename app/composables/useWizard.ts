@@ -1,13 +1,14 @@
 import { computed, ref } from 'vue'
 import { loadFromStorage, saveToStorage } from './useGameStorage'
 
-export interface WizardPlayerEntry {
+export interface WizardRoundEntry {
   bid: number | null
+  bidLocked: boolean
   tricks: number | null
 }
 
 export interface WizardRound {
-  entries: WizardPlayerEntry[]
+  entries: WizardRoundEntry[]
 }
 
 interface WizardState {
@@ -23,14 +24,18 @@ export function computeRoundPoints(bid: number | null, tricks: number | null): n
   return -10 * Math.abs(bid - tricks)
 }
 
+function createEntry(): WizardRoundEntry {
+  return { bid: null, bidLocked: false, tricks: null }
+}
+
 export function useWizard() {
   const players = ref<string[]>([])
   const rounds = ref<WizardRound[]>([])
 
   const playerTotals = computed(() =>
-    players.value.map((_, playerIndex) =>
+    players.value.map((_, pi) =>
       rounds.value.reduce((sum, round) => {
-        const entry = round.entries[playerIndex]
+        const entry = round.entries[pi]
         if (!entry) return sum
         const pts = computeRoundPoints(entry.bid, entry.tricks)
         return pts !== null ? sum + pts : sum
@@ -51,9 +56,10 @@ export function useWizard() {
           entries: Array.isArray(round.entries)
             ? round.entries.map(entry => ({
                 bid: typeof entry.bid === 'number' ? entry.bid : null,
+                bidLocked: entry.bidLocked === true,
                 tricks: typeof entry.tricks === 'number' ? entry.tricks : null
               }))
-            : players.value.map(() => ({ bid: null, tricks: null }))
+            : players.value.map(() => createEntry())
         }))
       : []
   }
@@ -73,7 +79,7 @@ export function useWizard() {
 
   function addRound() {
     rounds.value.push({
-      entries: players.value.map(() => ({ bid: null, tricks: null }))
+      entries: players.value.map(() => createEntry())
     })
     save()
   }
@@ -83,17 +89,24 @@ export function useWizard() {
     save()
   }
 
-  function updateBid(roundIndex: number, playerIndex: number, bid: number | null) {
-    const round = rounds.value[roundIndex]
-    if (!round) return
-    round.entries[playerIndex].bid = bid
+  function setBid(roundIndex: number, playerIndex: number, bid: number | null) {
+    const entry = rounds.value[roundIndex]?.entries[playerIndex]
+    if (!entry || entry.bidLocked) return
+    entry.bid = bid
     save()
   }
 
-  function updateTricks(roundIndex: number, playerIndex: number, tricks: number | null) {
-    const round = rounds.value[roundIndex]
-    if (!round) return
-    round.entries[playerIndex].tricks = tricks
+  function lockBid(roundIndex: number, playerIndex: number) {
+    const entry = rounds.value[roundIndex]?.entries[playerIndex]
+    if (!entry) return
+    entry.bidLocked = true
+    save()
+  }
+
+  function setTricks(roundIndex: number, playerIndex: number, tricks: number | null) {
+    const entry = rounds.value[roundIndex]?.entries[playerIndex]
+    if (!entry) return
+    entry.tricks = tricks
     save()
   }
 
@@ -111,8 +124,9 @@ export function useWizard() {
     startGame,
     addRound,
     removeLastRound,
-    updateBid,
-    updateTricks,
+    setBid,
+    lockBid,
+    setTricks,
     reset
   }
 }
