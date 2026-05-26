@@ -132,7 +132,7 @@ const SIZE_OPTIONS: { value: GridSize, label: string }[] = [
           color="neutral"
           variant="outline"
           icon="i-lucide-refresh-cw"
-          @click="newGame()"
+          @click="resetToIdle()"
         >
           {{ $t('2048.newGame') }}
         </UButton>
