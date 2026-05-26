@@ -6,6 +6,8 @@ services:
     image: games-app
     ports:
       - "3000:3000"
+    env_file:
+      - .env
     environment:
       NODE_ENV: production
       HOST: 0.0.0.0

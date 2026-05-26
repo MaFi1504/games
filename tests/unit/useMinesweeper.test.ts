@@ -249,13 +249,26 @@ describe('useMinesweeper', () => {
   })
 
   it('remainingMines decreases when a flag is placed', () => {
-    const { newGame, reveal, toggleFlag, remainingMines } = useMinesweeper()
+    const { board, newGame, reveal, toggleFlag, remainingMines } = useMinesweeper()
     newGame('easy')
     reveal(4, 4)
+    // Find an unrevealed cell to flag
+    let unrevealedRow = -1
+    let unrevealedCol = -1
+    for (let r = 0; r < board.value.length; r++) {
+      for (let c = 0; c < board.value[r]!.length; c++) {
+        if (!board.value[r]![c]!.isRevealed) {
+          unrevealedRow = r
+          unrevealedCol = c
+          break
+        }
+      }
+      if (unrevealedRow !== -1) break
+    }
     const before = remainingMines.value
-    toggleFlag(0, 0)
+    toggleFlag(unrevealedRow, unrevealedCol)
     expect(remainingMines.value).toBe(before - 1)
-    toggleFlag(0, 0)
+    toggleFlag(unrevealedRow, unrevealedCol)
     expect(remainingMines.value).toBe(before)
   })
 

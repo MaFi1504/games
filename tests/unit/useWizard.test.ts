@@ -281,9 +281,13 @@ describe('useWizard', () => {
       startGame(['Alice', 'Bob'])
       addRound()
       // Alice: bid 1, tricks 1 → +30
-      setBid(0, 0, 1); lockBid(0, 0); setTricks(0, 0, 1)
+      setBid(0, 0, 1)
+      lockBid(0, 0)
+      setTricks(0, 0, 1)
       // Bob: bid 0, tricks 2 → -20
-      setBid(0, 1, 0); lockBid(0, 1); setTricks(0, 1, 2)
+      setBid(0, 1, 0)
+      lockBid(0, 1)
+      setTricks(0, 1, 2)
       expect(playerTotals.value[0]).toBe(30)
       expect(playerTotals.value[1]).toBe(-20)
     })
