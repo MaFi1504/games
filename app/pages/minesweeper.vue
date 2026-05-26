@@ -222,11 +222,11 @@ const colCount = computed(() => board.value[0]?.length ?? 0)
 
       <!-- Board -->
       <div
-        class="overflow-x-auto flex justify-center"
+        class="overflow-x-auto"
         @contextmenu.prevent
       >
         <div
-          class="inline-grid gap-px bg-gray-300 dark:bg-gray-600 border border-gray-300 dark:border-gray-600"
+          class="grid w-fit mx-auto gap-px bg-gray-300 dark:bg-gray-600 border border-gray-300 dark:border-gray-600"
           :style="{ gridTemplateColumns: `repeat(${colCount}, 2rem)` }"
         >
           <template
