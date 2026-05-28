@@ -1,0 +1,180 @@
+/* ── Sheet container ─────────────────────────────────────────────────── */
+.nm-sheet {
+  min-height: 100dvh;
+  font-size: 11px;
+}
+
+/* ── Table ───────────────────────────────────────────────────────────── */
+.nm-table {
+  table-layout: fixed;
+  min-width: 480px;
+}
+
+/* Column H highlight */
+.nm-col-H {
+  background-color: rgba(100, 100, 255, 0.07);
+}
+
+/* ── Column headers ──────────────────────────────────────────────────── */
+.nm-th-col-label {
+  text-align: center;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 0;
+  color: var(--ui-text-muted);
+}
+
+.nm-th-bonus {
+  padding: 1px 0;
+  text-align: center;
+}
+
+/* ── Column bonus buttons ────────────────────────────────────────────── */
+.nm-bonus-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  width: 100%;
+  height: 18px;
+  border-radius: 3px;
+  border: 1px solid var(--ui-border);
+  background: transparent;
+  font-size: 9px;
+  cursor: pointer;
+  transition: background 80ms;
+}
+
+.nm-bonus-btn:active { transform: scale(0.92); }
+
+.nm-bonus-first { font-weight: 700; transition: text-decoration 80ms; }
+.nm-bonus-first--claimed { text-decoration: line-through; opacity: 0.4; }
+
+.nm-bonus-sep { opacity: 0.4; }
+
+.nm-bonus-second { opacity: 0.6; }
+.nm-bonus-second--claimed { font-weight: 700; opacity: 1; }
+
+.nm-bonus--first {
+  border-color: #22c55e;
+  background: rgba(34, 197, 94, 0.15);
+}
+.nm-bonus--second {
+  border-color: #f97316;
+  background: rgba(249, 115, 22, 0.1);
+}
+
+/* ── Color dot ───────────────────────────────────────────────────────── */
+.nm-color-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* ── Grid cells ──────────────────────────────────────────────────────── */
+.nm-td-cell {
+  padding: 1px;
+}
+
+.nm-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1;
+  height: auto;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+  transition: transform 60ms ease;
+}
+
+.nm-cell:active { transform: scale(0.85); }
+
+/* Empty (solid colour background, matching the physical sheet) */
+.nm-cell--orange { border-color: #f97316; background: rgba(249, 115, 22, 0.18); }
+.nm-cell--blue   { border-color: #3b82f6; background: rgba(59, 130, 246, 0.18); }
+.nm-cell--green  { border-color: #22c55e; background: rgba(34, 197, 94, 0.18);  }
+.nm-cell--red    { border-color: #ef4444; background: rgba(239, 68, 68, 0.18);  }
+.nm-cell--yellow { border-color: #eab308; background: rgba(234, 179, 8, 0.18);  }
+
+/* Star marker */
+.nm-cell--star.nm-cell--orange { background: rgba(249, 115, 22, 0.30); }
+.nm-cell--star.nm-cell--blue   { background: rgba(59, 130, 246, 0.30); }
+.nm-cell--star.nm-cell--green  { background: rgba(34, 197, 94, 0.30);  }
+.nm-cell--star.nm-cell--red    { background: rgba(239, 68, 68, 0.30);  }
+.nm-cell--star.nm-cell--yellow { background: rgba(234, 179, 8, 0.30);  }
+
+.nm-star {
+  font-size: 11px;
+  line-height: 1;
+  opacity: 0.8;
+}
+
+/* Checked = fully solid */
+.nm-cell--checked.nm-cell--orange { background: #f97316; color: #fff;     border-color: #ea6a05; }
+.nm-cell--checked.nm-cell--blue   { background: #3b82f6; color: #fff;     border-color: #2563eb; }
+.nm-cell--checked.nm-cell--green  { background: #22c55e; color: #fff;     border-color: #16a34a; }
+.nm-cell--checked.nm-cell--red    { background: #ef4444; color: #fff;     border-color: #dc2626; }
+.nm-cell--checked.nm-cell--yellow { background: #eab308; color: #1c1c1c; border-color: #ca8a04; }
+
+/* ── Color bonus buttons ─────────────────────────────────────────────── */
+.nm-color-bonus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  border: 1.5px solid var(--ui-border);
+  font-size: 9px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 60ms;
+}
+.nm-color-bonus:active { transform: scale(0.88); }
+
+.nm-color-bonus--idle { background: transparent; }
+.nm-color-bonus--dim  { opacity: 0.35; }
+.nm-color-bonus--done { opacity: 0.3; text-decoration: line-through; background: transparent; border-color: transparent; }
+
+.nm-color-bonus--orange { border-color: #f97316; color: #f97316; }
+.nm-color-bonus--blue   { border-color: #3b82f6; color: #3b82f6; }
+.nm-color-bonus--green  { border-color: #22c55e; color: #22c55e; }
+.nm-color-bonus--red    { border-color: #ef4444; color: #ef4444; }
+.nm-color-bonus--yellow { border-color: #eab308; color: #ca8a04; }
+
+.nm-color-bonus--first  { color: #fff !important; }
+.nm-color-bonus--first.nm-color-bonus--orange { background: #f97316; }
+.nm-color-bonus--first.nm-color-bonus--blue   { background: #3b82f6; }
+.nm-color-bonus--first.nm-color-bonus--green  { background: #22c55e; }
+.nm-color-bonus--first.nm-color-bonus--red    { background: #ef4444; }
+.nm-color-bonus--first.nm-color-bonus--yellow { background: #eab308; color: #1c1c1c !important; }
+
+.nm-color-bonus--second.nm-color-bonus--orange { border-color: #f97316; color: #f97316; opacity: 0.7; background: rgba(249, 115, 22, 0.15); }
+.nm-color-bonus--second.nm-color-bonus--blue   { border-color: #3b82f6; color: #3b82f6; opacity: 0.7; background: rgba(59, 130, 246, 0.15); }
+.nm-color-bonus--second.nm-color-bonus--green  { border-color: #22c55e; color: #22c55e; opacity: 0.7; background: rgba(34, 197, 94, 0.15);  }
+.nm-color-bonus--second.nm-color-bonus--red    { border-color: #ef4444; color: #ef4444; opacity: 0.7; background: rgba(239, 68, 68, 0.15);  }
+.nm-color-bonus--second.nm-color-bonus--yellow { border-color: #eab308; color: #ca8a04; opacity: 0.7; background: rgba(234, 179, 8, 0.15);  }
+
+/* ── Joker track ─────────────────────────────────────────────────────── */
+.nm-joker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 3px;
+  border: 1.5px solid;
+  cursor: pointer;
+  transition: transform 60ms;
+  touch-action: manipulation;
+}
+.nm-joker:active { transform: scale(0.88); }
+
+.nm-joker--free { border-color: #6366f1; color: #6366f1; background: rgba(99, 102, 241, 0.1); }
+.nm-joker--used { border-color: #94a3b8; color: #94a3b8; background: rgba(148, 163, 184, 0.1); }
