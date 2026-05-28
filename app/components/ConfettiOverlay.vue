@@ -1,7 +1,10 @@
 <template>
   <!-- Confetti overlay -->
   <Teleport to="body">
-    <div v-if="show" class="fixed inset-0 pointer-events-none overflow-hidden z-40">
+    <div
+      v-if="show"
+      class="fixed inset-0 pointer-events-none overflow-hidden z-40"
+    >
       <div
         v-for="p in confettiPieces"
         :key="p.id"
@@ -13,7 +16,7 @@
           animationDelay: p.delay,
           width: p.width,
           height: p.height,
-          borderRadius: p.borderRadius,
+          borderRadius: p.borderRadius
         }"
       />
     </div>
@@ -32,7 +35,7 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   show: false,
   pieceCount: 40,
-  colors: () => ['#ef4444', '#f97316', '#eab308', '#22c55e', '#3b82f6', '#a855f7', '#ec4899'],
+  colors: () => ['#ef4444', '#f97316', '#eab308', '#22c55e', '#3b82f6', '#a855f7', '#ec4899']
 })
 
 const confettiPieces = computed(() =>
@@ -44,7 +47,7 @@ const confettiPieces = computed(() =>
     delay: `-${(((i * 31) % 30) / 10).toFixed(1)}s`,
     width: i % 3 === 0 ? '10px' : '7px',
     height: i % 3 === 0 ? '7px' : '10px',
-    borderRadius: i % 5 === 0 ? '50%' : '2px',
+    borderRadius: i % 5 === 0 ? '50%' : '2px'
   }))
 )
 </script>
