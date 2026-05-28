@@ -138,17 +138,7 @@
           v-if="gameOver && winner"
           class="mb-4"
         >
-          <!-- Confetti overlay -->
-          <Teleport to="body">
-            <div class="fixed inset-0 pointer-events-none overflow-hidden z-40">
-              <div
-                v-for="p in confettiPieces"
-                :key="p.id"
-                class="confetti-piece absolute top-0"
-                :style="{ left: p.left, backgroundColor: p.color, animationDuration: p.duration, animationDelay: p.delay, width: p.width, height: p.height, borderRadius: p.borderRadius }"
-              />
-            </div>
-          </Teleport>
+          <ConfettiOverlay :show="gameOver && !!winner" />
           <!-- Banner card -->
           <UCard class="text-center">
             <div class="py-3 space-y-1">
@@ -539,18 +529,6 @@ const winner = computed(() => {
   return allPlayerRows.value.reduce((best, row) => row.total > best.total ? row : best)
 })
 
-const CONFETTI_COLORS = ['#ef4444', '#f97316', '#eab308', '#22c55e', '#3b82f6', '#a855f7', '#ec4899']
-const confettiPieces = Array.from({ length: 40 }, (_, i) => ({
-  id: i,
-  left: `${((i * 97 + 3) % 100).toFixed(1)}%`,
-  color: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
-  duration: `${(3 + (i * 23 % 30) / 10).toFixed(1)}s`,
-  delay: `-${((i * 31 % 30) / 10).toFixed(1)}s`,
-  width: i % 3 === 0 ? '10px' : '7px',
-  height: i % 3 === 0 ? '7px' : '10px',
-  borderRadius: i % 5 === 0 ? '50%' : '2px'
-}))
-
 // ── Setup actions ──
 
 function addSetupPlayer() {
@@ -642,14 +620,4 @@ watch(() => players.value.length, (newLen, oldLen) => {
 </script>
 
 <style scoped>
-.confetti-piece {
-  will-change: transform;
-  animation: confettiFall linear infinite;
-}
-
-@keyframes confettiFall {
-  0%   { transform: translateY(-12px) rotate(0deg);   opacity: 1; }
-  90%  { opacity: 1; }
-  100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
-}
 </style>
