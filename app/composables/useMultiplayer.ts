@@ -129,7 +129,16 @@ export function useMultiplayer<TState>(options: UseMultiplayerOptions) {
     }))
   }
 
-  onUnmounted(closeSocket)
+  onUnmounted(() => {
+    if (import.meta.client) {
+      window.removeEventListener('pagehide', closeSocket)
+    }
+    closeSocket()
+  })
+
+  if (import.meta.client) {
+    window.addEventListener('pagehide', closeSocket, { once: true })
+  }
 
   return {
     playerId,

@@ -17,9 +17,18 @@ export default defineNuxtConfig({
 
   compatibilityDate: '2025-01-15',
 
+  sourcemap: {
+    server: true,
+    client: true
+  },
+
   nitro: {
     experimental: {
       websocket: true
+    },
+    routeRules: {
+      '/_nuxt/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
+      '/manifest.webmanifest': { headers: { 'cache-control': 'public, max-age=0, must-revalidate' } }
     }
   },
 
