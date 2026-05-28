@@ -72,7 +72,7 @@ export function useLandscapeMode() {
       transform: 'rotate(90deg) translateY(-100%)',
       paddingTop: '64px',
       overflow: 'auto',
-      zIndex: '1',
+      zIndex: '1'
     }
   })
 

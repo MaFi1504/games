@@ -7,8 +7,8 @@ export type ColLabel = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J'
 export type BonusState = 'none' | 'first' | 'second'
 
 export interface Cell {
-  x: number      // column index 0–14  (A=0, H=7, O=14)
-  y: number      // row index    0–6
+  x: number // column index 0–14  (A=0, H=7, O=14)
+  y: number // row index    0–6
   col: ColLabel
   color: Color
   crossed: boolean
@@ -27,7 +27,7 @@ export interface NochmalState {
 export const GRID_ROWS = 7
 export const GRID_COLS = 15
 
-export const COL_DEFS: { label: ColLabel; first: number; second: number }[] = [
+export const COL_DEFS: { label: ColLabel, first: number, second: number }[] = [
   { label: 'A', first: 3, second: 1 },
   { label: 'B', first: 3, second: 1 },
   { label: 'C', first: 4, second: 2 },
@@ -42,17 +42,17 @@ export const COL_DEFS: { label: ColLabel; first: number; second: number }[] = [
   { label: 'L', first: 4, second: 2 },
   { label: 'M', first: 4, second: 2 },
   { label: 'N', first: 3, second: 1 },
-  { label: 'O', first: 3, second: 1 },
+  { label: 'O', first: 3, second: 1 }
 ]
 
 export const COLORS: Color[] = ['orange', 'blue', 'green', 'red', 'yellow']
 
 export const COLOR_HEX: Record<Color, string> = {
   orange: '#f97316',
-  blue:   '#3b82f6',
-  green:  '#22c55e',
-  red:    '#ef4444',
-  yellow: '#eab308',
+  blue: '#3b82f6',
+  green: '#22c55e',
+  red: '#ef4444',
+  yellow: '#eab308'
 }
 
 // ── Static mosaic layout ───────────────────────────────────────────────────
@@ -71,17 +71,17 @@ const LAYOUT: Record<Color, readonly Coord[]> = {
     [0, 4], [0, 5], [1, 3], [2, 2], [2, 3],
     [3, 5], [4, 5], [5, 4], [5, 5], [6, 5],
     [6, 6], [7, 2], [8, 1], [8, 2], [9, 2],
-    [10, 5], [11, 4], [12, 4], [13, 3], [13, 4], [14, 4],
+    [10, 5], [11, 4], [12, 4], [13, 3], [13, 4], [14, 4]
   ],
-  orange: [ [0, 1], [1, 4], [2,4],[3,4],[4,3],[4,4],[5,3],[6,1],[7,1],[8,4],[9,4],[9,5],[10,4],[11,0],[11,1],[12,1],[12,2],[12,3],[13,6],[14,5],[14,6] ],
-  blue:   [ [0, 2], [0, 3], [1,5],[2,5],[2,6],[3,6],[4,6],[5,6],[6,3],[6,4],[7,3],[7,4],[8,0],[9,0],[9,1],[10,0],[10,1],[11,5],[12,5],[13,5],[14,3] ],
-  green:  [ [0, 0], [1, 0], [1, 1], [1, 2], [2, 0], [3, 1], [3, 2], [3, 3], [4, 2], [5, 2], [6, 2], [7, 0], [8, 3], [9, 3], [10, 6], [11, 6], [12, 6], [13, 1], [13, 2], [14, 1], [14, 2] ],
-  yellow: [ [0, 6], [1, 6], [2, 1], [3, 0], [4, 0], [4, 1], [5, 0], [5, 1], [6, 0], [7, 5], [7, 6], [8, 5], [8, 6], [9, 6], [10, 2], [10, 3], [11, 2], [11, 3], [12, 0], [13, 0], [14, 0] ],
+  orange: [[0, 1], [1, 4], [2, 4], [3, 4], [4, 3], [4, 4], [5, 3], [6, 1], [7, 1], [8, 4], [9, 4], [9, 5], [10, 4], [11, 0], [11, 1], [12, 1], [12, 2], [12, 3], [13, 6], [14, 5], [14, 6]],
+  blue: [[0, 2], [0, 3], [1, 5], [2, 5], [2, 6], [3, 6], [4, 6], [5, 6], [6, 3], [6, 4], [7, 3], [7, 4], [8, 0], [9, 0], [9, 1], [10, 0], [10, 1], [11, 5], [12, 5], [13, 5], [14, 3]],
+  green: [[0, 0], [1, 0], [1, 1], [1, 2], [2, 0], [3, 1], [3, 2], [3, 3], [4, 2], [5, 2], [6, 2], [7, 0], [8, 3], [9, 3], [10, 6], [11, 6], [12, 6], [13, 1], [13, 2], [14, 1], [14, 2]],
+  yellow: [[0, 6], [1, 6], [2, 1], [3, 0], [4, 0], [4, 1], [5, 0], [5, 1], [6, 0], [7, 5], [7, 6], [8, 5], [8, 6], [9, 6], [10, 2], [10, 3], [11, 2], [11, 3], [12, 0], [13, 0], [14, 0]]
 }
 
 // Star positions [x, y] — each uncrossed star scores −2 pts at game end.
 const STAR_COORDS: readonly Coord[] = [
-  [0,2], [1,5], [2,1], [3,5], [4,1], [5,3], [6,2], [7,1], [8,5], [9,1], [10,5], [11,0], [12,6], [13,3], [14,5]
+  [0, 2], [1, 5], [2, 1], [3, 5], [4, 1], [5, 3], [6, 2], [7, 1], [8, 5], [9, 1], [10, 5], [11, 0], [12, 6], [13, 3], [14, 5]
 ]
 
 // ── Cell builder ───────────────────────────────────────────────────────────
@@ -98,7 +98,7 @@ function buildCells(): Cell[] {
         col: COL_DEFS[x]!.label,
         color,
         crossed: false,
-        star: STAR_KEY_SET.has(`${x},${y}`),
+        star: STAR_KEY_SET.has(`${x},${y}`)
       })
     }
   }
@@ -113,7 +113,7 @@ function buildCells(): Cell[] {
 const STORAGE_KEY = 'nochmal-state'
 
 interface PersistedState {
-  crossed: Record<string, true>    // key "x,y", only present when true
+  crossed: Record<string, true> // key "x,y", only present when true
   columnBonus: Record<ColLabel, BonusState>
   colorBonus: Record<Color, BonusState>
   jokersUsed: number
@@ -123,12 +123,12 @@ function makeDefaultState(): NochmalState {
   return {
     cells: buildCells(),
     columnBonus: Object.fromEntries(
-      COL_DEFS.map(c => [c.label, 'none' as BonusState]),
+      COL_DEFS.map(c => [c.label, 'none' as BonusState])
     ) as Record<ColLabel, BonusState>,
     colorBonus: Object.fromEntries(
-      COLORS.map(c => [c, 'none' as BonusState]),
+      COLORS.map(c => [c, 'none' as BonusState])
     ) as Record<Color, BonusState>,
-    jokersUsed: 0,
+    jokersUsed: 0
   }
 }
 
@@ -145,7 +145,7 @@ function loadState(): NochmalState {
     cells,
     columnBonus: persisted.columnBonus,
     colorBonus: persisted.colorBonus,
-    jokersUsed: persisted.jokersUsed,
+    jokersUsed: persisted.jokersUsed
   }
 }
 
@@ -165,10 +165,10 @@ export function useNochmal() {
         crossed,
         columnBonus: val.columnBonus,
         colorBonus: val.colorBonus,
-        jokersUsed: val.jokersUsed,
+        jokersUsed: val.jokersUsed
       })
     },
-    { deep: true },
+    { deep: true }
   )
 
   // ── Derived views — same reactive object refs as state.value.cells ─────
@@ -177,7 +177,7 @@ export function useNochmal() {
   const cellGrid = computed<(Cell | null)[][]>(() => {
     const grid: (Cell | null)[][] = Array.from(
       { length: GRID_ROWS },
-      () => Array<Cell | null>(GRID_COLS).fill(null),
+      () => Array<Cell | null>(GRID_COLS).fill(null)
     )
     for (const cell of state.value.cells) grid[cell.y][cell.x] = cell
     return grid
@@ -208,20 +208,20 @@ export function useNochmal() {
     COLORS.reduce((sum, color) => {
       const b = state.value.colorBonus[color]
       return sum + (b === 'first' ? 5 : b === 'second' ? 3 : 0)
-    }, 0),
+    }, 0)
   )
 
   const scoreColumns = computed(() =>
     COL_DEFS.reduce((sum, col) => {
       const b = state.value.columnBonus[col.label]
       return sum + (b === 'first' ? col.first : b === 'second' ? col.second : 0)
-    }, 0),
+    }, 0)
   )
 
   const scoreStars = computed(() => starCells.value.filter(c => !c.crossed).length * -2)
 
   const totalScore = computed(() =>
-    scoreColorBonus.value + scoreColumns.value + unusedJokers.value + scoreStars.value,
+    scoreColorBonus.value + scoreColumns.value + unusedJokers.value + scoreStars.value
   )
 
   // ── Actions ───────────────────────────────────────────────────────────
@@ -264,6 +264,6 @@ export function useNochmal() {
     cycleColumnBonus,
     cycleColorBonus,
     toggleJoker,
-    resetGame,
+    resetGame
   }
 }

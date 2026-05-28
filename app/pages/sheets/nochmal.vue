@@ -92,7 +92,10 @@
                 @click="toggleCell(cell)"
               >
                 <template v-if="cell.crossed">
-                  <UIcon name="i-lucide-x" class="size-3 pointer-events-none" />
+                  <UIcon
+                    name="i-lucide-x"
+                    class="size-3 pointer-events-none"
+                  />
                 </template>
                 <template v-else-if="cell.star">
                   <span class="nm-star">★</span>
@@ -149,8 +152,15 @@
             :aria-label="`${$t('nochmal.joker')} ${i}`"
             @click="toggleJoker(i)"
           >
-            <span v-if="i > state.jokersUsed" class="text-xs font-bold">!</span>
-            <UIcon v-else name="i-lucide-x" class="size-3" />
+            <span
+              v-if="i > state.jokersUsed"
+              class="text-xs font-bold"
+            >!</span>
+            <UIcon
+              v-else
+              name="i-lucide-x"
+              class="size-3"
+            />
           </button>
         </div>
         <span class="text-xs text-[var(--ui-text-muted)] ml-1">
@@ -160,17 +170,37 @@
 
       <!-- ── SCORE TALLY ── -->
       <div class="mt-2 border-t border-[var(--ui-border)] pt-1 grid grid-cols-5 gap-x-2 gap-y-0.5 text-xs">
-        <div class="text-[var(--ui-text-muted)]">{{ $t('nochmal.scoreBonus') }}</div>
-        <div class="text-[var(--ui-text-muted)]">{{ $t('nochmal.scoreColumns') }}</div>
-        <div class="text-[var(--ui-text-muted)]">{{ $t('nochmal.scoreJokers') }}</div>
-        <div class="text-[var(--ui-text-muted)]">{{ $t('nochmal.scoreStars') }}</div>
-        <div class="font-bold">{{ $t('nochmal.total') }}</div>
+        <div class="text-[var(--ui-text-muted)]">
+          {{ $t('nochmal.scoreBonus') }}
+        </div>
+        <div class="text-[var(--ui-text-muted)]">
+          {{ $t('nochmal.scoreColumns') }}
+        </div>
+        <div class="text-[var(--ui-text-muted)]">
+          {{ $t('nochmal.scoreJokers') }}
+        </div>
+        <div class="text-[var(--ui-text-muted)]">
+          {{ $t('nochmal.scoreStars') }}
+        </div>
+        <div class="font-bold">
+          {{ $t('nochmal.total') }}
+        </div>
 
-        <div class="font-semibold tabular-nums">{{ scoreColorBonus }}</div>
-        <div class="font-semibold tabular-nums">{{ scoreColumns }}</div>
-        <div class="font-semibold tabular-nums">+{{ unusedJokers }}</div>
-        <div class="font-semibold tabular-nums text-red-500">{{ scoreStars < 0 ? scoreStars : scoreStars }}</div>
-        <div class="text-lg font-bold tabular-nums">{{ totalScore }}</div>
+        <div class="font-semibold tabular-nums">
+          {{ scoreColorBonus }}
+        </div>
+        <div class="font-semibold tabular-nums">
+          {{ scoreColumns }}
+        </div>
+        <div class="font-semibold tabular-nums">
+          +{{ unusedJokers }}
+        </div>
+        <div class="font-semibold tabular-nums text-red-500">
+          {{ scoreStars < 0 ? scoreStars : scoreStars }}
+        </div>
+        <div class="text-lg font-bold tabular-nums">
+          {{ totalScore }}
+        </div>
       </div>
     </div>
 
@@ -192,7 +222,7 @@ import {
   COL_DEFS,
   COLORS,
   COLOR_HEX,
-  useNochmal,
+  useNochmal
 } from '~/composables/useNochmal'
 import type { Cell, Color, ColLabel } from '~/composables/useNochmal'
 
@@ -212,7 +242,7 @@ const {
   cycleColumnBonus,
   cycleColorBonus,
   toggleJoker,
-  resetGame,
+  resetGame
 } = useNochmal()
 
 const confirmReset = ref(false)
@@ -227,7 +257,7 @@ function handleReset() {
 function cellClass(cell: Cell): string[] {
   return [
     `nm-cell--${cell.color}`,
-    cell.crossed ? 'nm-cell--checked' : cell.star ? 'nm-cell--star' : 'nm-cell--empty',
+    cell.crossed ? 'nm-cell--checked' : cell.star ? 'nm-cell--star' : 'nm-cell--empty'
   ]
 }
 
@@ -433,5 +463,4 @@ function colorBonusSecondClass(color: Color): string {
 
 .nm-joker--free { border-color: #6366f1; color: #6366f1; background: rgba(99,102,241,0.1); }
 .nm-joker--used { border-color: #94a3b8; color: #94a3b8; background: rgba(148,163,184,0.1); }
-
 </style>
