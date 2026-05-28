@@ -282,5 +282,3 @@ function colorBonusSecondClass(color: Color): string {
   return 'nm-color-bonus--idle nm-color-bonus--dim'
 }
 </script>
-
-
