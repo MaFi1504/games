@@ -126,6 +126,48 @@
         "Ansage",
         "Punkte-Tracking"
       ]
+    },
+    "nochmal": {
+      "name": "Noch Mal!",
+      "description": "Digitaler Wertungszettel für Noch Mal! Kreuze Felder in fünf Farben über 15 Spalten an, sammle Spalten- und Farbboni und achte auf Sterne. Quer halten für beste Ansicht.",
+      "tags": [
+        "Würfelspiel",
+        "1–6 Spieler",
+        "Ankreuzen",
+        "Querformat"
+      ]
+    }
+  },
+  "nochmal": {
+    "title": "Noch Mal!",
+    "landscapeHint": "Am besten im Querformat verwenden",
+    "portraitWarning": "Halte dein Gerät quer für eine bessere Ansicht. Die Seite dreht sich automatisch mit.",
+    "dismissHint": "Hinweis ausblenden",
+    "column": "Spalte",
+    "points": "Punkte",
+    "colorBonus": "Farbbonus",
+    "colorBonusFirst": "Farbbonus 5 Punkte",
+    "colorBonusSecond": "Farbbonus 3 Punkte",
+    "joker": "Joker",
+    "jokerScore": "Joker-Punkte",
+    "total": "Total",
+    "checked": "angekreuzt",
+    "unchecked": "nicht angekreuzt",
+    "scoreBonus": "Bonus",
+    "scoreColumns": "A–O",
+    "scoreJokers": "!",
+    "scoreStars": "★",
+    "resetTitle": "Bogen zurücksetzen?",
+    "resetBody": "Alle Markierungen, Boni und Joker werden zurückgesetzt. Dies kann nicht rückgängig gemacht werden.",
+    "cancel": "Abbrechen",
+    "reset": "Zurücksetzen",
+    "resetGame": "Bogen zurücksetzen",
+    "color": {
+      "orange": "Orange",
+      "blue": "Blau",
+      "green": "Grün",
+      "red": "Rot",
+      "yellow": "Gelb"
     }
   },
   "wizard": {

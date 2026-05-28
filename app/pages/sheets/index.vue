@@ -92,6 +92,16 @@ const games = computed(() => [
     tags: Array.isArray(tm('games.wizard.tags'))
       ? (tm('games.wizard.tags') as unknown[]).map(tag => rt(tag as string))
       : []
+  },
+  {
+    id: 'nochmal',
+    name: t('games.nochmal.name'),
+    emoji: '🎲',
+    route: '/sheets/nochmal',
+    description: t('games.nochmal.description'),
+    tags: Array.isArray(tm('games.nochmal.tags'))
+      ? (tm('games.nochmal.tags') as unknown[]).map(tag => rt(tag as string))
+      : []
   }
 ])
 </script>

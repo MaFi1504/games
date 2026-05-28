@@ -126,6 +126,48 @@
         "Bidding",
         "Score Tracking"
       ]
+    },
+    "nochmal": {
+      "name": "Noch Mal!",
+      "description": "Digital score sheet for Noch Mal! Cross off cells in five colours across 15 columns, collect column and colour bonuses and watch out for stars. Hold landscape for best view.",
+      "tags": [
+        "Dice Game",
+        "1–6 Players",
+        "Cross-Off",
+        "Landscape"
+      ]
+    }
+  },
+  "nochmal": {
+    "title": "Noch Mal!",
+    "landscapeHint": "Best used in landscape orientation",
+    "portraitWarning": "Hold your device sideways for a better view. The page rotates automatically.",
+    "dismissHint": "Dismiss hint",
+    "column": "Column",
+    "points": "points",
+    "colorBonus": "Color bonus",
+    "colorBonusFirst": "Color bonus 5 points",
+    "colorBonusSecond": "Color bonus 3 points",
+    "joker": "Joker",
+    "jokerScore": "Joker points",
+    "total": "Total",
+    "checked": "checked",
+    "unchecked": "unchecked",
+    "scoreBonus": "Bonus",
+    "scoreColumns": "A–O",
+    "scoreJokers": "!",
+    "scoreStars": "★",
+    "resetTitle": "Reset sheet?",
+    "resetBody": "All marks, bonuses and jokers will be cleared. This cannot be undone.",
+    "cancel": "Cancel",
+    "reset": "Reset",
+    "resetGame": "Reset sheet",
+    "color": {
+      "orange": "Orange",
+      "blue": "Blue",
+      "green": "Green",
+      "red": "Red",
+      "yellow": "Yellow"
     }
   },
   "wizard": {
