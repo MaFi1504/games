@@ -157,6 +157,13 @@ export default defineWebSocketHandler({
     }
 
     const type = String(data.type ?? '')
+
+    // ping is a connection-level message — no room context needed
+    if (type === 'ping') {
+      peer.send(JSON.stringify({ type: 'pong' }))
+      return
+    }
+
     const gameId = String(data.game ?? '') as GameId
     const roomCode = String(data.room ?? '').toUpperCase().trim()
     const playerId = String(data.playerId ?? '').trim()

@@ -233,6 +233,8 @@
     "roomCodePlaceholder": "Room code (e.g. ABC123)",
     "connect": "Connect",
     "connected": "Connected",
+    "reconnecting": "Reconnecting…",
+    "reconnectingDescription": "Connection lost — reconnecting automatically…",
     "shareCode": "Share this code with the other players:",
     "playingAs": "Playing as {name}",
     "disconnect": "Disconnect",

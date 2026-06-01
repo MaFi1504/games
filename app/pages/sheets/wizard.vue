@@ -14,6 +14,7 @@
         <MultiplayerSetup
           :connected="mpConnected"
           :connecting="mpConnecting"
+          :reconnecting="mpReconnecting"
           :error="mpError"
           :room="mpRoom"
           :player-name="mpPlayerName"
@@ -407,6 +408,7 @@ const {
   playerName: mpPlayerName,
   connected: mpConnected,
   connecting: mpConnecting,
+  reconnecting: mpReconnecting,
   otherPlayers: mpOtherPlayers,
   connectionError: mpError,
   connect: mpConnect,

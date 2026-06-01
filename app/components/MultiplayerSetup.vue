@@ -19,6 +19,14 @@
         >
           {{ $t('mp.connected') }}
         </UBadge>
+        <UBadge
+          v-else-if="reconnecting"
+          color="warning"
+          variant="subtle"
+          size="xs"
+        >
+          {{ $t('mp.reconnecting') }}
+        </UBadge>
       </div>
       <UIcon
         :name="expanded ? 'i-lucide-chevron-up' : 'i-lucide-chevron-down'"
@@ -81,6 +89,15 @@
         </UButton>
       </template>
 
+      <template v-else-if="reconnecting">
+        <UAlert
+          color="warning"
+          variant="subtle"
+          :description="$t('mp.reconnectingDescription')"
+          icon="i-lucide-refresh-cw"
+        />
+      </template>
+
       <template v-else>
         <div class="flex items-start justify-between gap-3">
           <div>
@@ -113,6 +130,7 @@
 defineProps<{
   connected: boolean
   connecting: boolean
+  reconnecting?: boolean
   error: string | null
   room: string
   playerName: string
