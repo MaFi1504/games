@@ -89,6 +89,7 @@
                 :class="cellClass(cell)"
                 :aria-label="`${$t(`nochmal.color.${cell.color}`)} ${cell.col} ${cell.crossed ? $t('nochmal.checked') : $t('nochmal.unchecked')}`"
                 :aria-pressed="cell.crossed"
+                :disabled="!clickableCells.has(cell)"
                 @click="toggleCell(cell)"
               >
                 <template v-if="cell.crossed">
@@ -234,6 +235,7 @@ useSeoMeta({ title: () => 'Noch Mal!' })
 const {
   state,
   cellGrid,
+  clickableCells,
   unusedJokers,
   scoreColorBonus,
   scoreColumns,
@@ -258,7 +260,8 @@ function handleReset() {
 function cellClass(cell: Cell): string[] {
   return [
     `nm-cell--${cell.color}`,
-    cell.crossed ? 'nm-cell--checked' : cell.star ? 'nm-cell--star' : 'nm-cell--empty'
+    cell.crossed ? 'nm-cell--checked' : cell.star ? 'nm-cell--star' : 'nm-cell--empty',
+    !clickableCells.value.has(cell) ? 'nm-cell--disabled' : ''
   ]
 }
 

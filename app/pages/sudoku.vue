@@ -353,7 +353,7 @@ function cellClass(r: number, c: number): string[] {
   if (isSelected) classes.push('bg-primary/20 ring-2 ring-inset ring-primary')
   else if (hasJustCompletedNumber) classes.push('bg-success/20 ring-2 ring-inset ring-success animate-pulse')
   else if (hasSameNumber) classes.push('bg-primary/10')
-  else if (isSameRowCol || isSameBox) classes.push('bg-muted/40')
+  else if (isSameRowCol || isSameBox) classes.push('bg-muted/60')
   else classes.push('hover:bg-muted/20')
 
   if (state === 'clue') {

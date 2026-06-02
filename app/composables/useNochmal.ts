@@ -28,21 +28,21 @@ export const GRID_ROWS = 7
 export const GRID_COLS = 15
 
 export const COL_DEFS: { label: ColLabel, first: number, second: number }[] = [
-  { label: 'A', first: 3, second: 1 },
-  { label: 'B', first: 3, second: 1 },
-  { label: 'C', first: 4, second: 2 },
-  { label: 'D', first: 4, second: 2 },
-  { label: 'E', first: 5, second: 3 },
-  { label: 'F', first: 5, second: 3 },
-  { label: 'G', first: 5, second: 3 },
-  { label: 'H', first: 6, second: 3 },
-  { label: 'I', first: 5, second: 3 },
-  { label: 'J', first: 5, second: 3 },
-  { label: 'K', first: 5, second: 3 },
-  { label: 'L', first: 4, second: 2 },
-  { label: 'M', first: 4, second: 2 },
-  { label: 'N', first: 3, second: 1 },
-  { label: 'O', first: 3, second: 1 }
+  { label: 'A', first: 5, second: 3 },
+  { label: 'B', first: 3, second: 2 },
+  { label: 'C', first: 3, second: 2 },
+  { label: 'D', first: 3, second: 2 },
+  { label: 'E', first: 2, second: 1 },
+  { label: 'F', first: 2, second: 1 },
+  { label: 'G', first: 2, second: 1 },
+  { label: 'H', first: 1, second: 0 },
+  { label: 'I', first: 2, second: 1 },
+  { label: 'J', first: 2, second: 1 },
+  { label: 'K', first: 2, second: 1 },
+  { label: 'L', first: 3, second: 2 },
+  { label: 'M', first: 3, second: 2 },
+  { label: 'N', first: 3, second: 2 },
+  { label: 'O', first: 5, second: 3 }
 ]
 
 export const COLORS: Color[] = ['orange', 'blue', 'green', 'red', 'yellow']
@@ -200,6 +200,34 @@ export function useNochmal() {
   /** All star cells. Entries are the same reactive object refs. */
   const starCells = computed<Cell[]>(() => state.value.cells.filter(c => c.star))
 
+  /** Cells that are valid to click: column H or adjacent to crossed cells. */
+  const clickableCells = computed<Set<Cell>>(() => {
+    const clickable = new Set<Cell>()
+    
+    // Column H (x=7) is always clickable
+    for (const cell of state.value.cells) {
+      if (cell.x === 7) clickable.add(cell)
+    }
+    
+    // Cells adjacent to crossed cells are clickable
+    for (const cell of state.value.cells) {
+      if (cell.crossed) {
+        // Check all 4 adjacent cells
+        for (const other of state.value.cells) {
+          if (other === cell) continue
+          const dx = Math.abs(other.x - cell.x)
+          const dy = Math.abs(other.y - cell.y)
+          // Adjacent: horizontally or vertically neighbor (not diagonal)
+          if ((dx === 1 && dy === 0) || (dx === 0 && dy === 1)) {
+            clickable.add(other)
+          }
+        }
+      }
+    }
+    
+    return clickable
+  })
+
   // ── Scoring ───────────────────────────────────────────────────────────
 
   const unusedJokers = computed(() => 8 - state.value.jokersUsed)
@@ -226,9 +254,11 @@ export function useNochmal() {
 
   // ── Actions ───────────────────────────────────────────────────────────
 
-  /** Toggle a cell. Directly mutates the reactive object — no lookup needed. */
+  /** Toggle a cell if it's clickable. Directly mutates the reactive object — no lookup needed. */
   function toggleCell(cell: Cell): void {
-    cell.crossed = !cell.crossed
+    if (clickableCells.value.has(cell)) {
+      cell.crossed = !cell.crossed
+    }
   }
 
   function cycleColumnBonus(col: ColLabel): void {
@@ -255,6 +285,7 @@ export function useNochmal() {
     cellsByColor,
     cellsByCol,
     starCells,
+    clickableCells,
     unusedJokers,
     scoreColorBonus,
     scoreColumns,
