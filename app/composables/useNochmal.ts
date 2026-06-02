@@ -203,12 +203,12 @@ export function useNochmal() {
   /** Cells that are valid to click: column H or adjacent to crossed cells. */
   const clickableCells = computed<Set<Cell>>(() => {
     const clickable = new Set<Cell>()
-    
+
     // Column H (x=7) is always clickable
     for (const cell of state.value.cells) {
       if (cell.x === 7) clickable.add(cell)
     }
-    
+
     // Cells adjacent to crossed cells are clickable
     for (const cell of state.value.cells) {
       if (cell.crossed) {
@@ -224,7 +224,7 @@ export function useNochmal() {
         }
       }
     }
-    
+
     return clickable
   })
 
