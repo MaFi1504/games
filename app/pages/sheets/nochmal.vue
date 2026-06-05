@@ -25,6 +25,14 @@
         :aria-label="$t('nochmal.resetGame')"
         @click="confirmReset = true"
       />
+      <UButton
+        icon="i-lucide-info"
+        variant="ghost"
+        color="neutral"
+        size="sm"
+        :aria-label="$t('nochmal.infoButton')"
+        @click="infoOpen = true"
+      />
     </div>
 
     <!-- ── MAIN GRID ── -->
@@ -215,6 +223,46 @@
       @confirm="handleReset"
       @update:open="confirmReset = $event"
     />
+
+    <!-- ── INFO MODAL ── -->
+    <UModal
+      :open="infoOpen"
+      @update:open="infoOpen = $event"
+    >
+      <template #content>
+        <UCard>
+          <template #header>
+            <h3 class="font-semibold text-base">
+              {{ $t('nochmal.infoTitle') }}
+            </h3>
+          </template>
+
+          <div class="space-y-3 text-sm leading-relaxed text-muted">
+            <p>
+              {{ $t('nochmal.infoIntro') }}
+            </p>
+
+            <ul class="list-disc space-y-1 pl-5 text-[var(--ui-text)]">
+              <li>{{ $t('nochmal.infoRule1') }}</li>
+              <li>{{ $t('nochmal.infoRule2') }}</li>
+              <li>{{ $t('nochmal.infoRule3') }}</li>
+              <li>{{ $t('nochmal.infoRule4') }}</li>
+            </ul>
+          </div>
+
+          <template #footer>
+            <div class="flex justify-end">
+              <UButton
+                variant="ghost"
+                color="neutral"
+                :label="$t('nochmal.close')"
+                @click="infoOpen = false"
+              />
+            </div>
+          </template>
+        </UCard>
+      </template>
+    </UModal>
   </div>
 </template>
 
@@ -249,6 +297,7 @@ const {
 } = useNochmal()
 
 const confirmReset = ref(false)
+const infoOpen = ref(false)
 
 function handleReset() {
   resetGame()

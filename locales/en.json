@@ -129,7 +129,7 @@
     },
     "nochmal": {
       "name": "Noch Mal!",
-      "description": "Digital score sheet for Noch Mal! Cross off cells in five colours across 15 columns, collect column and colour bonuses and watch out for stars. Hold landscape for best view.",
+      "description": "Digital score sheet for Noch Mal! Cross off cells in five colors across 15 columns, collect column and color bonuses and watch out for stars. Hold landscape for best view.",
       "tags": [
         "Dice Game",
         "1–6 Players",
@@ -162,6 +162,14 @@
     "cancel": "Cancel",
     "reset": "Reset",
     "resetGame": "Reset sheet",
+    "infoButton": "Show game rules",
+    "infoTitle": "Rules in short",
+    "infoIntro": "The goal is to score points with as many crosses as possible. The active player rolls six dice: three color dice and three number dice.",
+    "infoRule1": "After the active player has chosen a dice combination, the other players may choose a color and number combination from the remaining dice. The first 3 rolls are available to all players.",
+    "infoRule2": "The first mark must start in column H; after that, new fields must touch horizontally or vertically.",
+    "infoRule3": "The black X and the question mark are jokers. Each used joker removes one ! slot from the sheet.",
+    "infoRule4": "The game ends once someone reaches the second color bonus. Scoring includes color bonuses, column bonuses, unused jokers, and stars that were not crossed off.",
+    "close": "Close",
     "color": {
       "orange": "Orange",
       "blue": "Blue",
