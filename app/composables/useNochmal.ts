@@ -49,10 +49,10 @@ export const COLORS: Color[] = ['orange', 'blue', 'green', 'red', 'yellow']
 
 export const COLOR_HEX: Record<Color, string> = {
   orange: '#f97316',
-  blue: '#3b82f6',
-  green: '#22c55e',
-  red: '#ef4444',
-  yellow: '#eab308'
+  blue: '#2276fc',
+  green: '#009436',
+  red: '#ff1ca8',
+  yellow: '#ffc61c'
 }
 
 // ── Static mosaic layout ───────────────────────────────────────────────────
