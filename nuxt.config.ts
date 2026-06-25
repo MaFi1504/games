@@ -1,5 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+const baseURL = process.env.NUXT_APP_BASE_URL ?? (process.env.NODE_ENV === 'production' ? '/games/' : '/')
+
 export default defineNuxtConfig({
+  app: {
+    baseURL
+  },
+
   modules: [
     '@nuxt/eslint',
     '@nuxt/ui',
@@ -27,8 +33,8 @@ export default defineNuxtConfig({
       websocket: true
     },
     routeRules: {
-      '/_nuxt/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
-      '/manifest.webmanifest': { headers: { 'cache-control': 'public, max-age=0, must-revalidate' } }
+      [`${baseURL}_nuxt/**`]: { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
+      [`${baseURL}manifest.webmanifest`]: { headers: { 'cache-control': 'public, max-age=0, must-revalidate' } }
     }
   },
 
@@ -66,29 +72,29 @@ export default defineNuxtConfig({
       theme_color: '#4f46e5',
       background_color: '#ffffff',
       display: 'standalone',
-      start_url: '/',
-      scope: '/',
+      start_url: baseURL,
+      scope: baseURL,
       icons: [
         {
-          src: '/icon-192.png',
+          src: `${baseURL}icon-192.png`,
           sizes: '192x192',
           type: 'image/png',
           purpose: 'any'
         },
         {
-          src: '/icon-512.png',
+          src: `${baseURL}icon-512.png`,
           sizes: '512x512',
           type: 'image/png',
           purpose: 'any'
         },
         {
-          src: '/icon-maskable-192.png',
+          src: `${baseURL}icon-maskable-192.png`,
           sizes: '192x192',
           type: 'image/png',
           purpose: 'maskable'
         },
         {
-          src: '/icon-maskable-512.png',
+          src: `${baseURL}icon-maskable-512.png`,
           sizes: '512x512',
           type: 'image/png',
           purpose: 'maskable'
