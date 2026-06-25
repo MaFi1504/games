@@ -179,7 +179,7 @@ export function useNochmal() {
       { length: GRID_ROWS },
       () => Array<Cell | null>(GRID_COLS).fill(null)
     )
-    for (const cell of state.value.cells) grid[cell.y][cell.x] = cell
+    for (const cell of state.value.cells) grid[cell.y]![cell.x] = cell
     return grid
   })
 

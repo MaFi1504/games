@@ -48,6 +48,13 @@ const mockUpdateEntry = vi.fn()
 const mockRemoveEntry = vi.fn()
 const mockResetNotepad = vi.fn()
 
+type NotizblockVm = {
+  activePlayerId: string | null
+  addPointsOpen: boolean
+  pointsInput: string | number
+  submitPointsFromKeyboard: () => void
+}
+
 // Kniffel mocks
 const mockVariant = ref<'standard' | 'extrem' | null>(null)
 const mockCategoryList = ref<Array<{ id: string, scored: boolean, value: number | null }>>([])
@@ -267,7 +274,7 @@ describe('Notizblock page', () => {
     ]
 
     const wrapper = await mountSuspended(NotizblockPage)
-    const vm = wrapper.vm as Record<string, unknown>
+    const vm = wrapper.vm as unknown as NotizblockVm
     const nameButtons = wrapper.findAll('button[type="button"]')
       .filter(button => button.text().includes('Tap name to add points'))
 
@@ -284,7 +291,7 @@ describe('Notizblock page', () => {
     ]
 
     const wrapper = await mountSuspended(NotizblockPage)
-    const vm = wrapper.vm as Record<string, unknown>
+    const vm = wrapper.vm as unknown as NotizblockVm
 
     const nameButton = wrapper.findAll('button[type="button"]')
       .find(button => button.text().includes('Tap name to add points'))
@@ -306,7 +313,7 @@ describe('Notizblock page', () => {
     ]
 
     const wrapper = await mountSuspended(NotizblockPage)
-    const vm = wrapper.vm as Record<string, unknown>
+    const vm = wrapper.vm as NotizblockVm
 
     const nameButton = wrapper.findAll('button[type="button"]')
       .find(button => button.text().includes('Tap name to add points'))

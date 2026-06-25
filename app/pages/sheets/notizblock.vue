@@ -130,11 +130,12 @@
 
           <div class="space-y-3">
             <UInput
-              v-model="pointsInput"
+              :model-value="normalizeInput(pointsInput)"
               type="number"
               inputmode="numeric"
               size="lg"
               :placeholder="$t('notepad.pointsPlaceholder')"
+              @update:model-value="value => { pointsInput = value }"
               @keydown.enter.prevent="submitPointsFromKeyboard"
             />
           </div>

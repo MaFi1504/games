@@ -380,7 +380,7 @@ const activeSetName = computed(() =>
 )
 
 const cardValueRows = computed(() => {
-  const raw = tm('phase10.cardValuesRows')
+  const raw = (tm as (key: string) => unknown)('phase10.cardValuesRows')
   if (!Array.isArray(raw)) return []
   return (raw as unknown[]).map((r) => {
     const row = r as Record<string, unknown>

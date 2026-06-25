@@ -330,7 +330,7 @@ function cellClass(r: number, c: number): string[] {
     return [activeGrid.value[r]![c] !== null ? 'text-muted' : '']
   }
 
-  const state = cellStates.value[r][c]
+  const state = cellStates.value[r]![c]
   const isSelected = selected.value?.[0] === r && selected.value?.[1] === c
   const isSameBox = selected.value
     ? Math.floor(selected.value[0] / 3) === Math.floor(r / 3) && Math.floor(selected.value[1] / 3) === Math.floor(c / 3)

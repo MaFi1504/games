@@ -1,5 +1,5 @@
 import { ref, computed, onUnmounted } from 'vue'
-import type { GameId } from '../server/api/game-mp'
+import type { GameId } from '../../server/api/game-mp'
 
 export interface MultiplayerPlayer<TState> {
   playerId: string

@@ -230,7 +230,7 @@
                     <template v-if="isCurrentRound(ri) && pRow.localIndex !== null && !pRow.getRound(ri - 1)?.bidLocked">
                       <div class="flex items-center gap-0.5">
                         <UInput
-                          :model-value="pRow.getRound(ri - 1)?.bid ?? ''"
+                          :model-value="String(pRow.getRound(ri - 1)?.bid ?? '')"
                           type="number"
                           inputmode="numeric"
                           size="xs"
@@ -275,7 +275,7 @@
                     <!-- Local player in current round, tricks phase active: editable -->
                     <template v-if="isCurrentRound(ri) && pRow.localIndex !== null && areTricksEditable(ri - 1)">
                       <UInput
-                        :model-value="pRow.getRound(ri - 1)?.tricks ?? ''"
+                        :model-value="String(pRow.getRound(ri - 1)?.tricks ?? '')"
                         type="number"
                         inputmode="numeric"
                         size="xs"
