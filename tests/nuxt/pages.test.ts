@@ -313,7 +313,7 @@ describe('Notizblock page', () => {
     ]
 
     const wrapper = await mountSuspended(NotizblockPage)
-    const vm = wrapper.vm as NotizblockVm
+    const vm = wrapper.vm as unknown as NotizblockVm
 
     const nameButton = wrapper.findAll('button[type="button"]')
       .find(button => button.text().includes('Tap name to add points'))
