@@ -2,9 +2,6 @@
 const baseURL = process.env.NUXT_APP_BASE_URL ?? (process.env.NODE_ENV === 'production' ? '/games/' : '/')
 
 export default defineNuxtConfig({
-  app: {
-    baseURL
-  },
 
   modules: [
     '@nuxt/eslint',
@@ -17,6 +14,9 @@ export default defineNuxtConfig({
 
   devtools: {
     enabled: true
+  },
+  app: {
+    baseURL
   },
 
   css: ['~/assets/css/main.css'],

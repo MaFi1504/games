@@ -6,7 +6,7 @@ on:
     branches:
       - main
 env:
-  NUXT_APP_BASE_URL: /games/
+  NUXT_APP_BASE_URL: /
   NUXT_PUBLIC_SITE_URL: ${{ vars.NUXT_PUBLIC_SITE_URL }}
 jobs:
   build:
